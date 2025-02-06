@@ -40,7 +40,7 @@ $\pi(E):=\\\sum_{j=1}^{n}\mu(A_{j})\nu(B_{j})$
 
 现在我们回到两个测度空间$(X,\mathcal{M},\mu),(Y,\mathcal{N},\nu)$的乘积空间，对于$E\subset X\times Y$，和$x\in X,y\in Y$我们定义$x$-section,$y$-section：
 >[!Definition]
->>$E_{x}=\left\{ y\in Y:(x,y)\in E \right\},E^{y}=\left\{ x\in X:(x,y)\in E \right\}$
+>>$E_{x}=\left\{ y\in Y:(x,y)\in E \right\},E^{y}=\left\{ x\in X:(x,y)\in E\right\}$
 
 对于$X\times Y$上的函数$f$，定义$x$-section $f_{x}$，$y$-section $f^{y}$
 >[!Definition]
@@ -58,14 +58,27 @@ $\pi(E):=\\\sum_{j=1}^{n}\mu(A_{j})\nu(B_{j})$
 
 接下来介绍一个技术性引理
 称$\mathcal{P}(X)$的子集$\mathfrak{C}$是单调类，若$E_{j}\in\mathfrak{C},E_{1}\subset E_{2}\subset\dots,\implies \cup E_{j}\in\mathfrak{C}$
+$\sigma$-代数是单调类
+单调类的任意交还是单调类[[prove 2025.02.06.16 27]]
+于是对于$\varepsilon \subset \mathcal{P}(X)$,存在唯一的包含$\varepsilon$的单调类[[prove 2025.02.06.16 30]]称为$\varepsilon$生成的单调类
+>[!Lemma] 2.35 The Monotone Class Lemma
+>若$\mathcal{A}$是$X$上的代数，$\mathcal{A}$生成的单调类$\mathfrak{C}$和$\mathcal{A}$生成的$\sigma$-代数$\mathcal{M}$一致
+>>Prove
 
+>[!Theorem 2.36]
+>设$(X,\mathcal{M},\mu),(Y,\mathcal{N},\nu)$是$\sigma$-有限测度空间，$E\in \mathcal{M}\otimes \mathcal{N}$，那么$x\to \nu(E_{x}),y\to \mu(E^{y})$是$X$和$Y$上的可测函数，并且$(\mu \times \nu)(E)=\int \nu(E_{x})d\mu(x)=\int \mu(E^{y})d\nu(y)$
+>>Prove
 
+>[!Theorem] 2.37 The Fubini-Tonelli Theorem
+>设$(X,\mathcal{M},\mu),(Y,\mathcal{N},\nu)$是$\sigma$-有限的测度空间
+>a. (Tonelli) $f\in L^{+}(X\times Y)\implies g(x)=\int f_{x}d\nu\ and\ h(y)=\int f^{y}d\mu$分别属于$L^{+}(X),L^{+}(Y)$
+>并且$$\int fd(\mu \times \nu)=\int\left[\int f(x,y)d\nu(y) \right]d\mu(x)=\int \left[ \int f(x,y)d\mu(x) \right]d\nu(y)$$
+>b. (Fubini) $f\in L^{1}(\mu \times \nu)\implies f_{x}\in L^{1}(\nu)\ for\ a.e.\ x\in X,f^{y}\in L^{1}(\mu)\ for\ a.e.\ y\in Y$，并且$$\int fd(\mu \times \nu)=\int\left[\int f(x,y)d\nu(y) \right]d\mu(x)=\int \left[ \int f(x,y)d\mu(x) \right]d\nu(y)$$
+>>Prove
 
-
-
-
-
-
+>[!Remark]
+>* 经常做如下约定$\int \left[ \int f(x,y)d\mu(x) \right]d\nu(y)=\iint f(x,y)d\mu(x)d\nu(y)=\iint fd\mu d\nu$
+>* $\sigma$-有限的假设是必要的
 
 
 
