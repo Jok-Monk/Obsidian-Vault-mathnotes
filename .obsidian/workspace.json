@@ -1,0 +1,220 @@
+{
+  "main": {
+    "id": "258281f0fcda31b7",
+    "type": "split",
+    "children": [
+      {
+        "id": "73ae53c79a34faa9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d0ca379fe778429b",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "1e82f5d354fc2013",
+    "type": "split",
+    "children": [
+      {
+        "id": "995dd7aee0ff81c8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b4dad893a1f06910",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "bf1afa3f2e53f460",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "搜索"
+            }
+          },
+          {
+            "id": "297134f9f1095b1d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "书签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "edf60b3e4893a058",
+    "type": "split",
+    "children": [
+      {
+        "id": "7d6b5ce192f46ccc",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bff786629785c768",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "product measures.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "product measures 的反向链接列表"
+            }
+          },
+          {
+            "id": "ddcf3bd63d9afe04",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "product measures.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "product measures 的出链列表"
+            }
+          },
+          {
+            "id": "59c0fbd3f245f5c1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          },
+          {
+            "id": "f673bf7157e58c14",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "product measures.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "product measures 的大纲"
+            }
+          },
+          {
+            "id": "329ce58bcae800fb",
+            "type": "leaf",
+            "state": {
+              "type": "copilot-chat-view",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "插件不再活动"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "zk-prefixer:创建时间戳笔记": false,
+      "pdf-plus:PDF++: Toggle auto-copy": false,
+      "pdf-plus:PDF++: Toggle auto-focus": false,
+      "pdf-plus:PDF++: Toggle auto-paste": false,
+      "copilot:Open Copilot Chat": false
+    }
+  },
+  "active": "b4dad893a1f06910",
+  "lastOpenFiles": [
+    "Obsidian-Vault-mathnotes/proposition/Proposition 1.7.md",
+    "Obsidian-Vault-mathnotes/elementary family.md",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.0205.00 05.md",
+    "Obsidian-Vault-mathnotes/product measures.md",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.0204.23 59.md",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.0204.23 35.md",
+    "Obsidian-Vault-mathnotes/product sigma algebra.md",
+    "Obsidian-Vault-mathnotes/theorem/theorem 2.15.md",
+    "Obsidian-Vault-mathnotes/theorem 2.13.md",
+    "Obsidian-Vault-mathnotes/monotone convergence theorem.md",
+    "Obsidian-Vault-mathnotes/book/real analysis/Real Analysis - 2nd Edition (Gerald B. Folland) (.pdf",
+    "Obsidian-Vault-mathnotes/模板/prove.md",
+    "Obsidian-Vault-mathnotes/Proposition 1.3.md",
+    "Obsidian-Vault-mathnotes/Lemma 1.1.md",
+    "Obsidian-Vault-mathnotes/algebra.md",
+    "Obsidian-Vault-mathnotes/book/[图灵数学]陶哲轩实分析（第3版） ([澳]陶哲轩) (Z-Library).pdf",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.02.06.16 30.md",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.02.06.16 27.md",
+    "Obsidian-Vault-mathnotes/欢迎.md",
+    "Obsidian-Vault-mathnotes/README.md",
+    "Obsidian-Vault-mathnotes/预测度.md",
+    "Obsidian-Vault-mathnotes",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.02.05.20 20.md",
+    "Obsidian-Vault-mathnotes/draft.md",
+    "Obsidian-Vault-mathnotes/book/real analysis",
+    "Obsidian-Vault-mathnotes/book",
+    "Obsidian-Vault-mathnotes/Theorem 1.14.md",
+    "Obsidian-Vault-mathnotes/模板/Proposition.md",
+    "Obsidian-Vault-mathnotes/模板",
+    "Obsidian-Vault-mathnotes/theorem",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.0205.00 26.md",
+    "Obsidian-Vault-mathnotes/prove/prove 2025.0205.00 15.md",
+    "Obsidian-Vault-mathnotes/prove",
+    "Obsidian-Vault-mathnotes/proposition"
+  ]
+}
