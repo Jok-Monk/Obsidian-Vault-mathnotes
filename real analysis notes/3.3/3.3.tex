@@ -1,0 +1,244 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+这一节仍假定$(X,\mathcal{M},\mu)$是测度空间
+\begin{definition}
+    设$f:X\to \mathbb{R}$是可测的，且$\int f^+$和$\int f^-$至少一个是有限的，则
+    定义$\int f=\int f^+-\int f^-$
+\end{definition}
+\begin{definition}
+    若$\int f^+$和$\int f^-$都是有限的，则称$f$是可积的，由于$|f|=f^++
+    f^-$，$f$可积等价于$|f|$可积，等价于$\int |f|<+\infty$
+\end{definition}
+\begin{proposition}
+    $X$上的所有实值可积函数构成实向量空间，且积分是其上的线
+    性函数
+    \begin{proof}
+        $X$上的所有实值函数构成实向量空间，故只需验证所有实可积函数
+        是其子空间，只需验证对线性运算封闭。设$f,g$为实可积函数，则
+        $af+bg$是实可测的，且$|af+bg|\leq|a||f|+|b||g|\Rightarrow \int |af+bg|\leq |a|\int |f|+|b|\int |g|$是
+        有限的，从而封闭性得证。\\
+        设$h=f+g$，$h^+-h^-=f^+-f^-+g^+-g^-,\\
+        h^++f^-+g^-=h^-+f^++g^+\\
+        \Rightarrow \int h^++\int f^-+\int g^-=\int h^-+\int f^++\int g^+\\
+        \Rightarrow \int h=\int h^+-\int h^-=\int f^+-\int f^-+\int g^+-\int g^-=\int f+\int g$\\
+        $a\geq 0$时，$\int af=\int af^+-\int af^-=a\int f^+-a\int f^-=a(\int f^+-\int f^-)=a\int f $\\
+        $a<0$时类似可得\\
+        综上，积分是这个向量空间上的线性函数
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    若$f$是复值可测函数，若$\int |f|<+\infty$，则称$f$是可积的。更一般
+    的，若$E\in\mathcal{M}$，$\int_E|f|<+\infty$，则称$f$在$E$上是可积的\\
+    由于$|f|\leq|Re\,f|+|Im\,f|\leq2|f|$，$f$可积当且仅当$Re\,f$和$Im\,f$均可积\\
+    于是我们可以定义$\int f=\int Re\,f+i\int Im\,f$\\
+    容易验证所有复值可积函数构成复向量空间，其上的积分是线性函数，我
+    们将这个向量空间记作$L^1(\mu)$或$L^1(X,\mu)$或$L^1(X)$或$L^1$
+\end{definition}
+\begin{proposition}
+    若$f\in L^1$，那么$|\int f|\leq\int |f|$
+    \begin{proof}
+        $f$是实值函数时$|\int f|=|\int f^+-\int f^-|\leq\int f^++\int f^-=\int |f|$\\
+        $f$为复值函数时，不妨设$\int f\neq 0$，令$\alpha=\overline{sgn(\int f)}$，那么$|\int f|=\frac{|\int f|^2}{|\int f|}
+        =\frac{\overline{\int f}*\int f}{|\int f|}=\alpha\int f=\int \alpha f\\
+        |\int f|=Re\,\int \alpha f=\int Re(\alpha f)\leq\int|Re(\alpha f)|\leq\int|\alpha f|=\int|f|$
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    a. 若$f\in L^1$，则$\left\{x:f(x)\neq0\right\}$是$\sigma$-有限的\\
+    b. 若$f,g\in L^1$，那么$\forall E\in\mathcal{M},\int_E f=\int_E g$当且仅当$\int|f-g|=0$当且仅
+    当$f=g$ a.e.
+    \begin{proof}
+        a. $\left\{x:f(x)\neq 0\right\}=f^{-1}([-\infty,0))\cup f^{-1}((0,+\infty])\\
+        =(f^+)^{-1}((0,+\infty])\cup(-f^-)^{-1}([-\infty.0))$\\
+        由$f\in L^1$知$\int |f^+|<+\infty,\int |f^-|<+\infty$\\
+        由命题3.2.10.知$(f^+)^{-1}((0,+\infty])$和$(-f^-)^{-1}([-\infty,0))=(f^-)^{-1}((0,+\infty])$均
+        为$\sigma$-有限的，从而$\left\{x:f(x)\neq 0\right\}$是$\sigma$-有限的\\
+        b. 由命题3.2.6.知$\int|f-g|=0\Leftrightarrow f=g$ a.e.\\
+        $\int|f-g|=0\Rightarrow \forall E\in\mathcal{M},\int_E f=\int_E g\\
+        |\int_E f-\int_E g|=|\int(f-g)*\mathcal{X}_E|\leq\int|(f-g)*\mathcal{X}_E|\leq\int|f-g|=0$\\
+        从而$\int_E f=\int_E g$\\
+        $\forall E\in\mathcal{M},\int_E f=\int_E g\Rightarrow f=g$ a.e.\\
+        设$u=Re(f-g),v=Im(f-g)$，若$f-g=u+iv=0$ a.e. 不成立，不妨
+        设$u=0$ a.e.不成立，令$E^+=(u^+)^{-1}((0,+\infty]),E^-=(u^-)^{-1}((0,+\infty])$，那
+        么$E=\left\{x:u(x)\neq 0\right\}=E^+\cup E^-$是不交的，且$\mu(E)>0$，故不妨设$\mu(E^+)>
+        0,\forall x\in E^+,u^-(x)=0,Re(\int_{E^+}f-\int_{E^+}g)=\int_{E^+}Re(f-g)=\int_{E^+}u^+>0$，
+        这与题设矛盾\\
+        $\int_{E^+}u^+>0$是因为：\\
+        $E^+=(u^+)^{-1}((0,+\infty])=(u^+)^{-1}(\bigcup_1^{\infty}(\frac{1}{n},+\infty])=\bigcup_1^{\infty}(u^+)^{-1}((\frac{1}{n},+\infty])\\
+        \mu(E^+)>0\Rightarrow\exists n:\mu((u^+)^{-1}((\frac{1}{n},+\infty]))>0,E_n:=(u^+)^{-1}((\frac{1}{n},+\infty])\\
+        \int_{E^+}u^+\geq\int_{E_n}u^+\geq\int_{E_n}\frac{1}{n}=\frac{1}{n}*\mu(E_n)>0$
+    \end{proof}
+\end{proposition}
+这个命题告诉我们，改变一个可积函数在一个零测集上的值不改变它
+的积分(假设该测度空间完全，改变函数在一个零测集上的值不改变其可测
+性)。若函数$f$只在$E\in\mathcal{M}$上有定义，且$\mu(E^c)=0$，那么我们可以补充定
+义$x\in E^c,f(x)=0$从而计算其积分($f$是否可测?)。对于$\overline{\mathbb{R}}$值的可积函数$f$，
+也可以改变$\infty$为有限值($f^{-1}(\infty)$零测)，而不改变其积分值。
+
+容易验证$f=g$ a.e.为$L^1(\mu)$上的等价关系，且$f=g$ a.e.$\Rightarrow \int f=\int g$，
+于是我们可以重新定义$L^1(\mu)$为在这个等价关系下的商集，这样$L^1(\mu)$仍为
+复向量空间($\int |f_1-f_2|=\int |g_1-g_2|=0\Rightarrow \int|f_1+g_1-f_2-g_2|\leq\int|f_1-
+f_2|+\int|g_1-g_2|=0,\int|af_1-af_2|=|a|\int|f_1-f_2|=0$，故加法和数乘有定
+义)。尽管$L^1(\mu)$已经被定义为商集，我们仍用$f\in L^1(\mu)$表示一个可积函数$f$
+
+$L^1(\mu)$的新定义有两个好处：1.若$\overline{\mu}$是$\mu$的完备化，命题3.1.17.给出了\\
+$L^1(\overline{\mu})$到$L^1(\mu)$的单射，因此可以认为这两个空间是相同的(?)；2.在度量$\rho(f,g)=
+\int |f-g|$下，$L^1(\mu)$构成度量空间(三角不等式和对称性是明显的，$\int|f-g|=
+0\Leftrightarrow f=g\ a.e.$)，我们将该度量空间中的收敛称为$L^1$中的收敛：$f_n\to
+ f\ in\ L^1\Leftrightarrow \int|f_n-f|\to 0$
+\begin{theorem}The Dominated Convergence Theorem
+ \\令$\left\{f_n\right\}$为$L^1$中的函数列满足：\\
+ a. $f_n\to f\ a.e.$\\
+ b. $\exists g\in L^1,g\geq 0:|f_n|\leq g\ a.e.,\forall n$\\
+ 那么$f\in L^1$且$\int f=\lim_{n\to\infty}\int f_n$
+ \begin{proof}
+    首先$f$在修改一个$\mu$-零测集上的函数值后是$\mu$-可测的，由命题3.1.16. 
+    3.1.17，知，$f$在修改一个$\mu$-零测集上的函数值后$\in L^1$(因为$|f_n|\leq g\ a.e.\Rightarrow 
+    |f|\leq g\ a.e.$，从而$f$是有限的)分别考虑$f_n,f$的实部和虚部，不妨假设它们
+    都是实值函数，有$g+f_n\geq 0\ a.e.,g-f_n\geq 0\ a.e.$即$\exists E\in\mathcal{M},\mu(E^c)=
+    0,(g+f_n)*\mathcal{X}_{E},(g-f_n)*\mathcal{X}_{E}\in L^+,$由Fatou's Lemma,\\
+    $\int f+\int g=\int (f+g)*\mathcal{X}_E=\int (f*\mathcal{X}_E+g*\mathcal{X}_E)=\int\liminf(f_n*\mathcal{X}_E+g*\mathcal{X}_E)\\
+    \leq\liminf\int (f_n*\mathcal{X}+g*\mathcal{X}_E)=\int g*\mathcal{X}_E+\liminf\int f_n*\mathcal{X}_E\\
+    =\int g+\liminf\int f_n$\\
+    $\int g-\int f=\int(g-f)=\int\liminf(g-f_n)*\mathcal{X}_E\leq\liminf\int(g*\mathcal{X}_E-f_n*\mathcal{X}_E)\\
+    =\int g-\limsup\int f_n$\\
+    综上，$\limsup\int f_n\leq\int f\leq\liminf\int f_n$，即$\lim\int f_n=\int f$
+ \end{proof}   
+\end{theorem}
+\begin{theorem}
+    设$\left\{f_j\right\}\subset L^1$满足$\sum_1^{\infty}\int |f_j|<+\infty$，那么$\sum_1^{\infty}f_j$几乎处处收敛
+    于$L^1$中的一个函数，且$\int\sum_1^{\infty}f_j=\sum_1^{\infty}\int f_j$
+    \begin{proof}
+        首先$\int \sum_1^{\infty}|f_j|=\sum_1^{\infty}\int|f_j|<+\infty,g=\sum_1^{\infty}|f_j|\in L^1$，且$g$是几乎处
+        处有限的，从而$\sum_1^{\infty}f_j$几乎处处收敛，又$|\sum_1^{\infty}f_j|\leq g$，由控制收敛定
+        理$\int\sum_1^{\infty}f_j=\sum_1^{\infty}\int f_j$
+    \end{proof}
+\end{theorem}
+\begin{theorem}
+    若$f\in L^1(\mu),\epsilon>0,$那么$\exists$可积简单函数$\phi=\sum a_j\mathcal{X}_{E_j}$使得\\
+    $\int|f-\phi|\,d\mu<\epsilon$，若$\mu$是$\mathbb{R}$上的Lebesgue-Stieltjes测度，$E_j$可以是有限个开区
+    间的并，还有一有界闭集外为0的连续函数$g:\int|f-g|\,d\mu<\epsilon$
+    \begin{proof}
+        由定理3.1.15.存在简单函数列$\phi_n$逐点收敛于$f$，即$\lim|f-\phi_n|=0,|f-
+        \phi_n|\leq 2|f|$，由控制收敛定理，$\lim \int|f-\phi_n|=\int\lim|f-\phi_n|=0$，于是存
+        在充分大的$n$使得$\int|f-\phi_n|<\epsilon$，若$\mu$为$\mathbb{R}$上的Lebesgue-Stieltjes测度，
+        $\phi_n=\sum_1^N a_j\mathcal{X}_{E_j},\mu(E_j)=a_j^{-1}\int_{E_j}\phi_n\leq a_j^{-1}\int|f|<+\infty$\\
+        由命题2.4.6.存在有限个1开区间的并$A_j$，使得$\mu(E_j\triangle A_j)<\epsilon$\\
+        $\mu(E\triangle F)=\mu(E\cup F)-\mu(F\cap E)=\int\max(\mathcal{X}_E,\mathcal{X}_F)-\int\min(\mathcal{X}_E,\mathcal{X}_F)=
+        \int|\mathcal{X}_E-\mathcal{X}_F|$\\
+        令$\psi_n=\sum_1^N a_j\mathcal{X}_{A_j},\int|f-\psi_n|\leq\int|f-\phi_n|+\int|\phi_n-\psi_n|<\epsilon+\sum_1^N |a_j||\mathcal{X}_{E_j}-
+        \mathcal{X}_{A_j}|<\epsilon+\sum_1^N|a_j|\mu(A_j\triangle E_j)<\epsilon(1+\sum_1^N|a_j|)$\\
+        对于开区间$(a,b)$，定义连续函数$g_{(a,b)}^{\epsilon}=
+        \begin{cases}
+            0& \text{ if } x\in[-\infty,a] \\
+            \epsilon^{-1}(x-a)& \text{ if } x\in(a,a+\epsilon) \\
+            1& \text{ if } x\in[a+\epsilon,b-\epsilon] \\
+            -\epsilon^{-1}(x-b)& \text{ if } x\in(b-\epsilon,b) \\
+            0& \text{ if } x\in[b,+\infty]
+          \end{cases}$\\
+          $\int|g_{(a,b)}^{\epsilon}-\mathcal{X}_{(a,b)}|<\int \mathcal{X}_{[a,a+\epsilon]}+\mathcal{X}_{[b-\epsilon,b]}=2\epsilon$\\
+          已知存在简单函数$\phi=\sum a_j\mathcal{X}_{I_j},\int|f-\phi|<\epsilon$，其中$I_j$为开区间，取$g=
+          \sum a_jg_{I_j}^{\epsilon}$为连续函数，$\int|f-g|\leq\int|f-\phi|+\int|\phi-g|<\epsilon+\sum |a_j|\int|\mathcal{X}_{I_j}-
+          g_{I_j}^{\epsilon}|<\epsilon(1+2\sum |a_j|)$
+    \end{proof}
+\end{theorem}
+\begin{theorem}
+    设$f:X\times[a,b]\to\mathbb{C}(a<b)$，且$\forall t\in[a,b],f(.,t):X\to\mathbb{C}$可积
+    令$F(t)=\int_Xf(x,t)\,d\mu(x)$，则
+    \\a. 若存在$g\in L^1(\mu):\forall t\in[a,b],|f(x,t)|\leq g(x),\forall x\in X,\lim_{t\to t_0}f(x,t)=
+    f(x,t_0)$，那么$\lim_{t\to t_0}F(t)=F(t_0)$\\
+    b. 若$\frac{\partial f}{\partial t}$存在，$\exists g\in L^1(\mu):|\frac{\partial f}{\partial t}(x,t)|\leq g(x),\forall x,t$，那么$F$可微，且$\frac{d F}{d t}(t)=
+    \int_X \frac{\partial f}{\partial t}(x,t)d\mu(x)$
+    \begin{proof}
+        a. 由海涅定理，只需证明：$\forall \left\{t_n\right\}\subset [a,b],t_n\to t_0:F(t_n)\to F(t_0)$\\
+        令$h_n(x)=f(x,t_n)$，于是$h_n$可测，逐点收敛于$f(x,t_0)$，且$|h_n|\leq g$，由
+        控制收敛定理，$F(t_n)=\int h_n d\mu\to\int f(x,t_0)d\mu=F(t_0)$\\
+        b. 只需证明$\forall t_0\in[a,b],\forall \left\{t_n\right\}\subset [a,b]\setminus\left\{t_0\right\},t_n\to t_0:\frac{F(t_n)-F(t_0)}{t_n-t_0}\to 
+        \int_X\frac{\partial f}{\partial t}f(x,t_0)d\mu$，其中$\frac{F(t_n)-F(t_0)}{t_n-t_0}=\int_X \frac{f(x,t_n)-f(x,t_0)}{t_n-t_0}d\mu(x)$，令$h_n(x)=\frac{f(x,t_n)-f(x,t_0)}{t_n-t_0}$\\
+        于是$h_n$可测，逐点收敛于$\frac{\partial f}{\partial t}(x,t_0)$，且$|h_n(x)|=|\frac{\partial f}{\partial t}(x,\xi_n)|\leq\sup_{t\in[a,b]}|\frac{\partial f}{\partial t}(x,t)|\leq 
+        g(x)$，由控制收敛定理，$\frac{\partial f}{\partial t}(x,t_0)$可测，且$\frac{F(t_n)-F(t_0)}{t_n-t_0}=\int_X h_nd\mu\to\int_X\frac{\partial f}{\partial t}(x,t_0)d\mu(x)$
+    \end{proof}
+\end{theorem}
+\begin{definition}
+    令$[a,b]$为一有限闭区间，$P=\left\{t_j\right\}_0^n\subset [a,b]:a=t_0<t_1<
+    \dots<t_n=b$称为$[a,b]$的分割，再设$f$为$[a,b]$上的有界实值函数，\\
+    $S_P f:=\sum_1^nM_j(t_j-t_{j-1}),s_P:=\sum_1^nm_j(t_j-t_{j-1})$，其中$M_j=\sup_{x\in[t_j,t_{j-1}]}f(x)$
+    $m_j=\inf_{x\in[t_j,t_{j-1}]}f(x)$\\
+    定义$\overline{I}_a^b(f)=\underset{P}{\inf}S_Pf,\underline{I}_a^b(f)=\underset{P}{\sup}s_Pf$\\
+    若$\overline{I}_a^b(f)=\underline{I}_a^b(f)$，则称$f$在$[a,b]$上黎曼可积，$\int_a^bf(x)dx:=\overline{I}_a^b(f)$
+\end{definition}
+\begin{theorem}
+    设$f$为$[a,b]$上的有界实值函数\\
+    a. 若$f$黎曼可积，则$f$勒贝格可积，且$\int_a^bf(x)dx=\int_{[a,b]}fdm$\\
+    b. $f$黎曼可积当且仅当$f$的不连续点集为勒贝格零测集
+    \begin{proof}
+        a.设$f$为$[a,b]$上的黎曼可积函数，$P=\left\{t_j\right\}_0^n,G_P=\sum_1^nM_j\mathcal{X}_{(t_{j-1},t_j]}
+        g_P=\sum_1^nm_j\mathcal{X}_{(t_{j-1},t_j]}$，取$\left\{P_k\right\}_1^{\infty}:|P_k|=\sup(t_j-t_{j-1})\to 0(k\to\infty),P_k\subset 
+        P_{k+1}$，于是$G_{P_k},g_{P_k}$分别为单调递减和单调递增函数,$\int_a^bG_{P_k}dx=\sum_1^nM_j(t_j-t_{j-1})=
+        \int_{(a,b]}G_{P_k}dm=\int_{[a,b]}G_{P_k}dm,\int_a^bg_{P_k}dx=\int_{[a,b]}g_{P_k}dm$\\
+        令$G=\lim_{k\to\infty}G_{P_k},g=\lim_{k\to\infty}g_{P_k}$，于是$G,g$可测，且由单调收敛定理知：
+        $\int_{[a,b]}Gdm=\lim\int_{[a,b]}G_{P_k}dm=\lim\int_a^bG_{P_k}(x)dx=\int_a^bf(x)dx$\\
+        同理$\int_{[a,b]}gdm=\int_a^bf(x)dx$\\
+        $G-g\geq 0,\int_{[a,b]}(G-g)dm=0\Rightarrow G=g\ a.e.$从而$G=f\ a.e.$由于$m$是完备的，
+        知$f$可测，且$\int_{[a,b]}fdm=\int_{[a,b]}Gdm=\int_a^bf(x)dx<+\infty$，于是$f$勒贝格
+        可积\\
+        b. 先证明两个引理：
+        \begin{lemma}{1.}
+            定义$H(x)=\underset{\delta\to 0}{\lim}\underset{y\in[x-\delta,x+\delta]}{\sup}f(y),h(x)=\underset{\delta\to 0}{\lim}\underset{y\in[x-\delta,x+\delta]}{\inf}f(y)$
+            则$H(x)=h(x)$当且仅当$f$于$x$点连续
+            \begin{proof}
+                $f$于$x$点连续当且仅当$\lim_{y\to x}f(y)=f(x)$，当且仅当$f$沿$y\to x$的附着
+                点只有$f(x)$当且仅当$\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}=\left\{f(x)\right\}$，右边包含于左边是
+                明显的，于是等价于证明$\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\subset\left\{f(x)\right\}$当且仅当$H(x)=
+                h(x)$现在证明$H(x)=\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$：\\
+                取定$x$，记$d=H(x),\forall \epsilon>0,\exists \delta_0>0:\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<d+\epsilon\\
+                \bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\subset \overline{f([x-\delta_0,x+\delta_0])}\Rightarrow \sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\leq
+                \sup\overline{f([x-\delta_0,x+\delta_0])}=\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<d+\epsilon$\\
+                由$\epsilon$任意性，$\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\leq d$\\
+                记$\sup\overline{f([x-\frac{1}{n},x+\frac{1}{n}])}=y_n,\lim_{n\to\infty}y_n=d$由于$y_n\in\overline{f([x-\frac{1}{n},x+\frac{1}{n}])}\\
+                \exists x_n\in[x-\frac{1}{n},x+\frac{1}{n}],|f(x_n)-y_n|<\frac{1}{n}$，于是$\lim_{n\to\infty}x_n=x,\lim_{n\to\infty}f(x_n)=
+                d,\forall \delta>0,$往证$d\in\overline{f([x-\delta,x+\delta])}$，即证$\forall \epsilon>0,(d-\epsilon,d+\epsilon)\cap f([x-\delta,x+
+                \delta])\neq\varnothing$，对上述$\epsilon,\delta,\exists N:x_N\in[x-\delta,x+\delta],f(x_N)\in(x-\epsilon,x+\epsilon)$这就证明
+                了$d\in\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$，从而$d\leq\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$\\
+                综上，$H(x)=\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$，同理$h(x)=\inf\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$
+                $f$于$x$连续当且仅当$H(x)=h(x)$
+            \end{proof}
+        \end{lemma}
+        \begin{lemma}{2.}
+            沿用定理3.3.12.a的记号，$H=G\ a.e.,h=g\ a.e.$因此$H,G$均
+            勒贝格可测，且$\int_{[a,b]}Hdm=\overline{I}_a^b(f),\int_{[a,b]}hdm=\underline{I}_a^b(f)$
+            \begin{proof}
+                $P_k$的选取同定理3.3.12.a，令$N=\bigcup_1^{\infty}P_k$为勒贝格零测集\\
+                $\forall x\in[a,b]\setminus N,\forall k,\exists j:x\in(t_{j-1}^k,t_j^k),\exists \delta_0>0:(t_{j-1}^k,t_j^k)\supset [x-\delta_0,x+
+                \delta_0],G_{P_k}(x)=\underset{y\in(t_{j-1}^k,t_j)}{\sup}f(y)\geq\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)\geq \underset{\delta>0}{\inf}\underset{y\in[x-\delta,x+\delta]}{\sup}f(y)=H(x)
+                \\k\to\infty,G(x)\geq H(x)$
+                \\$\forall x\in[a,b]\setminus N$
+                \\$\forall \epsilon>0,\exists \delta_0>0:\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<H(x)+\epsilon$
+                \\对上述$x,\delta_0$，又存在$k,j:(t_{j-1}^k,t_j^k)\subset[x-\delta_0,x+\delta_0]$
+                \\$G(x)\leq G_{P_k}(x)=\underset{y\in(t_{j-1}^k,t_j^k)}{\sup}f(y)\leq\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<H(x)+\epsilon$
+                \\由$\epsilon$任意性，$G(x)\leq H(x)$
+                \\即$\forall x\in[a,b]\setminus N,G(x)=H(x)$
+                \\同理可得$g(x)=h(x)\ a.e.$
+                \\$\int_{[a,b]}Hdm=\int_{[a,b]}Gdm=\lim\int_{[a,b]}G_{P_k}dm=\lim S_{P_k}(f)=\overline{I}_a^b(f)$
+                \\$\int_{[a,b]}hdm=\int_{[a,b]}gdm=\lim\int_{[a,b]}g_{P_k}dm=\lim s_{P_k}(f)=\underline{I}_a^b(f)$
+            \end{proof}
+        \end{lemma}
+    现在可以完成b.的证明:
+    \\$f$黎曼可积当且仅当$\overline{I}_a^b(f)=\underline{I}_a^b(f)$当且仅当$\int_{[a,b]}Hdm=\int_{[a,b]}hdm$当且仅
+    当$H=h\ a.e.$当且仅当$f$连续 a.e.
+    \end{proof}
+\end{theorem}
+\end{document}

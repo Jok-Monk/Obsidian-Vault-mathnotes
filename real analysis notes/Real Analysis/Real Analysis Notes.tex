@@ -1,0 +1,1784 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\begin{center}
+    \Huge\textbf{前言}
+\end{center}~\
+
+这是笔记的前言部分. 
+~\\
+\begin{flushright}
+    \begin{tabular}{c}
+        Joker\\
+        \today
+    \end{tabular}
+\end{flushright}
+
+\newpage
+\pagenumbering{Roman}
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+\setcounter{page}{1}
+\pagenumbering{arabic}
+
+\chapter{前置知识}
+
+\section{集合论}
+\begin{definition}
+    集合X的幂集$\mathcal{P}(X)$定义为X的所有子集的集合，即\\$\mathcal{P}(X):=\left\{E:E\subset X\right\}$
+\end{definition}
+若$\varepsilon$是一族集合：$\varepsilon=\left\{E_\alpha\right\}_{\alpha\in A}$其中A是一指标集我们定义这族集合的交，并：
+\begin{definition}
+    $\bigcap_{E\subset\varepsilon}E=\bigcap_{\alpha\in A}E_\alpha:=\left\{x:x\in E_\alpha ,\forall\alpha\in A\right\},\\
+    \bigcup_{E\subset\varepsilon}E=\bigcup_{\alpha\in A}E_\alpha:=\left\{x:x\in E_\alpha,\exists\alpha\in A\right\}$\\
+    若$\alpha_1\neq\alpha_2\Rightarrow E_{\alpha_1}\cap E_{\alpha_2}=\phi$这族集合的并称为不交的
+\end{definition}
+\begin{definition}
+    集合的差，对称差：\\$E\setminus F:=\left\{{x:x\in E,x\notin F}\right\},\ E\triangle F:=(E\setminus F)\cup(F\setminus E)$
+\end{definition}
+若所讨论的集合均为X的子集，我们定义集合E的补集：
+\begin{definition}
+    $E^c:=X\setminus E$
+\end{definition}
+当指标集为$\mathbb{N}$时，这族集合经常记作$\left\{E_n\right\}_{n=1}^{\infty}$或$\left\{E_n\right\}_{1}^{\infty}$，在这个约定下，我们定义集列$\left\{E_n\right\}_{n=1}^\infty$的上下极限：
+\begin{definition}
+    $\limsup E_n:=\bigcap_{n=1}^\infty\bigcup_{k=n}^\infty E_k,\ \liminf E_n:=\bigcup_{n=1}^\infty\bigcap_{k=n}^\infty E_k$
+\end{definition}
+\begin{corollary}
+    $\limsup E_n=\left\{x:x\in E_n\text{对无穷个$n\in\mathbb{N}$成立}\right\},\ \liminf E_n=\left\{x:x\in E_n\text{仅对有限个$n\in\mathbb{N}$不成立}\right\}$
+\end{corollary}
+\begin{proof}
+    $x\in\limsup E_n\\
+    \Leftrightarrow\forall n\in\mathbb{N},\ x\in\bigcup_{k=n}^\infty E_k\\
+    \Leftrightarrow\forall n\in\mathbb{N},\ \exists k\geq n,\ x\in E_k\\
+    x\in\liminf E_n\\
+    \Leftrightarrow\exists n\in\mathbb{N},\ x\in\bigcap_{k=n}^\infty E_k\\
+    \Leftrightarrow\exists n\in\mathbb{N},\ \forall k\geq n,\ x\in E_k$
+\end{proof}
+\begin{proposition}
+    deMorgan's Laws:\\
+    $(\bigcup_{\alpha\in A}E_\alpha)^c=\bigcap_{\alpha\in A}E_\alpha^c,\ (\bigcap_{\alpha\in A}E_\alpha)^c=\bigcup_{\alpha\in A}E_\alpha^c$
+\end{proposition}
+\begin{proof}
+    $x\in(\bigcup_{\alpha\in A}E_\alpha)^c\Leftrightarrow x\notin\bigcup_{\alpha\in A}E_\alpha\\
+    \Leftrightarrow\forall\alpha\in A,\ x\notin E_\alpha\\
+    \Leftrightarrow\forall\alpha\in A,\ x\in E_{\alpha}^{c}\\
+    \Leftrightarrow x\in\bigcap_{\alpha\in A}E_\alpha^c\\[0.5cm]
+    x\in(\bigcap_{\alpha\in A}E_\alpha)^c\Leftrightarrow x\notin\bigcap_{\alpha\in A}E_{\alpha}\\
+    \Leftrightarrow\exists\alpha\in A,\ x\notin E_{\alpha}\\
+    \Leftrightarrow\exists\alpha\in A,x\in E_{\alpha}^{c}\\
+    \Leftrightarrow x\in\bigcup_{\alpha\in A}E_{\alpha}^{c}$
+\end{proof}
+\begin{definition}
+    集合X和Y的笛卡尔积定义为有序对$(x,y)$的集合:\\
+    $X\times Y:=\left\{(x,y):x\in X,\ y\in Y\right\}$
+\end{definition}
+\begin{definition}
+    从X到Y的关系是$X\times Y$的一个子集R，$($X=Y时称其为X上的关系$)$。若R为X到Y的关系，$(x,y)\in R$记作xRy
+\end{definition}
+\begin{definition}
+    X上等价关系是X上的满足以下性质的关系R：\\
+    $xRx,\forall x\in X\\
+    xRy\Leftrightarrow yRx\\
+    xRy,\ yRz\Rightarrow xRz\\$
+    集合X上的等价关系经常记作$\sim $\\
+    若集合X上有等价关系$\sim ,\ x\in X,\text{定义x的等价类为:}\bar{x}=\left\{y\in X:y\sim x\right\}$
+\end{definition}
+\begin{definition}
+    映射$f:X\rightarrow Y$是一个从X到Y的关系R，满足:\\
+    $\forall x\in X,\ \exists !y\in Y,xRy$\\
+    通常记作$y=f(x)\\$
+    $f:X\rightarrow Y,\ g:Y\rightarrow Z,f\text{与}g\text{的复合定义为：}\\
+    (g\circ f)(x)=g(f(x)),\forall x\in X$
+\end{definition}
+\begin{definition}
+    若$f:X\rightarrow Y,D\subset X,E\subset Y\\
+    f(D):=\left\{f(x):x\in D\right\}\text{称为D在f下的像}\\
+    f^{-1}(E):=\left\{x\in X:f(x)\in E\right\},\text{称为E在f下的原像}\\
+    f^{-1}:\mathcal{P}(Y)\rightarrow\mathcal{P}(X)\text{定义了幂集上的映射}$
+\end{definition}
+\begin{corollary}
+    $f^{-1}:\mathcal{P}(Y)\rightarrow\mathcal{P}(X)\text{具有以下性质：}\\
+    f^{-1}(\bigcup_{\alpha\in A}E_{\alpha})=\bigcup_{\alpha\in A}f^{-1}(E_{\alpha})\\
+    f^{-1}(\bigcap_{\alpha\in A}E_{\alpha})=\bigcap_{\alpha\in A}f^{-1}(E_{\alpha})\\
+    f^{-1}(E^{c})=(f^{-1}(E))^{c}$
+\end{corollary}
+\begin{proof}
+    $x\in f^{-1}(\bigcup_{\alpha\in A}E_{\alpha})\Leftrightarrow f(x)\in \bigcup_{\alpha\in A}E_{\alpha}\\
+    \Leftrightarrow \exists \alpha\in A,\ f(x)\in E_{\alpha}\\
+    \Leftrightarrow\exists \alpha\in A,\ x\in f^{-1}(E_{\alpha})\\
+    \Leftrightarrow x\in \bigcup_{\alpha\in A}f^{-1}(E_{\alpha})\\[0.5cm]
+    x\in f^{-1}(\bigcap_{\alpha\in A}E_{\alpha})\Leftrightarrow f(x)\in \bigcap_{\alpha\in A}E_{\alpha}\\
+    \Leftrightarrow \forall \alpha\in A,\ f(x)\in E_{\alpha}\\
+    \Leftrightarrow\forall\alpha\in A,\ x\in f^{-1}(E_{\alpha})\\
+    \Leftrightarrow x\in \bigcap_{\alpha\in A}f^{-1}(E_{\alpha})\\[0.5cm]
+    x\in f^{-1}(E^{c}) \Leftrightarrow f(x)\in E^{c}\\
+    \Leftrightarrow f(x)\notin E\\
+    \Leftrightarrow x\notin f^{-1}(E)\\
+    \Leftrightarrow x\in (f^{-1}(E))^{c}$
+\end{proof}
+\begin{definition}
+    $f:X\rightarrow Y$\\
+    若$x_{1}\neq x_{2}\Rightarrow f(x_1)\neq f(x_2)$则称f为单射\\
+    若$f(X)=Y$则称f为满射\\
+    若f既是单射又是满射，则称f为双射，此时\\
+    $\forall y\in Y,\exists !x\in X,f(x)=y(\text{其中满射保证了存在性，单射保证了唯一性})$\\
+    于是可以定义$f^{-1}:Y\rightarrow X$满足 $f\circ f^{-1}=1_{Y},\ f^{-1}\circ f=1_{X}$\\
+    $A\subset X,$定义f在A上的限制：$f_{|A}:A\rightarrow Y,\ f_{|A}(x)=f(x),\forall x\in A$
+\end{definition}
+\begin{corollary}
+    $f:X\rightarrow Y,\ g:Y\rightarrow Z$为单射，则$g\circ f:X\rightarrow Z$为单射\\
+    $f:X\rightarrow Y,\ g:Y\rightarrow Z$为满射，则$g\circ f:X\rightarrow Z$为满射
+\end{corollary}
+\begin{definition}
+    A为指标集，一族集合$\left\{X_{\alpha}\right\}_{\alpha\in A}$的笛卡尔积$\prod_{\alpha\in A}X_{\alpha}$\\
+    定义为一族函数$f:A\rightarrow\bigcup_{\alpha\in A}X_{\alpha}$满足$f(\alpha)\in X_{\alpha}$\\
+    即$\prod_{\alpha\in A}X_{\alpha}:=\left\{f:A\rightarrow\bigcup_{\alpha\in A}X_{\alpha}|f(\alpha)\in X_{\alpha},\forall \alpha\in A\right\}$\\
+    若所有集合$X_{\alpha}=Y$，$\prod_{\alpha\in A}X_{\alpha}$也记作$Y^{A}$\\
+    若$A=\left\{1,2,\dots n\right\},Y^{A}$也记作$Y^{n}$
+\end{definition}
+
+\section{序}
+\begin{definition}
+    非空集合X上的偏序关系是一个满足以下性质的关系R：\\
+    $xRy,yRz\Rightarrow xRz\\
+    xRy,yRx\Rightarrow x=y\\
+    xRx,\forall x\in X\\
+    \text{R通常记作}\preceq,\\
+    x\preceq y\text{也记作}y\succeq x,\\
+    \text{若}x\preceq y\text{且}x\neq y,\text{则记作}x\prec y\\
+    \text{若R还满足：}\\
+    \forall x,y\in X,\ xRy\text{或}yRx$\\
+    R也称作全序，此时$\preceq $也记作$\leq $
+\end{definition}
+\begin{example}
+    对任一集合E，$\mathcal{P}(E)\text{的包含关系是一个偏序关系}$
+\end{example}
+\begin{definition}
+    偏序集X，Y被称作序同构的，若存在双射$f:X\rightarrow Y$满足：\\
+    $x_1\preceq_{X} x_2\Rightarrow f(x_1)\preceq_{Y} f(x_2)$
+\end{definition}
+\begin{definition}
+    偏序集$(X,\preceq_{X})$中，称$x\in X$为X的极大$($极小$)$元，若不存在$y\neq x,y\succeq_{X} x(\preceq_{X} x)$\\
+    $E\subset X,x\in X\text{称为E的上界}(\text{下界}),\ \text{若}\forall y\in E,y\preceq x(\succeq x)$\\
+    若$(X,\leq_{X}),\forall \phi \neq E\subset X,E\text{有极小元，则称X为良序集，}\leq_{X}\text{称为X上的一个良序}$
+\end{definition}
+\begin{proposition}
+    The Hausdorff Maximal Principal\\
+    每个偏序集有一个极大$(\text{在包含关系下})$的全序子集
+\end{proposition}
+\begin{proposition}
+    Zorn's Lemma\\
+    若偏序集X的每个全序子集有上界，那么X有极大元
+\end{proposition}
+\begin{proposition}
+    The Well Ordering Principle\\
+    每一个非空集合X可以配备一个良序
+\end{proposition}
+\begin{proposition}
+    The Axionm of Choice\\
+    若$\left\{X_{\alpha}\right\}_{\alpha\in A}$是一族非空集，那么$\prod _{\alpha\in A}X_{\alpha}$非空
+\end{proposition}
+\begin{theorem}
+    上述4个命题等价
+    \begin{proof}
+        命题 1.2.5 $\Rightarrow$ 命题 1.2.6\\
+        $X\text{在包含关系下有一个极大的全序子集E，设x为E的上界，我们断言x也是X的极大元}\\
+        \text{否则，}\exists y\in X,\ y\succeq x\ \text{从而}\ E\cup\left\{y\right\}\text{是X的全序子集，并且真包含E，这与E是极大的全序子集}\\$
+        矛盾\\[0.5cm]
+        命题 1.2.5 ，命题1.2.6 $\Rightarrow$ 命题 1.2.7\\
+        $\text{令}\mathcal{W}=\left\{\leq_{E}:E\subset X\text{为配备了良序$\leq_E$的子集}\right\}\text{我们按照以下法则定义}\mathcal{W}\text{上的偏序关系：}\\
+        \text{对于}\leq_{E_1},\leq_{E_2}\in\mathcal{W}\\
+        (i)\ E_1\subset E_2,\text{且}\leq_{E_2}\cap (E_1\times E_1)=\leq_{E_1}\\
+        (ii)\ x\in E_2\setminus E_1\Rightarrow \forall y\in E_1,\ y\leq_{E_2} x\\
+        \text{则}\leq_{E_1}\ \preceq\ \leq_{E_2}\\
+        \text{现在验证}(\mathcal{W},\preceq)\text{满足Zorn's Lemma的条件：}\\
+        \text{设}\omega \text{为}\mathcal{W}\text{的全序子集}\\
+        \leq_{\mu}:=\bigcup_{\leq_E\in\omega}(\leq_E),\ \mu :=\bigcup_{\leq_{E}\in\omega}E\\
+        1.\text{验证}\leq_{\mu}\text{为}\mu\subset X\text{上的良序，从而}\leq_{\mu}\in\mathcal{W}\\
+        \text{由}(i)\text{知},\beta :=\left\{E:\ \leq_{E}\in\omega\right\}\text{在包含关系下是一个全序集}\\
+        \forall x_1,x_2\in\mu,\exists E_1,E_2\in\beta:\ x_1\in E_1,x_2\in E_2\\
+        \text{不妨设}E_1\subset E_2,\text{于是}x_1\leq_{E_2}x_2\text{或}x_2\leq_{E_2}x_1\text{成立}\\
+        \Leftrightarrow (x_1,x_2)\in\ \leq_{E_2}\ \subset\leq_{\mu}\text{或}(x_2,x_1)\in\ \leq_{E_2}\ \subset\leq_{\mu}\\
+        \Leftrightarrow x_1\leq_{\mu}x_2\text{或}x_2\leq_{\mu}x_1\\
+        x\leq_{\mu}y,y\leq_{\mu}x\ \Rightarrow(x,y),(y,z)\in\leq_{\mu}\\
+        \text{设}(x,y)\in\leq_{E_1},(y,z)\in\leq_{E_2}\text{并且}E_1\subset E_2\\
+        \text{从而}(x,y)\in\leq_{E_1}\subset\leq_{E_2},\text{于是}(x,z)\in\leq_{E_2}\subset\leq_{\mu}\\
+        \text{也即}x\leq_{\mu}z\\
+        x\leq_{\mu}y,y\leq_{\mu}x\Rightarrow (x,y),(y,x)\in\leq_{\mu}\\
+        \text{设}(x,y)\in\leq_{E_1},(y,x)\in\leq_{E_2}\text{并且}E_1\subset E_2\\
+        \text{从而}(x,y)\in\leq_{E_1}\subset\leq_{E_2}\\
+        \Rightarrow x\leq_{E_2}y,y\leq_{E_2}x\\
+        \Rightarrow x=y\\
+        \forall x\in \mu ,\exists E\in\beta,x\in E,\\
+        x\leq_{E}x\\
+        \Rightarrow(x,x)\in\leq_{E}\subset\leq_{\mu}\\
+        \Rightarrow x\leq_{\mu}x\\
+        \forall\ \phi \neq F\subset \mu
+        \text{若}F\text{无最小元，即}\\
+        \forall x\in F,\ \exists y\in F,\ y\neq x,\ y\leq_{\mu}x\\
+        \text{归纳可得$F$的一个递降子列：}x_1>_{\mu}x_2>_{\mu}\dots>_{\mu}x_n>_{\mu}\dots\\
+        \text{设}x_i\in E_i\in\beta\\
+        \text{若}\exists i>1,x_i\notin E_1\\
+        \text{由于$\beta$在包含关系下为一全序集，故}E_1\subset E_i\\
+        \text{由}(ii),x_i\in E_i\setminus E_1\Rightarrow x_i\geq_{E_i}x_1\Rightarrow (x_1,x_i)\in\leq_{E_i}\subset\leq_{\mu}\\
+        \text{即}x_1\leq_{\mu}x_i,\text{矛盾}\\
+        \text{从而}\left\{x_i\right\}_{i=1}^n\subset E_1\text{并且}x_1>_{E_1}x_2>_{E_1}\dots>_{E_1}x_n>_{E_1}\dots\\
+        \text{由}E_1\in\beta\text{知}\leq_{E_1}\text{为良序,从而不存在递降子列，矛盾}\\
+        \text{故$F$存在最小元}\\
+        \text{综上}\leq_{\mu}\text{为}\mu\text{上的一个良序}\\
+        2.\text{验证$\leq_{\mu}$为$\omega$的上界}\\
+        (i)\forall \leq_E\in\omega,E\in\beta\Rightarrow E\subset\bigcup_{E\in\beta}E=\mu\\
+        \text{且}\leq_{\mu}\cap (E\times E)=(\bigcup_{E_i\in\beta}\leq_{E_i})\cap (E\times E)\\
+        =[(\bigcup_{E_i\in\beta,E_i\subset E}\leq_{E_i})\bigcap(E\times E)]\bigcup[(\bigcup_{E_i\in\beta,E_i\varsupsetneq  E}\leq_{E_i}\cap(E\times E)]\\
+        =[\leq_{E}\cap(E\times E)]\bigcup[(\bigcup_{E_i\in\beta,E_i\varsupsetneq  E}\leq_{E}]\\
+        =\leq_E\\
+        (ii)x\in\mu\setminus E\Rightarrow \exists F\in\beta,F\supset E,x\in F\setminus E\Rightarrow \forall y\in E,\ y\leq_F x\\
+        \text{从而}(y,x)\in\leq_F\subset\leq_{\mu},\text{即}\ \forall y\in E,y\leq_{\mu}x\\
+        \text{于是}\leq_{E}\ \preceq\ \leq_{\mu}\\
+        \text{综上，$\mathcal{W}$的任意全序子集$\omega$有上界，Zorn's Lemma的条件满足，}\\
+        \text{从而$\mathcal{W}$有极大元$\leq_E$}\\
+        \text{我们断言，$\leq_E$就是X上的良序}\\
+        \text{否则,取}x_0\in X\setminus E\\
+        E_0:=E\cup\left\{x_0\right\}\\
+        \leq_{E_0}:=\leq_E\cup\left\{(x,x_0):x\in E\right\}\\
+        \text{则}\leq_{E_0}\in\mathcal{W}\text{且}\leq_E\prec \leq_{E_0}\\
+        \text{这与$\leq_E$的取法矛盾}$\\[0.5cm]
+        命题 1.2.7 $\Rightarrow$ 命题 1.2.8\\
+        令$X=\bigcup_{\alpha\in A}X_{\alpha}$，选取$X$上的一个良序$\leq$\\
+        对每个$\alpha\in A$，定义$f(\alpha)=X_{\alpha}$的最小元，则$f\in\prod_{\alpha\in A}X_{\alpha}$\\[0.5cm]
+        命题 1.2.8 $\Rightarrow$ 命题 1.2.6\\
+        ？\\[0.5cm]
+        命题 1.2.6 $\Rightarrow$ 命题 1.2.5\\
+        设$(X,\preceq )$为一偏序集，则其全序子集$\mathcal{W}$在包含关系下构成偏序集\\
+        其任意全序子集$\omega$有上界$\mu=\bigcup_{E\subset\omega}E$，$\mathcal{W}$满足 Zorn's Lemma 的条件\\
+        于是$\mathcal{W}$有极大元
+    \end{proof}
+\end{theorem}
+
+\section{集合的势}
+\begin{definition}
+    对于非空集$X,Y$\\
+    若存在单射$f:X\rightarrow Y$，则称$card(X)\leq card(Y)$\\
+    若存在满射$f:X\rightarrow Y$，则称$card(X)\geq card(Y)$\\
+    若存在双射$f:X\rightarrow Y$，则称$card(X)= card(Y)$\\
+    若$card(X)\leq card(Y)$但$card(X)= card(Y)$不成立，则记作$card(X)<card(Y)$\\
+    若$card(X)\geq card(Y)$但$card(X)= card(Y)$不成立，则记作$card(X)>card(Y)$\\
+    对所有$X\neq\phi$，约定$card(X)>card(\phi)$，$card(\phi)<card(X)$
+\end{definition}
+\begin{corollary}
+    $card(X)\leq card(Y),\ card(Y)\leq card(Z)\Rightarrow card(X)\leq card(Z)$
+    \begin{proof}
+        $f:X\rightarrow Y,\ g:Y\rightarrow Z$为单射，则\\
+        $g\circ f:X\rightarrow Z$也是单射，故\\
+        $card(X)\leq card(Z)$
+    \end{proof}
+\end{corollary}
+\begin{proposition}
+    $card(X)\leq card(Y)\Leftrightarrow card(Y)\geq card(X)$
+    \begin{proof}
+        设$f:X\rightarrow Y$为单射。取定$x_0\in X$，由于$f$为单射，$\forall y\in f(X)$，\\
+        $\exists ! x\in X,f(x)=y$，于是可定义$g:Y\rightarrow X$：\\
+        $g(y)=\begin{cases}
+            f^{-1}(y)& \text{ if } y\in f(X) \\
+            x_0& \text{ if } y\notin f(X)
+          \end{cases}$\\
+        从而$g:Y\rightarrow X$为满射\\[0.5cm]
+        设$g:Y\rightarrow X$为满射，则$\forall x\in X,g^{-1}(\left\{x\right\})\neq\phi$\\
+        且$x_1\neq x_2\Rightarrow g^{-1}(\left\{x_1\right\})\cap g^{-1}(\left\{x_2\right\})=\phi$\\
+        由选择公理，$f\in \prod_{x\in X}g^{-1}(\left\{x\right\})$即为$X\rightarrow Y$的单射       
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    对任意集合$X,Y$，$card(X)\leq card(Y)$或$card(Y)\leq card(X)$成立
+    \begin{proof}
+        设$\mathcal{J}$为$X$的子集到$Y$的单射之集，即\\
+        $\mathcal{J}=\left\{f:X\supset E\rightarrow Y\text{为单射}\right\}$\\
+        $\forall f\in\mathcal{J},f\subset X\times Y$，于是$(\mathcal{J},\subset)$为一偏序集\\
+        现在验证该偏序集适合Zorn's Lemma的条件\\
+        $\forall f\in \mathcal{J},f:X\supset D_{f}\rightarrow Y$为单射\\
+        设$\mathcal{I}$为$\mathcal{J}$的一个全序子集，$f_{\mathcal{I}}:=\bigcup_{f\in\mathcal{I}}f$\\
+        由于$\mathcal{I}$为全序集，$\left\{D_f:f\in\mathcal{I}\right\}$在包含关系下也为全序集\\
+        1.验证$f_{\mathcal{I}}\in\mathcal{J}$\\
+        $D_{\mathcal{I}}:=\bigcup_{f\in\mathcal{I}}D_f$，$\forall x\in D_{\mathcal{I}}$，$\exists f\in\mathcal{I},x\in D_f$\\
+        $\exists y\in Y,(x,y)\in f\subset f_{\mathcal{I}}$\\
+        若存在$x_1\neq  x_2$，$f_{\mathcal{I}}(x_1)=f_{\mathcal{I}}(x_2)=y$\\
+        则$(x_1,y)\in f_1,(x_2,y)\in f_2$，不妨设$f_1\subset f_2$\\
+        于是有$x_1\neq x_2\rightarrow f_2(x_1)=f_2(x_2)$，这与$f_2\in\mathcal{J}$矛盾\\
+        综上，$f_{\mathcal{I}}\in\mathcal{J}$\\
+        2.验证$f_{\mathcal{I}}$为$\mathcal{I}$的上界，这由$f_{\mathcal{I}}$的定义是明显的\\
+        综上，$\mathcal{J}$适合Zorn'Lemma的条件，从而有极大元$f_{\mathcal{J}}$\\
+        设$f_{\mathcal{J}}:X\supset D_{\mathcal{J}}\rightarrow Y$，我们断言，$D_{\mathcal{J}}=X$或$f(D_{\mathcal{J}})=Y$成立\\
+        否则，存在$x_0\in X\setminus D_{\mathcal{J}},y_0\in Y\setminus f(D_{\mathcal{J}})$\\
+        $\tilde{f}_{\mathcal{J}}:=f_{\mathcal{J}}\cup\left\{(x_0,y_0)\right\}$\\
+        容易验证$\tilde{f}_{\mathcal{J}}\in\mathcal{J}$且$f_{\mathcal{J}}\subsetneq \tilde{f}_{\mathcal{J}}$，这与$f_{\mathcal{J}}$是极大元矛盾\\
+        若$D_{\mathcal{J}}=X$则$f_{\mathcal{J}}:X\rightarrow Y$为单射，$card(X)\leq card(Y)$\\
+        若$f(D_{\mathcal{J}})=Y$，则$f_{\mathcal{J}}^{-1}:Y\rightarrow D_{\mathcal{J}}\subset X$为单射，$card(Y)\leq card(X)$
+    \end{proof}
+\end{proposition}
+\begin{theorem}
+    $The\ Sch\ddot{o}der-Bernstein\ Theorem$\\
+    $card(X)\leq card(Y),card(Y)\leq card(X)\Rightarrow card(X)=card(Y)$
+    \begin{proof}
+        设$f:X\rightarrow Y$, $g:Y\rightarrow X$均为单射\\
+        我们按照以下法则将$X$中的元素分为3类，\\
+        1.对$\forall n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\in Y,(f^{-1}\circ g^{-1})^{n+1}(x)\in X$\\
+        则称$x\in X_{\infty}$\\
+        2.$\exists n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\notin Y$即$(f^{-1}\circ g^{-1})^{n}(x)\in X\setminus g(Y)$\\
+        则称$x\in X_{X}$\\
+        3.$\exists n\geq 0,\ (f^{-1}\circ g^{-1})^{n+1}(x)\notin X$即$g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\in Y\setminus f(X)$\\
+        则称$x\in X_{Y}$\\
+        容易验证，$X_{\infty},X_X,X_Y$是不交的，类似的有$Y_{\infty},Y_X,Y_Y:$\\
+        1.对$\forall n\geq 0,\ f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\in X,(g^{-1}\circ f^{-1})^{n+1}(y)\in Y$\\
+        则称$y\in Y_{\infty}$\\
+        2.$\exists n\geq 0,\ f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\notin X$即$(g^{-1}\circ f^{-1})^{n}(y)\in Y\setminus f(X)$\\
+        则称$y\in Y_{Y}$\\
+        3.$\exists n\geq 0,\ (g^{-1}\circ f^{-1})^{n+1}(y)\notin Y$即$f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\in X\setminus g(Y)$\\
+        则称$y\in Y_{X}$\\
+        现在验证:$f(X_{\infty})=Y_{\infty},\ f(X_X)=Y_X,\ g(Y_Y)=X_Y$\\
+        $x\in X_{\infty}\Rightarrow \forall n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\in Y,(f^{-1}\circ g^{-1})^{n+1}(x)\in X$\\
+        $\Rightarrow \forall n\geq 0,\ (g^{-1}\circ f^{-1})^{n+1}(f(x))\in X,f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\in Y$\\
+        $\Rightarrow f(X)\subset Y_{\infty}$\\
+        $y\in Y_{\infty}\Rightarrow x=f^{-1}(y)\in X$\\
+        $\Rightarrow \forall n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)=(g^{-1}\circ f^{-1})^{n+1}(y)\in Y,$\\
+        $(f^{-1}\circ g^{-1})^{n+1}(x)=f^{-1}\circ (g^{-1}\circ f^{-1})^{n+1}(x)\in X$\\
+        $\Rightarrow \exists x\in X_{\infty},f(x)=y$\\
+        $\Rightarrow f(X_{\infty})\subset Y_{\infty}$\\
+        即$f(X_{\infty})=Y_{\infty}$，\\
+        $x\in X_{X}\Rightarrow \exists n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)=(g^{-1}\circ f^{-1})^{n+1}(f(x))\notin Y$\\
+        $\Rightarrow f(x)\in Y_X$\\
+        $\Rightarrow f(X_X)\subset Y_X$\\
+        $y\in Y_X\Rightarrow \exists n\geq 0,\ (g^{-1}\circ f^{-1})^{n+1}(y)\notin Y,f^{-1}(y)=x\in X$\\
+        $\Rightarrow \exists n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)=(g^{-1}\circ f^{-1})^{n+1}(y)\notin Y$\\
+        $\Rightarrow x=f^{-1}(y)\in X_X$\\
+        $\Rightarrow Y_X\subset f(X_X)$\\
+        即$f(X_X)=Y_X$\\
+        同理，有$g(Y_Y)=X_Y$\\
+        由于$f,g$均为单射,$f_{|X_{\infty}},f_{|X_X},g_{|Y_Y}$也是单射，从上面的讨论知，他们也是满射，从而为双射\\
+        定义$h:X\rightarrow Y:$\\
+        $h(x)=\begin{cases}
+            f(x)& \text{ if } x\in X_{\infty}\cup X_X \\
+            g^{-1}(x)& \text{ if } x\in X_Y
+          \end{cases} $\\
+        于是$h$为$X$到$Y$的双射，即$card(X)=card(Y)$
+    \end{proof}
+\end{theorem}
+\begin{corollary}
+    $card(X)=card(Y),card(Y)=card(Z)\Rightarrow card(X)=card(Z)$
+    \begin{proof}
+        $card(X)\leq card(Y),card(Y)\leq card(Z)\Rightarrow card(X)\leq card(Z)$\\
+        同理$card(Z)\leq card(X)$\\
+        于是$card(X)=card(Z)$
+    \end{proof}
+\end{corollary}
+\begin{proposition}
+    对任意集合$X,card(X)<card(\mathcal{P}(X))$
+    \begin{proof}
+        首先，$f:x\mapsto \left\{x\right\}$是$X$到$\mathcal{P}(X)$的单射，故$card(X)\leq card(\mathcal{P}(X))$\\
+        设$g:X\rightarrow \mathcal{P}(X)$，我们来证明$g$不可能是满射,\\
+        令$Y=\left\{x\in X:x\notin g(x)\right\}$\\
+        若$Y\in g(X)$，即$\exists x_0\in X,g(x_0)=Y$\\
+        那么$x_0\in Y\Rightarrow x_0\notin g(x_0)\Rightarrow x_0\notin Y$，矛盾\\
+        $x_0\notin Y\Rightarrow x_0\in g(x_0)\Rightarrow x_0\in Y$，矛盾\\
+        故不存在$x_0\in X,g(x_0)=Y$\\
+        综上，$card(X)<card(\mathcal{P}(X))$
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    若$card(X)\leq card(\mathbb{N})$，则称$X$是可数的
+\end{definition}
+\begin{proposition}
+    a.可数集合的有限笛卡尔积可数\\
+    b.可数集合的可数并可数\\
+    c.可数无穷集与自然数集等势
+    \begin{proof}
+        a.设$X,Y$为可数集,$f:X\rightarrow \mathbb{N},\ g:Y\rightarrow\mathbb{N}$为单射\\
+        则$f\times g:(x,y)\mapsto (f(x),g(y))$为单射,从而$card(X\times Y)\leq card(\mathbb{N}^2)$\\
+        现在证明: $card(\mathbb{N})=card(\mathbb{N^2})$\\
+        构造$\mathbb{N}^2$到$\mathbb{N}$的双射：$f:(i,j)\mapsto i+\sum_{n=1}^{i+j-2}n$\\[0.5cm]
+        b.设$A,X_{\alpha}(\alpha\in A)$均为可数集，$\forall \alpha\in A$，存在 $f_{\alpha}:\mathbb{N}\rightarrow X_{\alpha}$为满射\\
+        于是$f:\mathbb{N}\times A\rightarrow \bigcup_{\alpha\in A}X_{\alpha},\ f(n,\alpha)=f_{\alpha}(n)$为满射\\
+        从而$card(\bigcup_{\alpha\in A}X_{\alpha})\leq card(A\times \mathbb{N})\leq card(\mathbb{N})$\\[0.5cm]
+        c.设$X$为无穷集合，且$card(X)\leq card(\mathbb{N})$\\
+        $f:X\rightarrow \mathbb{N}$为单射，则$f:X\rightarrow f(X)\subset \mathbb{N}$为双射\\
+        $card(X)=card(f(X))\leq card(\mathbb{N})$\\
+        现在记$Y=f(X)$为$\mathbb{N}$的无穷子集\\
+        定义$g(1)=min\ Y$\\
+        递归定义$g(n)=min\ Y\setminus\left\{g(1),g(2),\dots g(n-1)\right\}$\\
+        于是$g:N\rightarrow Y$为双射\\
+        $card(Y)=card(\mathbb{N})$\\
+        从而$card(X)=card(\mathbb{N})$
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    $card(\mathbb{Z})=card(\mathbb{Q})=card(\mathbb{N})$
+\end{corollary}
+\begin{definition}
+    若$card(X)=card(\mathbb{R})$，则记作$card(X)=\mathcal{C}$
+\end{definition}
+\begin{proposition}
+    $card(X)=card(Y)\Rightarrow card(\mathcal{P}(X))=card(\mathcal{P}(Y))$
+    \begin{proof}
+        设$f:X\rightarrow Y$为双射\\
+        $\tilde{f}:\mathcal{P}(X)\rightarrow\mathcal{P}(Y),\ \tilde{f}(A)=f(A)$给出$\mathcal{P}(X)$到$\mathcal{P}(Y)$的双射
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    $card(\mathcal{P}(\mathbb{N}))=\mathcal{C}$
+    \begin{proof}
+        对于$A\in\mathcal{P}(N)$，定义$f(A)=\begin{cases}
+            \sum_{n\in A}2^{-n}& \text{ if } \mathbb{N}\setminus A\text{是无穷集}  \\
+            1+\sum_{n\in A}2^{-n}& \text{ if } \mathbb{N}\setminus A\text{是有限集}
+          \end{cases}$\\
+        $f:\mathcal{P}(\mathbb{N})\rightarrow \mathbb{R}$是单射(?)，故$card(\mathcal{P}(\mathbb{N}))\leq card(\mathbb{R})$\\
+        定义$g:\mathcal{P}(\mathbb{Z})\rightarrow \mathbb{R},\ g(A)=\begin{cases}
+            log(\sum_{n\in A}2^{-n})& \text{ if } A\text{有下界} \\
+            0& \text{ if } A\text{无下界}
+          \end{cases}$\\
+        $card(\mathcal{P}(\mathbb{N}))=card(\mathcal{P}(\mathbb{Z}))\geq card(\mathbb{R})$\\
+        综上，$card(\mathcal{P}(\mathbb{N}))=\mathcal{C}$
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    若$card(X)\geq\mathcal{C}$，则$X$是不可数的
+    \begin{proof}
+        若$X$可数，$\mathcal{C}=card(\mathcal{P}(\mathbb{N}))>card(\mathbb{N})\geq card(X)\geq \mathcal{C}$，矛盾
+    \end{proof}
+\end{corollary}
+\begin{example}
+    连续统假设：$card(X)<\mathcal{C}$则$X$是可数的
+\end{example}
+\begin{proposition}
+    a.$card(X)\leq\mathcal{C},\ card(Y)\leq\mathcal{C}$，则$card(X\times Y)\leq\mathcal{C}$\\
+    b.$card(A)\leq\mathcal{C},card(X_{\alpha})\leq\mathcal{C}\Rightarrow card(\bigcup_{\alpha\in A}X_{\alpha})\leq\mathcal{C}$
+    \begin{proof}
+        a.$\exists f:X\rightarrow \mathcal{P}(\mathbb{N}),\ g:Y\rightarrow \mathcal{P}(\mathbb{N})$为单射\\
+        $f\times g:X\times Y\rightarrow (\mathcal{P}(\mathbb{N}))^2,\ (f\times g)(x,y)=(f(x),g(y))$为单射\\
+        于是$card(X\times Y)\leq card((\mathcal{P}(\mathbb{N}))^2)$\\
+        现在证明$card((\mathcal{P}(\mathbb{N}))^2)=card(\mathcal{P}(\mathbb{N})):$\\
+        定义$\phi,\psi :\mathbb{N}\rightarrow\mathbb{N}$\\
+        $\phi(n)=2n,\ \psi(n)=2n-1$\\
+        定义$f:(\mathcal{P}(\mathbb{N}))^2\rightarrow \mathcal{P}(\mathbb{N}),\ f(A,B)=\phi(A)\cup\psi(B)$\\
+        则$f$为双射\\
+        综上$card(X\times Y)\leq card((\mathcal{P}(\mathbb{N}))^2)=\mathcal{C}$\\[0.5cm]
+        b.$\forall\alpha\in A,\ \exists f_{\alpha}:\mathcal{P}(\mathbb{N})\rightarrow X_{\alpha}$为满射\\
+        定义$f:A\times\mathcal{P}(\mathbb{N})\rightarrow \bigcup_{\alpha\in A}X_{\alpha},\ f(\alpha,E)=f_{\alpha}(E)$为满射\\
+        故$card(\bigcup_{\alpha\in A}X_{\alpha})\leq card(A\times\mathcal{P}(N))\leq\mathcal{C}$
+    \end{proof}
+\end{proposition}
+
+\chapter{测度}
+
+\section{$\sigma$-代数}
+\begin{lemma}
+    不存在满足以下条件的函数$\mu:\mathcal{P}(\mathbb{R}^n)\rightarrow \mathbb{R}^{+}\cup\left\{0\right\}:$\\
+    $1.\left\{E_k\right\}_{k=1}^{\infty}$为$\mathbb{R}^n$的一族不交子集，则$\mu(\bigcup_{k\in\mathbb{N}}E_k)=\sum_{k\in\mathbb{N}}\mu(E_k)$\\
+    $2.E$和$F$在一个正交变换和平移变换下相同，则$\mu(E)=\mu(F)$\\
+    $3.\mu(Q)=1$，其中$Q=\left\{x\in\mathbb{R}^n:0\leq x_j <1,j=1,\dots,n\right\}$
+    \begin{proof}
+        仅考虑$n=1$的情形\\
+        首先定义$[0,1)$上的的等价关系：$x\sim y$ 若 $x-y\in\mathbb{Q}$令$\left\{X_{\alpha}\right\}_{\alpha\in A}$为\\
+        $[0,1)$上的等价类之集，由选择公理，$\exists\ f\in\prod_{\alpha\in A}X_{\alpha}$，令$N=f(A)$，\\
+        于是$N$恰好包含每个等价类中的一个元素\\
+        令$R=\mathbb{N}\cap [0,1)$为一可数集，对每个$r\in R$，定义\\
+        $N_{r}=\left\{x+r:x\in N\cap [0,1-r)\right\}\cup\left\{x+r-1:x\in N\cap [1-r,1)\right\}$\\
+        于是$[0,1)=\bigcup_{r\in R}N_r$\\
+        右端包含于左端是明显的，下面证明左端包含于右端\\
+        $\forall x\in[0,1)$，令$y\in N,y\sim x$\\
+        $x\geq y$时，$x\in N_{x-y}$\\
+        $x<y$时，$x\in N_{1+x-y}$\\
+        总之，有$x\in\bigcup_{r\in R}N_r$ 即 $[0,1)\subset \bigcup_{r\in R}N_r$\\
+        现在我们证明$:r\neq s\Rightarrow N_r\cap N_s=\phi$\\
+        若$\exists x\in N_r\cap N_s,$设$y\in N,y\sim x$\\
+        则$y+r=x$，或$y+r-1=x$\\
+        同理$y+s=x$，或$y+s-1=x$\\
+        由$y$的唯一性知：$\left\{\begin{matrix}
+            y+r=x\\
+           y+s-1=x
+           \end{matrix}\right.$
+        或$\left\{\begin{matrix}
+            y+s=x\\
+           y+r-1=x
+           \end{matrix}\right.$\\
+        即$1=s-r$或$1=r-s$，这又与$r,s\in N\cap [0,1)$矛盾\\
+        综上$N_r\cap N_s=\phi$\\
+        设$\mu$为满足性质$1.2.3.$的一个函数，则：\\
+        $\mu(N)=\mu(N\cap [0,1-r))+\mu(N\cap [1-r,1))=\mu(N_r)$\\
+        $\mu([0,1))=\sum_{r\in R}\mu(N_r)=\sum_{r\in R}\mu(N)$\\
+        若$\mu(N)=0$，则$\mu([0,1))=0$\\
+        若$\mu(N)>0$，则$\mu([0,1))=\infty$\\
+        两者均与性质3.矛盾
+    \end{proof}
+\end{lemma}
+为了定义集合上的测度，并且仍然拥有良好的性质$(1.2.3.)$，我们只能缩小测度函数的定义域\\
+方便起见，以下$X$均为一非空集合
+\begin{definition}
+    称$\mathcal{A}\subset\mathcal{P}(X)$为$X$上的代数，若其满足以下性质：\\
+    1. $\mathcal{A}\neq\phi$\\
+    2. $\forall n\in\mathbb{N},\ \left\{E_k\right\}_{k=1}^n\subset\mathcal{A}\Rightarrow \bigcup_{k=1}^{n}E_k\in\mathcal{A}$\\
+    3. $E\in\mathcal{A}\Rightarrow E^c\in\mathcal{A}$\\
+    称$\mathcal{A}$为$\sigma$-代数，若性质1.中的集族可以是可数无穷的
+\end{definition}
+\begin{corollary}
+    设$\mathcal{A}$为一个代数$(\sigma\text{-代数})$，则$\mathcal{A}$关于有限$($可数$)$交封闭
+    \begin{proof}
+        注意到$\bigcap_{\alpha\in \Lambda }E_{\alpha}=(\bigcup_{\alpha\in\Lambda}E_{\alpha}^c)^c$，其中$\Lambda$为有限或可数指标集
+    \end{proof}
+\end{corollary}
+\begin{corollary}
+    设$\mathcal{A}$为$X$上的一个代数$(\sigma\text{-代数})$，则$\phi,X\in\mathcal{A}$
+    \begin{proof}
+        注意到$\phi=E\cap E^c\in\mathcal{A}$，对$E\in\mathcal{A}$成立，$X=\phi^c\in\mathcal{A}$
+    \end{proof}
+\end{corollary}
+\begin{corollary}
+    设$\mathcal{A}$为$X$上的一个代数，若其对可数不交并封闭，则$\mathcal{A}$也是$\sigma$-代数
+    \begin{proof}
+        设$\left\{E_n\right\}_{n\in\mathbb{N}}\subset\mathcal{A}$，往证 $\bigcup_{n\in\mathbb{N}}E_n\in\mathcal{A}$\\
+        令$F_n=E_n\setminus[\bigcup_{k=1}^{n-1}E_k]=E_n\cap\bigcap_{k=1}^{n-1}E_k^c\in\mathcal{A}$\\
+        $F_i\cap F_j=\phi$\\
+        故$\bigcup_{n\in\mathbb{N}}E_n=\bigcup_{n\in\mathbb{N}}F_n\in\mathcal{A}$
+    \end{proof}
+\end{corollary}
+\begin{example}
+    1. $\left\{\phi,X\right\}$为$\sigma$-代数\\
+    2. $\mathcal{P}(X)$为$\sigma$-代数\\
+    3. $\left\{E\in\mathcal{P}(X):E\text{为可数集或}E^c\text{为可数集}\right\}$为$\sigma$-代数\\
+    只证明3.
+    \begin{proof}
+        $\phi\in\mathcal{A}$，故$\mathcal{A}\neq\phi$\\
+        设$\left\{E_n\right\}_{n\in\mathbb{N}}\subset\mathcal{A},\ \bigcup_{n\in\mathbb{N}}E_n=(\bigcup_{E_i\text{可数}}E_i)\bigcup(\bigcup_{E_j\text{不可数}}E_j)$\\
+        其中$\bigcup_{E_i\text{可数}}E_i$可数，故$\in\mathcal{A}$\\
+        $\bigcup_{E_j\text{不可数}}E_j=(\bigcap_{E_j\text{不可数}}E_j^c)^c\in\mathcal{A}$\\
+        综上，$\bigcup_{n\in\mathbb{N}}E_n\in\mathcal{A}$\\
+        $E\in\mathcal{A}\Rightarrow E^c\in\mathcal{A}$由$\mathcal{A}$的定义是明显的
+    \end{proof}
+\end{example}
+\begin{corollary}
+    $\left\{\mathcal{A}_A\right\}_{\alpha\in\Lambda}$为$X$的任意族$\sigma$-代数，则$\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$也是$X$上的$\sigma$-代数
+    \begin{proof}
+        1. $\phi\in\mathcal{A}_{\alpha}\Rightarrow\phi\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$，故$\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}\neq\phi$\\
+        2. 设$\left\{E_n\right\}_{n\in\mathbb{N}}\subset\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$，则$\forall \alpha\in A,\ \left\{E_n\right\}_{n\in \mathbb{N}}\subset\mathcal{A}_{\alpha}$\\
+        于是$\bigcup_{n\in\mathbb{N}}E_n\in\mathcal{A}_{\alpha},\forall\alpha\in A$，从而$\bigcup_{n\in\mathbb{N}}E_n\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$\\
+        3. $E\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}\Rightarrow\forall\alpha\in A,\ E\in\mathcal{A}_{\alpha}\Rightarrow\forall\alpha\in A,E^c\in\mathcal{A}_{\alpha}\\
+        \Rightarrow E^c\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$
+    \end{proof}
+\end{corollary}
+\begin{definition}
+    设$\varepsilon\subset\mathcal{P}(X)$我们定义$\varepsilon$生成的$\sigma$-代数$\mathcal{M}(\varepsilon)$：\\
+    $\mathcal{M}(\varepsilon)=\bigcap_{\mathcal{A}\supset\varepsilon\text{为$\sigma$-代数}}\mathcal{A}$\\
+    由于这样的$\sigma$-代数至少有一个$\mathcal{P}(X)$，故该定义是良定义的
+\end{definition}
+\begin{lemma}
+    $\varepsilon\subset\mathcal{M}(\mathcal{F})\Rightarrow\mathcal{M}(\varepsilon)\subset\mathcal{M}(\mathcal{F})$
+    \begin{proof}
+        $\mathcal{M}(\varepsilon)=\bigcap_{\mathcal{A}\supset\varepsilon\text{为$\sigma$-代数}}\mathcal{A}$，而$\mathcal{M}(\mathcal{F})$为包含$\varepsilon$的$\sigma$-代数，由定义，\\
+        $\mathcal{M}(\varepsilon)\subset\mathcal{M}(\mathcal{F})$
+    \end{proof}
+\end{lemma}
+\begin{definition}
+    设$X$为一拓扑空间，$\varepsilon$为其开集族，则$\mathcal{M}(\varepsilon)$称为$X$上的Borel $\sigma$-代数，
+    记作$\mathcal{B}_X$，其中的元素也称为Borel 集\\
+    Borel 集中因此包含：所有开集，所有闭集，开集的可数交，闭集的可数并\\
+    其中开集的可数交称为$G_{\delta}$集\\
+    闭集的可数并称为$F_{\sigma}$集\\
+    $G_{\delta}$集的可数并称为$G_{\delta\sigma}$集\\
+    $F_{\sigma}$集的可数交称为$F_{\sigma\delta}$集
+\end{definition}
+\begin{lemma}
+    $\mathbb{R}$上的非空开集可以写成可数个开区间的不交并
+    \begin{proof}
+        设$U$为$\mathbb{R}$上的非空开集，\\
+        $x\in U,\ \mathcal{J}_x:=\left\{I\subset U:\text{为包含$x$的开区间}\right\},J_x:=\bigcup_{I\in\mathcal{J}_x}I$\\
+        容易验证$J_x$为包含$x$的最大的开区间，于是$x\neq y\Rightarrow J_x\cap J_y=\phi$或$J_x=J_y$\\
+        $\mathcal{J}:=\left\{J_x:x\in U\right\}$对每个$J\in\mathcal{J}$，选取$f(J)\in\mathbb{Q}$\\
+        于是$f:\mathcal{J}\rightarrow\mathbb{Q}$为单射 ($\mathcal{J}$中的开区间是不交的)\\
+        从而$U=\bigcup_{x\in U}J_x=\bigcup_{J\in\mathcal{J}}J$为可数个开区间的不交并
+    \end{proof}
+\end{lemma}
+\begin{proposition}
+    $\mathcal{B}_{\mathbb{R}}$可由以下集族生成：\\
+    a.所有开区间$\varepsilon_1=\left\{(a,b):a<b\right\}$\\
+    b.所有闭区间$\varepsilon_2=\left\{[a,b]:a<b\right\}$\\
+    c.所有半开半闭区间$\varepsilon_3=\left\{(a,b]:a<b\right\}$或$\varepsilon_4=\left\{[a,b):a<b\right\}$\\
+    d.$\varepsilon_5=\left\{(a,+\infty):a\in\mathbb{R}\right\},\varepsilon_6=\left\{(-\infty,a):a\in\mathbb{R}\right\}$\\
+    e.$\varepsilon_7=\left\{[a,+\infty):a\in\mathbb{R}\right\},\varepsilon_8=\left\{(-\infty,a]:a\in\mathbb{R}\right\}$
+    \begin{proof}
+        除$j=3,4$外，$\varepsilon_j$均为$\mathbb{R}$中的开(闭)区间，而$(a,b]=\bigcap_1^{\infty}(a,b+\frac{1}{n})$为$G_{\delta}$\\
+        集，同理$(a,b]$，由Lemma 2.1.9，$\mathcal{M}(\varepsilon_j)\subset\mathcal{B}_{\mathbb{R}}$\\
+        另一方面，由Lemma 2.1.11，所有开集均能写成开区间的可数并，故$\mathcal{B}_{\mathbb{R}}\subset\mathcal{M}(\varepsilon_1)$\\
+        于是$\mathcal{M}(\varepsilon_1)=\mathcal{B}_{\mathbb{R}}$\\
+        接下来证明$\mathcal{M}(\varepsilon_1)\subset\mathcal{M}(\varepsilon_j),j>1$\\
+        $(a,b)=\bigcup_{1}^{\infty}[a+\frac{1}{n},b-\frac{1}{n}]$\\
+        $=\bigcup_1^{\infty}(a,b-\frac{1}{n}]$\\
+        $=\bigcup_1^{\infty}[a+\frac{1}{n},b)$\\
+        $=(a,+\infty)\cap(\bigcup_{1}^{\infty}(b-\frac{1}{n},+\infty)^c)$\\
+        $=(-\infty,b)\cap(\bigcup_1^{\infty}(-\infty,a-\frac{1}{n})^c)$\\
+        $=[b,+\infty)^c\cap(\bigcup_1^{\infty}[a+\frac{1}{n},+\infty))$\\
+        $=(-\infty,a]^c\cap(\bigcup_1^{\infty}(-\infty,b-\frac{1}{n}])$\\
+        故$\varepsilon_1\subset\mathcal{M}(\varepsilon_j),j>1$\\
+        由Lemma 2.1.9，$\mathcal{M}(\varepsilon_1)\subset\mathcal{M}(\varepsilon_j),j>1$
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    设$\left\{X_{\alpha}\right\}_{\alpha\in A}$为一族非空集，由选择公理知$X=\prod_{\alpha\in A}X_{\alpha}$非空\\
+    设$\pi_{\alpha}:X\rightarrow X_{\alpha}$为投影映射，即$\pi_{\alpha}(f)=f(\alpha)$\\
+    设$\mathcal{M}_{\alpha}$为$X_{\alpha}$上的$\sigma$-代数，我们定义$X$上的乘积$\sigma$-代数为：\\
+    $\mathcal{M}(\left\{\pi^{-1}_{\alpha}(E_{\alpha}):E_{\alpha}\in\mathcal{M}_{\alpha},\alpha\in A\right\})$\\
+    记作$\otimes _{\alpha\in A}\mathcal{M}_{\alpha}$，若$A=\left\{1,2,\dots,n\right\}$，也记作$\otimes _{1}^{n}\mathcal{M}_j$或$\mathcal{M}_1\otimes\dots\otimes\mathcal{M}_n$
+\end{definition}
+\begin{proposition}
+    若$A$可数，则$\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$可由$\left\{\prod_{\alpha\in A}E_{\alpha}:E_{\alpha}\in\mathcal{M}_{\alpha}\right\}$生成
+    \begin{proof}
+        记$\varepsilon=\left\{\prod_{\alpha\in A}E_{\alpha}:E_{\alpha}\in\mathcal{M}_{\alpha}\right\}$\\
+        首先$f\in\prod_{\alpha\in A}E_{\alpha}\Leftrightarrow\forall\alpha\in A,f(\alpha)\in E_{\alpha}$\\
+        $\Leftrightarrow\forall\alpha\in A,\pi_{\alpha}(f)=f(\alpha)\in E_{\alpha}$\\
+        $\Leftrightarrow\forall\alpha\in A,f\in\pi_{\alpha}^{-1}(E_{\alpha})$\\
+        $\Leftrightarrow f\in\bigcap_{\alpha\in A}\pi_{\alpha}^{-1}(E_{\alpha})$\\
+        即$\prod_{\alpha\in A}E_{\alpha}=\bigcap_{\alpha\in A}\pi_{\alpha}^{-1}(E_{\alpha})$\\
+        由$A$为可数集，知$\prod_{\alpha\in A}E_{\alpha}\in\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$\\
+        由Lemma 2.1.9 $\mathcal{M}(\varepsilon)\subset\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$\\
+        另一方面$f\in\pi_{\alpha}^{-1}(E_{\alpha})\Leftrightarrow f(\alpha)=\pi_{\alpha}(f)\in E_{\alpha}$\\
+        $\Leftrightarrow f\in\prod_{\beta\in A}F_{\beta}$，其中$F_{\alpha}=E_{\alpha},\beta\neq\text{时},F_{\beta}=X_{\beta}\in\mathcal{M}_{\beta}$\\
+        即$\pi_{\alpha}^{-1}(E_{\alpha})\in\varepsilon$\\
+        $\otimes_{\alpha\in A}\mathcal{M}_{\alpha}\subset\mathcal{M}(\varepsilon)$\\
+        综上，$\otimes_{\alpha\in A}\mathcal{M}_{\alpha}=\mathcal{M}(\varepsilon)$
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    设$\mathcal{M}_{\alpha}$由$\varepsilon_{\alpha}$生成，则$\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$可由$\mathcal{F}$生成，其中\\
+    $\mathcal{F}=\left\{\pi_{\alpha}^{-1}(E_{\alpha}):E_{\alpha}\in\varepsilon_{\alpha},\alpha\in A\right\}$
+    \begin{proof}
+        由命题 2.1.14. $\pi_{\alpha}^{-1}(E_{\alpha})=\prod_{\beta\in A}F_{\beta}$，其中$\beta=\alpha$时$F_{\beta}=E_{\alpha}$\\
+        $\beta\neq\alpha$时，$F_{\beta}=X_{\beta}$，于是$\mathcal{M}(\mathcal{F})\subset\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$\\
+        对每个$\alpha\in A,\left\{E\subset X_{\alpha}:\pi_{\alpha}^{-1}(E)\in\mathcal{M}(\mathcal{F})\right\}$是包含$\varepsilon_{\alpha}$的$\sigma$-代数，从而也包含$\mathcal{M}_{\alpha}$
+        于是$E\subset\mathcal{M}_{\alpha}\subset\left\{E\subset X_{\alpha}:\pi_{\alpha}^{-1}(E)\in\mathcal{M}(\mathcal{F})\right\}\Rightarrow\pi_{\alpha}^{-1}(E)\in\mathcal{M}(\mathcal{F})$\\
+        即$\left\{\pi_{\alpha}^{-1}(E_{\alpha}):E_{\alpha}\in\mathcal{M}_{\alpha},\alpha\in A\right\}\subset\mathcal{M}(\mathcal{F})$\\
+        $\otimes_{\alpha\in A}\mathcal{M}_{\alpha}=\mathcal{M}(\mathcal{F})$
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    令$X_1,X_2,\dots X_n$为度量空间，$X=\prod_1^n X_j$\\
+    那么$\otimes_1^n\mathcal{B}_{X_j}\subset\mathcal{B}_X$\\
+    若$X_j$还是可分的$($有一个可数的稠密子集$)$，则$\otimes_1^n\mathcal{B}_{X_j}=\mathcal{B}_X$
+    \begin{proof}
+        首先由命题 2.1.15 知$\otimes_1^n\mathcal{B}_{X_j}$可由$\pi_{j}^{-1}(U_j)$生成，其中$U_j$为$\mathcal{B}_j$中的开集\\
+        而$\pi_j^{-1}(U_j)$也是$X$中的开集，故$\otimes_1^n\mathcal{B}_{X_j}\subset\mathcal{B}_{X}$\\
+        设$C_j$为$X_j$的一个可数稠密子集，即$\overline{C_j}=X_j$\\
+        令$\varepsilon_j$为所有以$C_j$中点为球心，正有理数为半径的开球的集合，$\varepsilon_j$仍为可数集\\
+        设$U_j$为$X_j$上的开集，\\
+        $\forall x\in U_j,\ x\in\overline{C_j},\exists y\in C,\varepsilon_j\ni E_x=B(y,r_x)\ni x,E_x\subset U_j$\\
+        于是$U_j=\bigcup_{x\in U_j,E_x\in\varepsilon_j}E_x$为可数并，于是$\mathcal{B}_{X_j}$可由$\varepsilon_j$生成\\
+        设$U$为$X$中的开集，同上讨论，$U$可以表示为可数个$\prod_1^nE_j$的并，\\
+        其中$E_j\in\varepsilon_j$\\
+        $\prod_1^nE_j=\bigcap_1^n\pi_j^{-1}(E_j)\in\mathcal{M}(\left\{\pi_j^{-1}(E_j):E_j\in\varepsilon_j,j=1,\dots,n\right\})$\\
+        由命题 2.1.15知$U\in\otimes_1^n\mathcal{B}_{X_j}$从而$\mathcal{B}_{X}=\otimes_1^n\mathcal{B}_{X_j}$
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    $\mathcal{B}_{\mathbb{R}^n}=\otimes_1^n\mathcal{B}_{\mathbb{R}}$
+\end{corollary}
+\begin{definition}
+    $\varepsilon\subset\mathcal{P}(X)$称为 elementary family，若：\\
+    1. $\phi\in\varepsilon$\\
+    2. $E,F\in\varepsilon\Rightarrow E\cap F\in\varepsilon$\\
+    3. $E\in\varepsilon\Rightarrow E^c$可以表示成$\varepsilon$中有限个元素的不交并
+\end{definition}
+\begin{proposition}
+    设$\varepsilon$是 elementary family,其中有限元素的不交并之集$\mathcal{A}$构成代数
+    \begin{proof}
+        设$A,B\in\varepsilon,B^c=\bigcup_1^JC_j$，其中$C_j$不交，$A\setminus B=\bigcup_1^J(A\cap C_j)$\\
+        为$\varepsilon$中元素的不交并，$A\cup B=B\cup (A\setminus B)$这些集合是不交的，\\
+        故$A\cup B\in\mathcal{A}$现假设$\mathcal{A}$中元素对$n-1$次并集封闭，则$\bigcup_1^n A_j=A_n\cup(\bigcup_1^mB_j)$\\
+        $=A_n\cup(\bigcup_1^mB_j\setminus A_n)$，为不交并，其中$\bigcup_1^{n-1}A_j=\bigcup_1^mB_j$为$\varepsilon$中的不交并\\
+        设$A_n^c=\bigcup_1^JC_j$为$\varepsilon$中的不交并，则$B_j\setminus A_n=B_j\cap(\bigcup_1^JC_j)=\bigcup_1^J(B_j\cap C_j)\in\mathcal{A}$
+        ，即$\mathcal{A}$对有限并封闭，下面证明$\mathcal{A}$对补集封闭\\
+        设$\left\{A_j\right\}_1^n\subset \varepsilon$为不交的，$A_m^c=\bigcup_{j=1}^{J_m}B_m^j$为$\varepsilon$中的不交并\\
+        则$(\bigcup_1^nA_m)^c=\bigcap_{m=1}^n(\bigcup_{j=1}^{J_m}B_m^j)=\bigcup\left\{B_1^{j_1}\cap\dots\cap B_n^{j_n}:1\leq j_m\leq J_m,1\leq m\leq n\right\}$\\
+        是不交的
+    \end{proof}
+\end{proposition}
+
+\section{测度}
+
+\begin{definition}
+    设$X$为一个配备$\sigma$-代数$\mathcal{M}$的集合，$\mathcal{M}$上的测度是$\mathcal{M}\rightarrow[0,+\infty]$的满足以下性质的函数：\\
+    1. $\mu(\phi)=0$;\\
+    2. 若$\left\{E_j\right\}_1^{\infty}\subset\mathcal{M}$为不交的集和，那么$\mu(\bigcup_1^{\infty}E_j)=\sum_{1}^{\infty}\mu(E_j)$\\
+    $(X,\mathcal{M})$称为可测空间，$\mathcal{M}$中的集合称为可测集\\
+    若$\mu$是$(X,\mathcal{M})$上的测度，$(X,\mathcal{M},\mu)$称为测度空间
+\end{definition}
+    设$(X,\mathcal{M},\mu)$为测度空间，\\
+    若$\mu(X)<+\infty(\Leftrightarrow\mu(E)<+\infty,\forall E\in\mathcal{M})$则称$\mu$为有限的，\\
+    若$X=\bigcup_1^{\infty}E_j$其中$E_j\in\mathcal{M}$且$\mu(E_j)<+\infty$则称$\mu$是$\sigma$-有限的，\\
+    若$E=\bigcup_1^{\infty}E_j$其中$E_j\in\mathcal{M}$且$\mu(E_j)<+\infty$则称$E$是关于$\mu\ \sigma$-有限的\\
+    若对于每个$E$，$\mu(E)=+\infty\Rightarrow\exists F\in\mathcal{M},F\subset E$，且$0<\mu(F)<+\infty$\\
+    则称$\mu$是semifinite
+\begin{example}
+    设$X$为一非空集合，$\mathcal{M}=\mathcal{P}(X)$，$f$为任意$X\rightarrow[0,+\infty]$的函数，
+    则$f$可以诱导一个测度：$\mu(E)=\sum_{x\in E}f(x)$\\
+    其中$\sum_{x\in E}f(x):=\sup\left\{\sum_{x\in F}f(x):F\subset E,F\text{为有限集}\right\}$\\
+    $\mu$为semifinite的当且仅当$f(x)<+\infty,\forall x\in X$\\
+    $\mu$为$\sigma$-有限的当且仅当$\mu$为semifinite并且$\left\{x:f(x)>0\right\}$是可数集\\
+    若$f(x)\equiv 1$，$\mu$称为计数测度\\
+    对某个$x_0\in X$，$f(x_0)=1,\forall x\neq x_0,f(x)=0$则$\mu$称为point mass或Dirac measure at $x_0$
+\end{example}
+\begin{example}
+    设$X$为一不可数集，$\mathcal{M}$为其可数或补集可数的子集构成的$\sigma$-代数，
+    则$\mu$定义为：$\mu(E)=\begin{cases}
+        0& \text{ if } E\text{为可数集} \\
+        1& \text{ if } E^c\text{为可数集}
+      \end{cases}$是$(X,\mathcal{M})$上的测度
+\end{example}
+\begin{example}
+    令$X$为一无穷集，$\mathcal{M}=\mathcal{P}(X)$定义$\mu(E)=\begin{cases}
+        0& \text{ if } E\text{为有限集} \\
+        +\infty& \text{ if } E\text{为无穷集}
+      \end{cases}$\\
+      则$\mu$为有限可加的，但不是测度
+\end{example}
+\begin{theorem}
+    令$(X,\mathcal{M},\mu)$为一测度空间\\
+    a.(Monotonicity) $E,F\in\mathcal{M},E\subset F\Rightarrow\mu(E)\leq\mu(F)$\\
+    b.(Subadditivity) $\left\{E_j\right\}_1^{\infty}\subset\mathcal{M}\Rightarrow\mu(\bigcup_1^{\infty}E_j)\leq\sum_1^{\infty}\mu(E_j)$\\
+    c.(Continuity from below) $\left\{E_j\right\}_1^{\infty}\subset\mathcal{M},E_1\subset E_2\subset\dots\\
+    \Rightarrow\mu(\bigcup_1^{\infty}E_j)=\lim_{j \to \infty}\mu(E_j) $\\
+    d.(Continuity from above) $\left\{E_j\right\}_1^{\infty}\subset\mathcal{M},E_1\supset E_2\supset\dots$且$\mu(E_1)<\infty$\\
+    则$\mu(\bigcap_1^{\infty}E_j)=\lim_{j \to \infty}\mu(E_j)$
+    \begin{proof}
+        a. $\mu(F)=\mu(E)+\mu(F\setminus E)\geq\mu(E)$\\
+        b. 令$F_1=E_1,k>1,F_k=E_k\setminus(\bigcup_1^{k-1}E_j),\\
+        \bigcup_1^{\infty}F_k=\bigcup_1^{\infty}E_k$且$F_k\in\mathcal{M}$是不交的\\
+        $F_k\subset E_k$，由a.知$\mu(F_k)\leq\mu(E_k)$\\
+        $\mu(\bigcup_1^{\infty}E_k)=\mu(\bigcup_1^{\infty}F_k)=\sum_1^{\infty}\mu(F_k)\leq\sum_1^{\infty}\mu(E_k)$\\
+        c. $\mu(\bigcup_1^{\infty}E_k)=\mu(\bigcup_1^{\infty}(E_k\setminus E_{k-1}))$其中$E_0=\phi$\\
+        $=\sum_1^{\infty}\mu(E_k\setminus E_{k-1})=\lim_{n \to \infty}\sum_1^n\mu(E_k\setminus E_{k-1})=\lim_{n \to \infty}\mu(E_n)$\\
+        d. 令$F_k=E_1\setminus E_k$则$F_1\subset F_2\subset\dots$，\\
+        $\bigcap_1^{\infty}E_k=\bigcap_1^{\infty}(E_1\setminus F_k)=E_1\setminus\bigcup_1^{\infty}F_k$\\
+        于是$\mu(E_1)=\mu(\bigcup_1^{\infty}F_k)+\mu(\bigcap_1^{\infty}E_k)$\\
+        $=\lim_{n \to \infty}\mu(F_n)+\mu(\bigcap_1^{\infty}E_k)$\\
+        $=\mu(E_1)-\lim_{n \to \infty}\mu(E_n)+\mu(\bigcap_1^{\infty}E_k)$\\
+        其中$\mu(E_1)<+\infty$，故$\mu(\bigcap_1^{\infty}E_k)=\lim_{n \to \infty}\mu(E_n)$
+    \end{proof}
+    注意d.中$\mu(E_1)<+\infty$可以改为对某个$j$成立$\mu(E_j)<+\infty$
+\end{theorem}
+设$(X,\mathcal{M},\mu)$为一测度空间，$E\in\mathcal{M}$满足$\mu(E)=0$，则称$E$为零测集，由
+subadditivity，零测集的任意可数并为零测集，若一个关于$x$的命题在一个零测集外成立，则称其
+几乎处处成立(a.e.),更具体的，称为$\mu$-零测集或$\mu$-几乎处处\\
+测度$\mu$称为完全的，若其定义域包含所有零测集的子集
+\begin{theorem}
+    设$(X,\mathcal{M},\mu)$为一测度空间，令$\mathcal{N}=\left\{N\in\mathcal{M}:\mu(N)=0\right\},\overline{\mathcal{M}}$
+    $=\left\{E\cup F:E\in\mathcal{M},F\subset N,\text{对某个}N\in\mathcal{N}\right\}$那么$\overline{\mathcal{M}}$是$\sigma$-代数，并且存在唯一的
+    $\overline{\mu}$是$\mu$在$\overline{\mathcal{M}}$上的扩张，并且$\overline{\mu}$是完全的
+    \begin{proof}
+        首先证明$\overline{\mathcal{M}}$是$\sigma$-代数：\\
+        由于$\mathcal{M}$和$\mathcal{N}$均对可数并封闭，故$\overline{\mathcal{M}}$也对可数并封闭\\
+        对于$E\in\mathcal{M}$，$F\subset N\in\mathcal{N}$，$E\cup F\in\overline{M}$，不妨设$E\cap N=\phi$，否则可用$F\setminus E,N\setminus E$
+        代替$F,N$，于是$(E\cup N)\cap(N^c\cup F)=(E\cap N^c)\cup(E\cap F)\cup(N\cap N^c)\cup(N\cap F)$
+        $=E\cup(E\cap F)\cup\phi\cup F=E\cup F$\\
+        故$(E\cup F)^c=(E\cup N)^c\cup(N\setminus F)$其中$(E\cup F)^c\in\mathcal{M}$，$N\setminus F\subset N$\\
+        故$(E\cup F)^c\in\overline{\mathcal{M}}$，从而$\overline{\mathcal{M}}$是$\sigma$-代数\\
+        对于$E\cup F\in\overline{\mathcal{M}}$，定义$\overline{\mu}(E\cup F)=\mu(E)$\\
+        现在验证该定义是良定的：\\
+        $E_1\cup F_1=E_2\cup F_2\Rightarrow E_1\subset E_2\cup F_2\subset E_2\cup N_2$\\
+        于是$\mu(E_1)\leq\mu(E_2)+\mu(N_2)=\mu(E_2)$\\
+        同理$\mu(E_2)\leq\mu(E_1)$\\
+        即$\overline{\mu}(E_1\cup F_1)=\overline{\mu}(E_2\cup F_2)$\\
+        现在验证$\overline{\mu}$是测度：\\
+        1. $\overline{\mu}(\phi)=\overline{\mu}(\phi\cup\phi)=\mu(\phi)=0$\\
+        2. 设$\left\{E_j\cup F_j\right\}_1^{\infty}$为不交的集列，其中$E_j\in\mathcal{M},F_j\subset N_j\in\mathcal{N}$\\
+        容易验证$E_j$是不交的，$\bigcup_1^{\infty}F_j\subset\bigcup_1^{\infty}N_j\in\mathcal{N}$\\
+        于是$\overline{\mu}(\bigcup_1^{\infty}(E_j\cup F_j))=\overline{\mu}((\bigcup_1^{\infty}E_j)\bigcup(\bigcup_1^{\infty}F_j))=\mu(\bigcup_1^{\infty}E_j)=$\\
+        $\sum_1^{\infty}\mu(E_j)=\sum_1^{\infty}\overline{\mu}(E_j\cup F_j)$\\
+        下面验证该测度是完全的：\\
+        设$E\in\mathcal{M},F\subset N\in\mathcal{N}$\\
+        $\overline{\mu}(E\cup F)=0\Rightarrow\mu(E)=0\Rightarrow E\in\mathcal{N}$ 于是$E\in\mathcal{N},N\cup E\in\mathcal{N}$\\
+        $\forall U\subset E\cup F,U=\phi\cup U$，其中$U\subset E\cup F\subset E\cup N\in\mathcal{N}$\\
+        即$U\in\overline{\mathcal{M}}$\\
+        现在验证这样的扩张是唯一的：\\
+        设$\widetilde{\mu}$是另一个扩张，则其在$\mathcal{M}$上的限制应与$\mu$相同\\
+        即$\forall E\in\mathcal{M},\widetilde{\mu}(E)=\mu(E)$\\
+        于是对于$E\cup F\in\overline{\mathcal{M}}$，其中$E\in\mathcal{M},F\subset N\in\mathcal{N}$\\
+        $\widetilde{\mu}(E\cup F)\leq\widetilde{\mu}(E)+\widetilde{\mu}(F)\leq\widetilde{\mu}(E)+\widetilde{\mu}(N)=\mu(E)+\mu(N)=\mu(E)=\overline{\mu}(E\cup F)$
+        $\overline{\mu}(E\cup F)=\mu(E)=\widetilde{\mu}(E)\leq\widetilde{\mu}(E\cup F)$\\
+        即$\overline{\mu}=\widetilde{\mu}$
+    \end{proof}
+\end{theorem}
+
+\section{外测度}
+这一节建立了用来构造测度的工具
+\begin{definition}
+    非空集合$X$上的外测度是函数$\mu^*:\mathcal{P}(X)\rightarrow [0,+\infty]$，并且满足以下条件：\\
+    1. $\mu^*(\phi)=0$\\
+    2. $A\subset B\Rightarrow \mu^*(A)\leq \mu^*(B)$\\
+    3. $\mu^*(\bigcup_1^{\infty}A_j)\leq \sum_1^{\infty}\mu^*(A_j)$
+\end{definition}
+\begin{proposition}
+    设$\varepsilon\subset\mathcal{P}(X),\rho:\varepsilon\rightarrow [0,+\infty]$满足：$\phi\in\varepsilon,X\in\varepsilon,\rho(\phi)=0$\\
+    对任意$A\in\mathcal{P}(X)$，定义：\\
+    $\mu^*(A)=\inf\left\{\sum_1^{\infty}\rho(E_j):E_j\in\varepsilon,A\subset\bigcup_1^{\infty}E_j\right\}$\\
+    则$\mu^*$是一个外测度
+    \begin{proof}
+        首先，由于$X\in\varepsilon$，故$\forall A\in\mathcal{P}(X),A\subset X$，该定义是良定义的\\
+        1. $\phi\in\varepsilon,\mu^*(\phi)=\rho(\phi)=0$\\
+        2. $A\subset B$，$\forall\left\{E_j\right\}_1^{\infty}$覆盖$B$，也覆盖$A$，即$\mu^*(A)\leq\sum_1^{\infty}\rho(E_j)$\\
+        对任意$\left\{E_j\right\}_1^{\infty}$成立，于是$\mu^*(A)\leq\mu^*(B)$\\
+        3. $\forall \epsilon>0$对于$A_j\in\mathcal{P}(X),\exists\left\{E_j^k\right\}_{k=1}^{\infty}\subset\varepsilon:\sum_{k=1}^{\infty}\rho(E_j^k)<\mu^*(A_j)+\epsilon2^{-j}$\\
+        令$A=\bigcup_1^{\infty}A_j\subset\bigcup_{j,k}E_j^k,\mu^*(A)\leq\sum_{j,k}\rho(E_j^k)\leq\sum_1^{\infty}\mu^*(A_j)+\epsilon$\\
+        由$\epsilon$任意性，$\mu^*(\bigcup_1^{\infty}A_j)\leq\sum_1^{\infty}\mu^*(A_j)$
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    设$\mu^*$为$X$上的一个外测度，$A\subset X$称为$\mu^*$-可测的，若：\\
+    $\mu^*(E)=\mu^*(E\cap A)+\mu^*(E\cap A^c)$对所有$E\subset X$成立
+\end{definition}
+由于$\mu^*(E)\leq\mu^*(E\cap A)+\mu^*(E\cap A^c)$平凡成立，故$A$是$\mu^*$-可测的，只
+需验证$\mu^*(E)\geq\mu^*(E\cap A)+\mu^*(E\cap A^c)$对所有$E:\mu^*(E)<+\infty$成立
+\begin{theorem}
+    Caratheodory's Theorem\\
+    若$\mu^*$是$X$上的一个外测度，所有$\mu^*$-可测集构成的集合$\,\mathcal{M}$是$\sigma$-代数，$\mu^*$在$\mathcal{M}$上
+    的限制是一个完全的测度
+    \begin{proof}
+        首先证明$\mathcal{M}$是$\sigma$-代数\\
+        由于$\mu^*$-可测的定义关于$A,A^c$对称，故$\mathcal{M}$关于取补集封闭\\
+        设$A,B\in\mathcal{M}$，$\mu^*(E)=\mu^*(E\cap A)+\mu^*(E\cap A^c)$\\
+        $=\mu^*(E\cap A\cap B)+\mu^*(E\cap A\cap B^c)+\mu^*(E\cap A^c\cap B)+\mu^*(E\cap A^c\cap B^c)$\\
+        $A\cup B=(A\cap B)\cup(A\cap B^c)\cup(B\cap A^c)$\\
+        $\mu^*(E)\geq\mu^*(E\cap(A\cup B))+\mu^*(E\cap(A\cup B)^c)$\\
+        从而$A\cup B$可测，$A\cup B\in\mathcal{M}$\\
+        若还有$A\cap B=\phi$，\\
+        $\mu^*(A\cup B)=\mu^*((A\cup B)\cap A)+\mu^*((A\cup B)\cap A^c)=\mu^*(A)+\mu^*(B)$\\
+        即$\mu^*$在$\mathcal{M}$上有限可加\\
+        现往证$\mathcal{M}$对于可数不交并封闭\\
+        设$\left\{A_j\right\}_1^{\infty}$为$\mathcal{M}$中一列不交集，令$B_n=\bigcup_1^nA_j,B=\bigcup_1^{\infty}A_j$\\
+        归纳可得$B_n\in\mathcal{M}$，$\mu^*(E\cap B_n)=\mu^*(E\cap B_n\cap A_n)+\mu^*(E\cap B_n\cap A_n^c)$\\
+        $=\mu^*(E\cap A_n)+\mu^*(E\cap B_{n-1})$\\
+        令$B_0=\phi$，归纳可得$\mu^*(E\cap B_n)=\sum_1^n\mu^*(E\cap A_j)$\\
+        $\mu^*(E)=\mu^*(E\cap B_n)+\mu^*(E\cap B_n^c)\geq\sum_1^n\mu^*(E\cap A_j)+\mu^*(E\cap B^c)$\\
+        令$n\rightarrow\infty$，$\mu^*(E)\geq\sum_1^{\infty}\mu^*(E\cap A_j)+\mu^*(E\cap B^c)\\
+        \geq\mu^*(\bigcup_1^{\infty}(E\cap A_j))+\mu^*(E\cap B^c)=\mu^*(E\cap B)+\mu^*(E\cap B^c)$\\
+        于是$B=\bigcup_1^{\infty}A_j\in\mathcal{M}$\\
+        在上式中取$E=B$，得$\mu^*(\bigcup_1^{\infty}A_j)=\sum_1^{\infty}\mu^*(A_j)$\\
+        于是$\mu^*_{|\mathcal{M}}$是测度\\
+        $\mu^*(A)=0\Rightarrow\mu^*(E)\leq\mu^*(E\cap A)+\mu^*(E\cap A^c)=\mu^*(E\cap A^c)\leq\mu^*(E)$\\
+        从而$A\in\mathcal{M}$，即$\mu^*_{|\mathcal{M}}$是完全的
+    \end{proof}
+\end{theorem}
+\begin{definition}
+    设$\mathcal{A}\subset\mathcal{P}(X)$是一个代数，$\mu_0:\mathcal{A}\rightarrow[0,+\infty]$称为预测度，若其
+    满足以下条件：\\
+    $\mu_0(\phi)=0$\\
+    设$\left\{A_j\right\}_1^{\infty}$是$\mathcal{A}$中的一列不交集，并且$\bigcup_1^{\infty}A_j\in\mathcal{A}$，则$\mu_0(\bigcup_1^{\infty}A_j)=\sum_1^{\infty}\mu_0(A_j)$\\
+    从而$\mu_0$也是有限可加的
+\end{definition}
+若$\mu_0$是$\mathcal{A}\subset\mathcal{P}(X)$是一个预测度，则由命题2.3.2 $\mu_0$可以诱导一个外测度：
+$\mu^*(E)=\inf\left\{\sum_1^{\infty}\mu_0(A_j):A_j\in\mathcal{A},E\subset\bigcup_1^{\infty}A_j\right\}$
+\begin{proposition}
+    设$\mu_0$是$\mathcal{A}$上的一个预测度，$\mu^*$是其诱导的外测度，那么：\\
+    a. $\mu^*_{|\mathcal{A}}=\mu_0$;\\
+    b. $\mathcal{A}$中的每个集合都是$\mu^*$-可测的
+    \begin{proof}
+        a. 设$E\in\mathcal{A}$，若$E\subset \bigcup_1^{\infty}A_j,A_j\in\mathcal{A}$，\\
+        令$B_n=E\cap(A_n\setminus(\bigcup_1^{n-1}A_j))\in\mathcal{A}$
+        于是$B_n$是不交的，且$\bigcup_1^{\infty}B_n=E$\\
+        $\mu_0(E)=\sum_1^{\infty}\mu_0(B_n)\leq\sum_1^{\infty}\mu_0(A_n)$\\
+        由$A_n$的任意性，$\mu_0(E)\leq\mu^*(E)\leq\mu_0(E)$\\
+        其中第二个不等号是明显的，因为$E\subset E\in\mathcal{A}$\\
+        b. 设$A\in\mathcal{A},E\in\mathcal{P}(X),\forall \epsilon>0,\exists\left\{B_j\right\}_1^{\infty}\subset\mathcal{A}:$\\
+        $A\subset\bigcup_1^{\infty}B_j,\sum_1^{\infty}\mu_0(B_j)<\mu^*(E)+\epsilon$\\
+        于是$\mu^*(E)+\epsilon>\sum_1^{\infty}\mu_0(B_j)=\sum_1^{\infty}\mu_0((B_j\cap A)\cup(B_j\cap A^c))$\\
+        $=\sum_1^{\infty}\mu_0(B_j\cap A)+\sum_1^{\infty}\mu_0(B_j\cap A^c)$\\
+        $\geq\mu^*(E\cap A)+\mu^*(E\cap A^c)$\\
+        由$\epsilon$的任意性，$\mu^*(E)\geq\mu^*(E\cap A)+\mu^*(E\cap A^c)$\\
+        从而$A$是$\mu^*$-可测的
+    \end{proof}
+\end{proposition}
+\begin{theorem}
+    令$\mathcal{A}\subset\mathcal{P}(X)$是一个代数，$\mu_0$是$\mathcal{A}$上的预测度，$\mathcal{M}$是$\mathcal{A}$生成的$\sigma$-代数
+    则存在$\mathcal{M}$上的测度$\mu$，其在$\mathcal{A}$上的限制等于$\mu_0$，且$\mu=\mu^*_{|\mathcal{M}}$，其
+    中$\mu^*$是$\mu_0$诱导的外测度，若$\nu $是$\mathcal{M}$上的另一个$\mu_0$由扩张的测度，则$\nu(E)\leq\mu(E)$
+    $\forall E\in\mathcal{M}$其中等号在$\mu(E)<+\infty$时成立，若$\mu_0$是$\sigma$-有限的，则$\mu$是$\mu_0$在\\
+    $\mathcal{M}$上唯一的扩张
+    \begin{proof}
+        首先由Caratheodory Theorem和命题2.3.6 $\mu_0$可诱导$X$上的外测度$\mu^*$，
+        其所有$\mu^*$-可测集构成包含$\mathcal{A}$的$\sigma$-代数，自然也包含$\mathcal{M}$，且$\mu^*$在$\mathcal{M}$上的限制
+        是测度，即$\mu=\mu_{|\mathcal{M}}^*$，$\mu_{|\mathcal{A}}=\mu^*_{\mathcal{A}}=\mu_0$\\
+        设$E\in\mathcal{M}$，$\left\{A_j\right\}_1^{\infty}$为任意$\mathcal{A}$中覆盖$E$的集列，则\\
+        $\nu(E)\leq\nu(\bigcup_1^{\infty}A_j)\leq\sum_1^{\infty}\nu(A_j)=\sum_1^{\infty}\mu_0(A_j)$\\
+        $\nu(E)\leq\mu^*_{|\mathcal{M}}(E)=\mu(E)$\\
+        若$\mu(E)<+\infty$，$\forall\epsilon>0,\exists\left\{A_j\right\}_1^{\infty}\subset\mathcal{A}:$\\
+        $\mu(A)\leq\sum_1^{\infty}\mu(A_j)=\sum_1^{\infty}\mu_0(A_j)<\mu(E)+\epsilon$\\
+        $\mu(A\setminus E)=\mu(A)-\mu(E)<\epsilon$\\
+        $\mu(E)\leq\mu(A)=\lim_{n \to \infty}\mu(\bigcup_1^nA_j)=\lim_{n \to \infty}\nu(\bigcup_1^nA_j)\\
+        =\nu(A)=\nu(A\setminus E)+\nu(E)\leq\mu(A\setminus E)+\nu(E)<\epsilon+\nu(E)$\\
+        由$\epsilon$任意性知$\nu(E)\leq\mu(E)$\\
+        设$\mu_0$是$\sigma$-有限的，即$\exists\left\{A_j\right\}_1^{\infty}\subset\mathcal{A}:X=\bigcup_1^{\infty}A_j,\mu_0(A_j)<+\infty$\\
+        不妨设$A_n$是不交的，否则代之以$B_n=A_n\setminus(\bigcup_1^{n-1}A_j)$\\
+        $\forall E\in\mathcal{M},\mu(E)=\mu(E\cap X)=\mu(E\cap(\bigcup_1^{\infty}A_j))=\mu(\bigcup_1^{\infty}(E\cap A_j))$\\
+        $=\lim_{n\to\infty}\mu(\bigcup_1^n(E\cap A_j))=\lim_{n\to\infty}\sum_1^n\mu(E\cap A_j)$\\
+        $=\lim_{n\to\infty}\sum_1^n\nu(E\cap A_j)=\lim_{n\to\infty}\nu(\bigcup_1^n(E\cap A_j))$\\
+        $=\nu(\bigcup_1^{\infty}(E\cap A_j))=\nu(E\cap X)=\nu(E)$\\
+        于是$\mu=\nu$
+    \end{proof}
+\end{theorem}
+
+\section{$\mathbb{R}$上的Borel测度}
+
+这节主要构建了$\mathbb{R}$上的Borel测度，即定义域为$\mathcal{B}_{\mathbb{R}}$的测度\\
+设$\mu$为$\mathbb{R}$上的有限Borel测度，令$F(x)=\mu((-\infty,x])$，则$F(x)$是$\mathbb{R}$上的递增右连续函数
+$((-\infty,x]=\bigcap_1^{\infty}(-\infty,x_n],x_n\text{严格单调下降趋于}x,F(x)=\mu((-\infty,x])
+=\mu(\bigcap_1^{\infty}(-\infty,x_n])=\lim_{n\to\infty}\mu((-\infty,x_n])=\lim_{n\to\infty}F(x_n),\text{由海涅定理知}F\text{右连续})$\\
+于是我们可以通过$\mathbb{R}$上的递增右连续函数来构造Borel测度\\
+以下形如$(a,b]$的区间简称为h-区间\\
+容易验证，所有h-区间构成elementry family，故所有h-区间的不交并构成代数$\mathcal{A}$，且其生成的$\sigma$-代数为$\mathcal{B}_{\mathbb{R}}$\\
+\begin{proposition}
+    设$F:\mathbb{R}\to\mathbb{R}$为单调递增右连续函数，若$(a_j,b_j](j=1,\dots n)$为不交的h-区间
+    令\\
+    $\mu_0(\bigcup_1^n(a_j,b_j])=\sum_1^n[F(b_j)-F(a_j)],\mu_0(\phi)=0$\\
+    则$\mu_0$为$\mathcal{A}$上的预测度
+    \begin{proof}
+        首先验证$\mu_0$是良定义的\\
+        若$\left\{(a_j,b_j]\right\}_1^n$为不交的，且$\bigcup_1^n(a_j,b_j]=(a,b]$\\
+        不妨设$a=a_1<b_1=a_2<\dots<b_n=b$，故$\sum_1^n[F(b_j)-F(a_j)]=F(b)-F(a)$
+        更一般的，设$\left\{I_i\right\}_1^n,\left\{J_j\right\}_1^m$为有限不交h-区间，$\bigcup_1^nI_i=\bigcup_1^mJ_j$\\
+        $\sum_i\mu_0(I_i)=\sum_{i,j}\mu_0(I_i\cap J_j)=\sum_j\mu_0(J_j)$\\
+        故$\mu_0$是良定义的\\
+        由于$F$单调递增，$F(+\infty),F(-\infty)$在$\mathbb{R}\cup\left\{+\infty,-\infty\right\}$上有定义\\
+        由定义知$\mu_0$是有限可加的\\
+        设$\left\{I_i\right\}_1^{\infty}\subset\mathcal{A}$是不交的，$\bigcup_1^{\infty}I_i=\bigcup_1^mJ_j\in\mathcal{A}$，其中$J_j$是不交的\\
+        $\bigcup_1^{\infty}I_i=\bigcup_{j=1}^m(J_j\cap\bigcup_{i=1}^{\infty}I_i)=\bigcup_{j=1}^m\bigcup_{i=1}^{\infty}J_j\cap I_i$\\
+        $\mu_0(\bigcup_1^{\infty}I_i)=\sum_{j=1}^m\mu_0(\bigcup_{i=1}^{\infty}J_j\cap I_i)$\\
+        $\mu_0(\bigcup_1^mJ_j)=\sum_1^m\mu_0(J_j)$\\
+        往证$\mu_0(\bigcup_1^{\infty}I_i)=\mu_0(\bigcup_1^mJ_j)$，只需证$\mu_0(\bigcup_{i=1}^{\infty}J_j\cap I_i)=\mu_0(J_j),j=1,\dots m$\\
+        于是不妨设$\bigcup_1^{\infty}I_i=J$为h-区间\\
+        $\mu_0(J)=\mu_0(\bigcup_1^nI_i)+\mu_0(J\setminus\bigcup_1^nI_i)\geq\mu_0(\bigcup_1^nI_i)=\sum_1^n\mu_0(I_i)$\\
+        $n\to\infty,\mu_0(J)\geq\sum_1^n\mu_0(I_i)$\\
+        为证明$\mu_0(J)\leq\sum_1^{\infty}\mu_0(I_i)$\\
+        首先假设$J=(a,b],-\infty<a<b<+\infty$\\
+        $\forall \epsilon>0$，由$F$右连续，$\exists \delta,\delta_i>0,F(a+\delta)-F(a)<\epsilon,\\
+        F(b_i+\delta_i)-F(b_i)<\epsilon 2^{-i}$，$\left\{(a_i,b_i+\delta_i)\right\}_1^{\infty}$覆盖$[a+\delta,b]$，于是存在有限子覆盖
+        $\left\{(a_j,b_j+\delta_j)\right\}_1^N$可设$b_j+\delta_j\in(a_{j+1},b_{j+1}+\delta_{j+1})?$且诸开区间无包含关系\\
+        $\mu_0(J)=F(b)-F(a)<F(b)-F(a+\delta)+\epsilon$\\
+        $\leq F(b_N+\delta_N)-F(a_1)+\epsilon$\\
+        $=F(b_N+\delta_N)-F(a_N)+\sum_1^{N-1}[F(a_{j+1})-F(a_j)]+\epsilon$\\
+        $<\sum_1^N[F(b_j)+\epsilon 2^{-j}-F(a_j)]+\epsilon$\\
+        $<\sum_1^{\infty}[F(b_j)-F(a_j)]+2\epsilon$\\
+        $=\sum_1^{\infty}\mu_0(I_j)+2\epsilon$
+        由$\epsilon$的任意性知$\mu_0(J)\leq \sum_1^{\infty}\mu_0(I_i)$\\
+        $a=-\infty$时，任意$M<+\infty$，对$(-M.b]$进行上述过程，有：\\
+        $F(b)-F(-M)\leq\sum_1^{\infty}\mu_0(I_i)+\epsilon$\\
+        $\epsilon\to 0,M\to +\infty$，$\mu_0(J)\leq\sum_1^{\infty}\mu_0(I_i)$\\
+        $b=+\infty$时，任意$M<+\infty$,对$(a,M]$进行上述过程，\\
+        同理可得$F(M)-F(a)\leq\sum_1^{\infty}\mu_0(I_i)+2\epsilon$\\
+        $\epsilon\to 0,M\to +\infty$，即得$\mu_0(J)\leq \sum_1^{\infty}\mu_0(I_i)$
+
+    \end{proof}
+\end{proposition}
+\begin{theorem}
+    若$F:\mathbb{R}\to\mathbb{R}$是任意递增右连续函数，则存在唯一$\mathbb{R}$上的Borel测度$\mu_{F}$
+    使得$\mu_{F}((a,b])=F(b)-F(a)$，若$G$是另一递增右连续函数，$\mu_F=
+    \mu_G$当且仅当$F-G$为常数，若$\mu$是$\mathbb{R}$上的Borel测度，且于任意有界Boerl集上
+    有限，定义$F(x)=
+    \begin{cases}
+      \mu((0,x])& \text{ if } x>0 \\
+      0& \text{ if } x=0 \\
+      -\mu((x,0])& \text{ if } x<0
+    \end{cases}
+    $，则$F$为递增右连续函数，
+    且$\mu=\mu_F$
+    \begin{proof}
+        首先由命题2.4.1，$F$可诱导$\mathcal{A}$上的一个预测度，且$F$和$G$诱导同一个
+        预测度当且仅当$F-G$为常数,且这些预测度是$\sigma$-有限的，$\mathbb{R}=\bigcup_1^{+\infty}(j,j+1]$
+        由命题2.3.7知前两个断言的正确性。最后一个断言$F$明显是递增的，
+        任取$x_n$递减趋于$x$，$x\geq0$时，$(0,x]=\bigcap_1^{\infty}(0,x_n]$，$x<0$时，$(x,0]=\bigcup_1^{\infty}(x_n,0]$
+        由海涅定理可得$F$的右连续性。$\mu=\mu_F$在$\mathcal{A}$上成立，于是由命题2.3.7知其
+        在$\mathcal{B}_{\mathbb{R}}$上成立
+    \end{proof}
+\end{theorem}
+若$F$是$\mathbb{R}$上的递增右连续函数，则$F$可以诱导一个定义域包含$\mathcal{B}_{\mathbb{R}}$的完全
+的测度，记作$\mu_F$，称作$F$诱导的Lebesgue-Stieltjes测度。之后$\mu_F$简记为$\mu$，
+其定义域记为$\mathcal{M}_{\mu}$，$\forall E\in\mathcal{M}_{\mu}$\\
+$\mu(E)=\inf\left\{\sum_1^{\infty}[F(b_j)-F(a_j)]:E\subset\bigcup_1^{\infty}(a_j,b_j]\right\}$\\
+$=\inf\left\{\sum_1^{\infty}\mu((a_j,b_j]):E\subset\bigcup_1^{\infty}(a_j,b_j]\right\}$\\
+\begin{lemma}
+    $\forall E\in\mathcal{M}_{\mu}$,\\
+    $\mu(E)=\inf\left\{\sum_1^{\infty}\mu((a_j,b_j)):E\in\bigcup_1^{\infty}(a_j,b_j)\right\}$
+    \begin{proof}
+        等式右边的式子记作$\nu(E)$，设$E\subset\bigcup_1^{\infty}(a_j,b_j),(a_j,b_j)=\bigcup_{k=1}^{\infty}I_j^k,$
+        其中$I_j^k=(c_j^k,c_j^{k+1}],c_j^1=a_j,k\to\infty,c_j^k$严格单调递增趋于$b_j$，于是\\
+        $\sum_1^{\infty}\mu((a_j,b_j))=\sum_{j,k=1}^{\infty}\mu(I_j^K)\geq\mu(E)$，从而$\nu(E)\geq\mu(E)$\\
+        另一方面，$\forall\epsilon>0,\exists\left\{(a_j,b_j]\right\}_1^{\infty}:E\subset\bigcup_1^{\infty}(a_j,b_j],\sum_1^{\infty}\mu((a_j,b_j])\leq\mu(E)+
+        \epsilon$，对每个$j$,$\exists \delta_j>0,F(b_j+\delta_j)-F(b_j)<\epsilon2^{-j},E\subset\bigcup_1^{\infty}(a_j,b_j+\delta_j)$\\
+        $\sum_1^{\infty}\mu((a_j,b_j+\delta_j))\leq\sum_1^{\infty}\mu((a_j,b_j+\delta_j])\leq\sum_1^{\infty}\mu((a_j,b_j])+\epsilon\leq\mu(E)+2\epsilon$\\
+        故$\nu(E)\leq\mu(E)$
+    \end{proof}
+\end{lemma}
+\begin{theorem}
+    若$E\in\mathcal{M}_{\mu}$，则\\
+    $\mu(E)=\inf\left\{\mu(U):U\supset E,U\text{是开集}\right\}\\
+    =\sup\left\{\mu(K):K\subset E,K\text{是紧集}\right\}$
+    \begin{proof}
+        由引理2.4.3，$\forall\epsilon>0,\exists(a_j,b_j):E\subset\bigcup_1^{\infty}(a_j,b_j),\sum_1^{\infty}\mu((a_j,b_j))<\mu(E)
+        +\epsilon$，令$U=\bigcup_1^{\infty}(a_j,b_j)$，$U$是开集，$\mu(U)\leq\sum_1^{\infty}\mu((a_j,b_j))<\mu(E)+
+        \epsilon$，另一方面$E\subset U\Rightarrow\mu(E)\leq\mu(U)$，故第一个等式成立\\
+        现证第二个等式\\
+        首先设$E$有界，若$E$是闭集，则也是紧集，等式自然成立，否则，$\forall\epsilon>0,
+        \exists $开集$U:U\supset \overline{E}\setminus E,\mu(U)<\mu(\overline{E}\setminus E)+\epsilon$($\overline{E}$是闭集，故$\in\mathcal{B}_{\mathbb{R}}\subset\mathcal{M}_{\mu}$，从
+        而$\overline{E}\setminus E\in\mathcal{M}_{\mu}$)令$K=\overline{E}\setminus U=E\setminus U$，则$K\subset E$为紧集，\\
+        $\mu(K)=\mu(E)-\mu(E\cap U)=\mu(E)-[\mu(U)-\mu(U\setminus E)]\\
+        =\mu(E)-\mu(U)+\mu(U\setminus E)\geq\mu(E)-\mu(\overline{E}\setminus E)+\mu(U\setminus E)-\epsilon\geq\mu(E)-\epsilon$
+        若$E$无界，令$E_j=E\cap(j,j+1]$，对任意$\epsilon>0,\exists K_j\subset E_j$为紧集，$\mu(K_j)\geq
+        \mu(E_j)-\epsilon2^{-|j|}$，令$H_n=\bigcup_{-n}^nK_j$，则$H_n\subset E$为紧集，$\mu(H_n)=\sum_{-n}^n\mu(K_j)\geq
+        \sum_{-n}^n\mu(E_j)-3\epsilon\geq\mu(\bigcup_{-n}^nE_j)-3\epsilon$\\
+        $\mu(E)=\lim_{n\to\infty}\mu(\bigcup_{-n}^nE_j),\exists N:\mu(\bigcup_{-n}^nE_j)>\mu(E)-\epsilon$对所有$n\geq N$成
+        立，于是$\mu(H_N)\geq\mu(E)-4\epsilon$
+    \end{proof}
+\end{theorem}
+\begin{theorem}
+    若$E\subset\mathbb{R}$，那么以下命题等价：\\
+    a. $E\in\mathcal{M}_{\mu}$\\
+    b. $E=V\setminus N_1$，其中$V$是$G_{\delta}$集，$\mu(N_1)=0$\\
+    c. $E=H\cup N_2$，其中$H$为$F_{\sigma}$集，$\mu(N_2)=0$
+    \begin{proof}
+        由于$\mu$在$\mathcal{M}_{\mu}$上是完全的，故b.c.$\Rightarrow$a.是明显的\\
+        若$\mu(E)<+\infty$，\\
+        由定理2.4.4,对$j\in\mathbb{N}$，$\exists$开集$U_j\supset E$，紧集$K_j\subset E$\\
+        $\mu(U_j)-2^{-j}\leq\mu(E)\leq\mu(K_j)+2^{-j}$\\
+        令$V=\bigcap_1^{\infty}U_j,H=\bigcup_1^{\infty}K_j$，则$H\subset E\subset V$\\
+        $\mu(V)-2^{-j}\leq\mu(U_j)-2^{-j}\leq\mu(E)\leq\mu(K_j)+2^{-j}\leq\mu(H)+2^{-j}$\\
+        $j\to\infty,\mu(V)=\mu(E)=\mu(H)<+\infty$\\
+        故$\mu(V\setminus E)=\mu(E\setminus H)=0$\\
+        若$\mu(E)=+\infty$，\\
+        ?
+    \end{proof}
+\end{theorem}
+\begin{proposition}
+    若$E\in\mathcal{M}_{\mu},\mu(E)<+\infty$，则$\forall\epsilon>0,\exists A$为有限个开区间的并，
+    且$\mu(E\triangle A)<\epsilon$
+    \begin{proof}
+        首先$\mu(E)=\inf\left\{\mu(U):E\subset U,U\text{为开集}\right\},\exists U\supset E,U$为开集$,\mu(U)-
+        \mu(E)<\epsilon,\mu(E\triangle U)=\mu(U)-\mu(E)<\epsilon$，由引理2.1.11.$U$可写成可数给开区
+        间的不交并，即$U=\bigcup_1^{\infty}I_j,I_i\cap I_j=\varnothing,\mu(U)=\sum_1^{\infty}\mu(I_j),$于是$\exists N,\mu(U)-
+        \sum_1^N\mu(I_j)<\epsilon,$令$A=\bigcup_1^NI_j\subset U,\mu(E\triangle A)=\mu(A\setminus E)+\mu(E\setminus A)=2\mu(A\cup 
+        E)-\mu(A)-\mu(E)=2\mu(A\cup E)-2\mu(U)+2\mu(U)-\mu(A)-\mu(E)<2\mu(A\cup 
+        E)-2\mu(U)+2\epsilon\leq 2\epsilon$
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    $F(x)=x$诱导的完全的测度$\mu_{F}$称为勒贝格测度，记作$m$，$m$定
+    义域中的集合称为勒贝格可测集，记作$\mathcal{L}$
+\end{definition}
+\begin{definition}
+    $E\subset\mathbb{R},r,s\in\mathbb{R}$\\
+    $E+s:=\left\{x+s:x\in E\right\},rE:=\left\{rx:x\in E\right\}$
+\end{definition}
+\begin{theorem}
+    若$E\in\mathcal{L}$，则$E+s\in\mathcal{L},rE\in\mathcal{L},\forall r,s\in\mathbb{R}$，且$m(E+s)=
+    m(E),m(rE)=|r|m(E)$
+    \begin{proof}
+        首先变换$E\mapsto E+s,E\mapsto rE$是保持$\mathcal{A}$的双射($r=0$时明显保持Borel集，
+        故不妨设$r\neq 0$)，从而也是保持$\mathcal{B}_{\mathbb{R}}$的?，其中$\mathcal{A}$为h-区间有限不交并的集合，
+        $E$为h-区间时，$m(E)= m(E+s),m(rE)=|r|m(E)$是明显的，又$m$是$\sigma$-有
+        限的，由定理2.3.7知:\\
+        $m(E+s)=m(E),m(rE)=|r|m(E)$在$\mathcal{B}_{\mathbb{R}}$上恒成立\\
+        于是$E\in\mathcal{L},m(E)=0\Rightarrow \exists U_j\supset E$为开集$,m(U_j)<2^{-j},\\
+        U_j+s\supset E+s,rU_j\supset rE,\\
+        m(E+s)\leq m(U_j+s)<2^{-j}\\
+        m(rE)\leq m(rU_j)<2^{-j}$\\
+        从而$m(E+s)=m(rE)=0$\\
+        $E\in\mathcal{L}$可写成Borel集和勒贝格零测集的并:$E=H\cup N$,
+        于是$E+s=(H+s)\cup(N+s)\in\mathcal{L},rE=(rH)\cup(rN)\in\mathcal{L}$，且$m(E+s)=m(E),m(rE)=|r|m(E)$成立
+    \end{proof}?
+    \begin{proof}
+        记$m^*$为$F(x)=x$诱导的$\mathbb{R}$上的外测度，$r=0$时是明显的，故不妨
+        设$r\neq 0$,容易验证:\\
+        $(A+s)\cap(B+s)=(A\cap B)+s\\
+        (A+s)\cup(B+s)=(A\cup B)+s\\
+        (A+s)^c=A^c+s\\
+        (rA)\cap(rB)=r(A\cap B)\\
+        (rA)\cup(rB)=r(A\cup B)\\
+        (rA)^c=r(A^c)\\
+        E\in\mathcal{A}\Rightarrow E+s,rE\in\mathcal{A}$\\
+        首先验证，$\forall E\subset\mathbb{R},m^*(E+s)=m^*(E),m^*(rE)=|r|m^*(E):$\\
+        对于$h$-区间$E$,$\mu_F(E+s)=\mu_F(E),\mu_F(rE)=|r|\mu_F(E)$是明显的\\
+        $\forall E\subset\mathbb{R},m^*(E+s)=\inf\left\{\sum_1^{\infty}\mu_F(I_j):I_j\in\mathcal{A},E+s\subset\bigcup_1^{\infty}I_j\right\}\\
+        > \sum_1^{\infty}\mu_F(I_j)-\epsilon=\sum_1^{\infty}\mu_F(I_j-s)-\epsilon$，其中$I_j-s\in\mathcal{A},E\subset\bigcup_1^{\infty}(I_j-s)$\\
+        即$m^*(E+s)\geq m^*(E)-\epsilon$对$\forall\epsilon>0$成立，故$m^*(E+s)\geq m^*(E)$\\
+        同理$m^*(E+s)\leq m^*(E)$\\
+        由于$rE\subset\bigcup_1^{\infty}I_j\Rightarrow E\subset\bigcup_1^{\infty}(r^{-1}I_j),r^{-1}I_j\in\mathcal{A}$\\
+        同上讨论知$m^*(rE)=|r|m^*(E)$\\
+        设$E\in\mathcal{L}$\\
+        $E+s\in\mathcal{L}\Leftrightarrow m^*(A)=m^*(A\cap(E+s))+m^*(A\cap(E+s)^c),\forall A\subset\mathbb{R}\\
+        \Leftrightarrow m^*(A)=m^*((A-s)\cap E+s)+m^*((A-s)\cap(E^c)+s)\\
+        \Leftrightarrow m^*(A)=m^*((A-s)\cap E)+m^*((A-s)\cap E^c)\\
+        \Leftrightarrow m^*(A)=m^*(A-s)$成立\\
+        同理可得$m^*(A)=m^*(A\cap(rE))+m^*(A\cap(rE)^c)$\\
+        从而$E+s,rE\in\mathcal{L}$\\
+        对于$E\in\mathcal{L}$\\
+        由于$m(E)=\inf\left\{\sum_1^{\infty}\mu_F(a_j,b_j):E\subset\bigcup_1^{\infty}(a_j,b_j)\right\}$\\
+        同上讨论可知$m(E+s)=m(E),m(rE)=|r|m(E)$
+    \end{proof}
+\end{theorem}
+[0,1]上的p进位表数法\\
+$x\in[0,1]$，我们按以下方式将$x$唯一的写做$\sum_1^{\infty}a_jp^{-j}$，其中$a_j=0,\dots,p-1$
+$p$为大于1的整数\\
+若$x=0,x=\sum_1^{\infty}0*p^{-j}$\\
+若$x\in(0,1]$\\
+区间$(kp^{-j},(k+1)p^{-j}]$记作$I_j^k$，其中$k=0,1,\dots,p-1,j=1,\dots$\\
+第1步：\\
+$I_0^0=\bigcup_0^{p-1}I_1^k$是不交并，于是$\exists !k:x\in I_1^k,a_1:=k$\\
+第2步：\\
+$a_1p^{-1}+I_1^{0}=\bigcup_0^{p-1}(a_1p^{-1}+I_2^k)$是不交并，于是$\exists !k,x\in a_1p^{-1}+I_2^k,a_2:=k$\\
+$\dots$\\
+第$j$步：\\
+设已经取出$a_1,a_2,\dots a_{j-1}\\
+x\in\sum_{i=1}^{j-1}a_ip^{-i}+I_{j-1}^{0}=\bigcup_{k=1}^{p-1}(\sum_{i=1}^{j-1}a_ip^{-i}+I_j^k)$为不交并，\\
+于是$\exists !k:x\in \sum_{i=1}^{j-1}a_ip^{-i}+I_j^k,a_j:=k$\\
+$\dots$\\
+我们得到唯一的$\left\{a_j\right\}_1^{\infty}$满足：\\
+$a_j=0,1,\dots,p-1\\
+\sum_{i=1}^{j}a_1p^{-i}<x\leq\sum_{i=1}^{j}a_ip^{-i}+p^{-j},j=1,2,\dots\\
+\forall j>0,\exists k\geq j,a_k\neq 0$\\
+否则，设$\exists j>0,\forall k\geq j,a_k=0$\\
+于是$\sum_{i=1}^{j-1}a_1p^{-i}<x\leq\sum_{i=1}^{j-1}a_ip^{-i}+p^{-k},k=j-1,j,j+1,\dots$\\
+$k\to\infty$ 得$\sum_{i=1}^{j-1}a_1p^{-i}<x\leq\sum_{i=1}^{j-1}a_ip^{-i}$矛盾\\
+于是$x=\sum_1^{\infty}a_ip^{-i}$，记作$0.a_1a_2\dots a_j\dots$为无穷小数\\
+下面的讨论中，$x$的p进小数总采用以上取法\\
+\begin{definition}
+    Cantor 集$C:=\left\{x\in[0,1]:x\text{的3进小数}0.a_1a_2\dots\text{中}a_j\neq 1,\notag \right.\\ \left.
+    \text{或}\exists N>0,a_N=1,a_j\neq 1(j<N),a_j=2(j>N),j=1,\dots\right\}$\\
+    注意Cantor集等价于$[0,1]$去掉形如$(0.a_1\dots a_j1,\ 0.a_1\dots a_j2)$的开区间，其中$a_i\neq 1,i=1,\dots j$\\
+\end{definition}
+\begin{proposition}
+    设C为Cantor集\\
+    a. C是紧的，无处稠密的，完全不连通的(连通部分为单点集)，没有孤立点的\\
+    b. $m(C)=0$\\
+    c. $card(C)=\mathcal{C}$
+    \begin{proof}
+        b. 记$F=\bigcup\left\{(0.a_1\dots a_j1,\ 0.a_1\dots a_j2):a_i\neq 1,i=1,\dots j\right\}\in\mathcal{B}_{\mathbb{R}}$\\
+        则$[0,1]=C\cup F$是不交并，$C=[0,1]\cap F^c\in\mathcal{B}_{\mathbb{R}}$,$m([0,1])=m(C)+m(F)$\\
+        $m(F)=\sum_0^{\infty}\frac{2^j}{3^{j+1}}=\frac{1}{3}*\frac{1}{1-\frac{2}{3}}=1$\\
+        于是$m(C)=1-m(F)=0$\\
+        c. 设$x\in C$，$x=0.x_1x_2\dots$，若$x$满足:\\
+        $\exists N>0,x_N=1,x_j\neq 1(j<N),x_j=2(j>N),j=1,\dots$\\
+        则将$x$改写为$0.x_1\dots x_{N-1}2$\\
+        于是$C=\left\{x\in[0,1]:\text{在上述改写后，x的3进小数中没有1}\right\}$\\
+        做映射$f:0.x_1x_2,\dots\mapsto \sum_0^{\infty}\frac{x_j}{2}*2^{-j}$\\
+        右端为$[0,1]$的2进小数，于是$f$为C到[0,1]的满射，$card(C)\geq \mathcal{C}$\\
+        又$C\subset[0,1]$，故$card(C)\leq\mathcal{C}$\\
+        综上，$card(C)=\mathcal{C}$\\
+        a.首先$C=[0,1]\cap F^c$为有界闭集，故是紧集\\
+        C无处稠密$\Leftrightarrow \overline{C}^{\circ}=\phi\Leftrightarrow C^{\circ}=\phi$\\
+        否则设$x\in C^{\circ}$，$\exists N\in\mathbb{N},(x-3^{-N},x+3^{-N})\subset C,\exists k=0,1,\dots,3^N-1\\
+        (k3^{-N}+3^{-(N+1)},k3^{-N}+2*3^{-(N+1)})\subset(k3^{-N},(k+1)3^{-N})\\
+        \subset(x-3^{-N},x+3^{-N})$从而$C\cap F\neq\phi$矛盾\\
+        若C有连通部分是区间，则同上讨论知$C\cap F\neq\phi$矛盾\\
+        设$x\in C$，则$x=0.x_1x_2\dots$，其中$x_j=0,2$\\
+        $\overline{x}_N:=0.x_1x_2\dots x_N$于是$\overline{x}_N\in C$且$|x-\overline{x}_N|\leq 2*3^{-N}$\\
+        这说明了$\forall x\in C$是$C$的聚点，也即$C$无孤立点
+    \end{proof}
+\end{proposition}
+
+\chapter{积分}
+
+\section{可测函数}
+$f:X\to Y$可诱导$f^{-1}:\mathcal{P}(Y)\to\mathcal{P}(X),f^{-1}(E)=\left\{x\in X:f(x)\in E\right\}$\\
+且$f^{-1}$与并，交，补可换序。从而，$\mathcal{N}\subset\mathcal{P}(Y)$为$\sigma$-代数$\Rightarrow\left\{f^{-1}(E):E\in\mathcal{N}\right\}$
+为$X$上的$\sigma$-代数
+\begin{definition}
+    设$(X,\mathcal{M}),(Y,\mathcal{N})$为可测空间，$f:X\to Y$称为$(\mathcal{M},\mathcal{N})$-可测的，
+    或可测的，若$\forall E\in\mathcal{N},f^{-1}(E)\in\mathcal{M}$
+\end{definition}
+可测函数的复合明显是可测的，$f:X\to Y$是$(\mathcal{M},\mathcal{N})$-可测的，\\
+$g:Y\to Z$是$(\mathcal{N},\mathcal{O})$-可测的，则$E\in\mathcal{O}\Rightarrow g^{-1}(E)\in\mathcal{N}\Rightarrow f^{-1}(g^{-1}(E))\in\mathcal{M}$\\
+即$(g\circ f)^{-1}(E)\in\mathcal{M}$，从而$g\circ f$是$(\mathcal{M},\mathcal{O})$-可测的
+\begin{proposition}
+    若$\mathcal{N}$是$\varepsilon$生成的$\sigma$-代数，则$f:X\to Y$是$(\mathcal{M},\mathcal{N})$-可测的充要条
+    件是$\forall E\in\varepsilon,f^{-1}(E)\in\mathcal{M}$
+    \begin{proof}
+        由于$\varepsilon\subset\mathcal{N}$，必要性是明显的。充分性：$\left\{E\subset Y:f^{-1}(E)\in\mathcal{M}\right\}$是
+        包含$\varepsilon$的$\sigma$-代数，从而包含$\mathcal{N}$
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    若$X,Y$是度量(拓扑)空间，所有连续映射$f:X\to Y$是$(\mathcal{B}_{X},\mathcal{B}_{Y})$
+    -可测的
+    \begin{proof}
+        $f$是连续的$\Leftrightarrow\forall U\subset Y$为开集，$f^{-1}(U)\in\mathcal{B}_X$，而$\mathcal{B}_Y$由$Y$中的开集生
+        成
+    \end{proof}
+\end{corollary}
+设$(X,\mathcal{M})$是可测空间，若$X$上的实值或复值函数$f$是$(\mathcal{M},\mathcal{B}_{\mathbb{R}})$或$(\mathcal{M},\mathcal{B}_{\mathbb{C}})$
+-可测的，则称$f$为$\mathcal{M}$-可测的或可测的。
+
+若$f:\mathbb{R}\to\mathbb{C}$是$(\mathcal{L},\mathcal{B}_{\mathbb{C}})(\text{或}(\mathcal{B}_{\mathbb{R}},\mathcal{B}_{\mathbb{C}}))$-可测的，则称为Lebesgue(Borel)-可
+测的，$f:\mathbb{R}\to\mathbb{R}$同理
+
+$f,g:\mathbb{R}\to\mathbb{R}$是Lebesgue-可测的无法得出$f\circ g$是Lebesgue-可测的，因
+为$E\in\mathcal{B}_{\mathbb{R}}\Rightarrow f^{-1}(E)\in\mathcal{L}$，却不一定$\in\mathcal{B}_{\mathbb{R}}$，若$f$是Borel-可测的，则$f\circ 
+g$是Lebesgue-可测的
+\begin{proposition}
+    若$(X,\mathcal{M})$是可测空间，$f:X\to\mathbb{R}$，以下命题等价\\
+    a. $f$是$\mathcal{M}$-可测的\\
+    b. $f^{-1}((a,+\infty))\in\mathcal{M},\forall a\in\mathbb{R}$\\
+    c. $f^{-1}([a,+\infty))\in\mathcal{M},\forall a\in\mathbb{R}$\\
+    d. $f^{-1}((-\infty,a))\in\mathcal{M},\forall a\in\mathbb{R}$\\
+    e. $f^{-1}((-\infty,a])\in\mathcal{M},\forall a\in\mathbb{R}$\\
+    \begin{proof}
+        由命题2.1.12. 命题3.1.2 可得
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    设$(X,\mathcal{M})$是可测空间，$f:X\to\mathbb{R}$，$E\in\mathcal{M}$，我们称$f$是$E$上
+    可测的，如果$\forall B\in\mathcal{B}_{\mathbb{R}},E\cap f^{-1}(B)\in\mathcal{M}$\\
+    $\Leftrightarrow \forall B\in\mathcal{B}_{\mathbb{R}},f_{|E}^{-1}(B)\in\mathcal{M}_E:=\left\{F\cap E:F\in\mathcal{M}\right\}$
+\end{definition}
+给定集合$X$，若$\left\{(Y_{\alpha},\mathcal{N}_{\alpha})\right\}_{\alpha\in A}$是一族可测空间，$f_{\alpha}:X\to Y_{\alpha},\alpha\in 
+A$则$X$上存在唯一一个最小的$\sigma$-代数，使得每个$f_{\alpha}$是可测的，这个$\sigma$-代数
+由$f_{\alpha}^{-1}(E_{\alpha})$生成，其中$E_{\alpha}\in\mathcal{N}_{\alpha},\alpha\in A$，称为由$\left\{f_{\alpha}\right\}_{\alpha\in A}$生成的$\sigma$-代数，特
+别的，$X=\prod_{\alpha\in A}Y_{\alpha}$时，$X$上的乘积$\sigma$-代数是投影映射$\left\{\pi_{\alpha}\right\}_{\alpha\in A}$生成的
+\begin{proposition}
+    设$(X,\mathcal{M})$和$(Y_{\alpha},\mathcal{N}_{\alpha}),\alpha\in A$是可测空间，$Y=\prod_{\alpha\in A}Y_{\alpha},\\
+    \mathcal{N}=\bigotimes_{\alpha\in A}\mathcal{N}_{\alpha}$，$\pi_{\alpha}:Y\to Y_{\alpha}$是投影映射，那么$f:X\to Y$是可测的当且仅
+    当$f_{\alpha}=\pi_{\alpha}\circ f$是$(\mathcal{M},\mathcal{N}_{\alpha})$-可测的
+    \begin{proof}
+        从上面的讨论知投影映射$\pi_{\alpha}:Y\to Y_{\alpha}$是$(\bigotimes_{\alpha\in A}\mathcal{N}_{\alpha},\mathcal{N}_{\alpha})$-可测的，
+        若$f$是$(\mathcal{M},\mathcal{N})$可测的，那么$f_{\alpha}=\pi_{\alpha}\circ f$是$(\mathcal{M},\mathcal{N}_{\alpha})$-可测的，必要性成立\\
+        若$f_{\alpha}$是$(\mathcal{M},\mathcal{N}_{\alpha})$-可测的，$\forall E_{\alpha}\in\mathcal{N}_{\alpha},f^{-1}_{\alpha}(E_{\alpha})=f^{-1}(\pi_{\alpha}^{-1}(E_{\alpha}))\in\mathcal{M}$\\
+        由于$\mathcal{N}=\bigotimes_{\alpha\in A}\mathcal{N}_{\alpha}=\mathcal{M}(\left\{\pi_{\alpha}^{-1}(E_{\alpha}):E_{\alpha}\in\mathcal{N}_{\alpha},\alpha\in A\right\})$\\
+        由命题3.1.2知$f$是$(\mathcal{M},\mathcal{N})$-可测的
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    $f:X\to\mathbb{C}$是$\mathcal{M}$-可测的当且仅当$Re(f),Im(f)$是$\mathcal{M}$-可测的
+\end{corollary}
+扩展实数系$\overline{\mathbb{R}}=\mathbb{R}\cup\left\{-\infty,+\infty\right\}$，定义$\overline{\mathbb{R}}$上的Borel集$\mathcal{B}_{\overline{\mathbb{R}}}=\left\{E\subset\overline{\mathbb{R}}:E\cap\mathbb{R}\in\mathcal{B}_{\mathbb{R}}\right\}$
+$\mathcal{B}_{\overline{\mathbb{R}}}$可由$(a,+\infty],[-\infty,a)$生成。$f:X\to\overline{\mathbb{R}}$如果是$(\mathcal{M},\mathcal{B}_{\overline{\mathbb{R}}})$-可测的，则称为
+是$\mathcal{M}$-可测的
+\begin{proposition}
+    若$f,g:X\to\mathbb{C}$是$\mathcal{M}$-可测的，那么$f+g,fg$也是$\mathcal{M}$-可测的
+    \begin{proof}
+        定义$F:X\to \mathbb{C}\times\mathbb{C},\ \phi,\psi:\mathbb{C}\times\mathbb{C}\to \mathbb{C}$\\
+        $F(x)=(f(x),g(x)),\phi(z,w)=z+w,\psi(z,w)=zw$\\
+        $\mathcal{B}_{\mathbb{C}\times\mathbb{C}}=\mathcal{B}_{\mathbb{C}}\otimes\mathcal{B}_{\mathbb{C}}$，由命题3.1.6知$F$是$(\mathcal{M},\mathcal{B}_{\mathbb{C}\times\mathbb{C}})$-可测的，$\phi,\psi$均为连续的，
+        从而可测，$f+g=\phi\circ F,fg=\psi\circ F$也是可测的
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    若$\left\{f_j\right\}_{j\in\mathbb{N}}$是一列$(X,\mathcal{M})$上的扩展实值可测函数，那么\\
+    $g_1(x)=\underset{j}{\sup}f_j(x),\ \ \ \ \ \ \ \ \ g_3(x)=\underset{j\to\infty}{\limsup}f_j(x)$\\
+    $g_2(x)=\underset{j}{\inf}f_j(x),\ \ \ \ \ \ \ \ \ \ g_4(x)=\underset{j\to\infty}{\liminf}f_j(x)$\\
+    均为可测的
+    \begin{proof}
+        首先验证$g_1^{-1}((a,+\infty])=\bigcup_1^{\infty}f_j^{-1}((a,+\infty])$:\\
+        $x\in g^{-1}_1((a,+\infty])\Leftrightarrow a<g_1(x)\leq +\infty\\
+        \Leftrightarrow \exists j: a<f_j(x)\leq +\infty$\\
+        否则$\forall j:f_j(x)\leq a\Rightarrow g_1(x)=\underset{j}{\sup}f_j(x)\leq a$，矛盾\\
+        于是$\Leftrightarrow x\in\bigcup_1^{\infty}f_j^{-1}((a,+\infty])$\\
+        同理$g_2^{-1}([-\infty,a))=\bigcup_1^{\infty}f_j^{-1}([-\infty,a))$\\
+        于是$g_1,g_2$可测\\
+        $g_3(x)=\underset{j\to\infty}{\limsup}f_j(x)=\underset{k}{\inf}(\underset{j>k}{\sup}f_j(x))$是可测函数，$g_4$同理
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    若$f,g:X\to \overline{\mathbb{R}}$是可测的，那么$max(f,g),min(f,g)$也是可测的
+\end{corollary}
+\begin{corollary}
+    若$\left\{f_j\right\}_{j\in\mathbb{N}}$是一列复值可测函数，且$f(x)=\lim_{j\to\infty}f_j(x)$存在，
+    则$f$也是可测函数
+\end{corollary}
+\begin{definition}
+    设$f:X\to\overline{\mathbb{R}}$，我们定义$f$的正部和负部：\\
+    $f^{+}(x)=max(f(x),0),\ \ f^{-}(x)=max(-f(x),0)$\\
+    则$f=f^{+}-f^{-}$若$f$是可测的，那么$f^{+},f^{-}$也是可测的\\
+    若$f:X\to\mathbb{C}$ 我们有极分解：\\
+    $f=(sgn f)|f|$，其中$sgn(z)=
+    \begin{cases}
+        \frac{z}{|z|}& \text{ if } z\neq 0 \\
+        0& \text{ if } z=0
+      \end{cases}$\\
+      若$f$是可测的，那么$z\mapsto|z|$是连续的，从而$|f|$可测，$z\mapsto sgn(z)$在除原点
+      外连续，$U\subset \mathbb{C}$为开集，则$sgn^{-1}(U)=V\cup\left\{0\right\}$或开集，于是$sgn(z)$是可测
+      的，即$sgn(f)=sgn\circ f$是可测的
+\end{definition}
+\begin{definition}
+    设$(X,\mathcal{M})$为可测空间，$E\subset X$，我们定义$E$的特征函数:\\
+    $\mathcal{X}_E(x)=
+    \begin{cases}
+        1& \text{ if } x\in E \\
+        0& \text{ if } x\notin E
+      \end{cases}$\\
+      容易验证$\mathcal{X}_E$可测当且仅当$E\in\mathcal{M}$
+\end{definition}
+\begin{definition}
+    $X$上的简单函数是一些可测特征函数在复系数下的线性组合，
+    我们不允许简单函数取值无穷。等价的有：$f:X\to\mathbb{C}$是简单函数当且仅当
+    $f$是可测的，且$f$的像集为$\mathbb{C}$的有限点集，此时有:\\
+    $f=\sum_1^nz_j\mathcal{X}_{E_j}$，其中$E_j=f^{-1}(\left\{z_j\right\})$，$range(f)=\left\{z_1,\dots,z_n\right\}$\\
+    称为$f$的标准表示，其中各$E_j$是不交的，$\bigcup_1^nE_j=X$(某个$z_j=0$)
+\end{definition}
+若$f,g$为简单函数，则$f+g,fg$也是，因为$f+g,fg$仍为可测函数且像集为有限点集
+
+下面讨论可测函数由简单函数逼近
+\begin{theorem}
+    设$(X,\mathcal{M})$为可测空间\\
+    a. 若$f:X\to[0,+\infty]$是可测的，存在一列简单函数$\left\{\phi_n\right\}_{n\in\mathbb{N}}$满足：\\
+    $0\leq\phi_1\leq\phi_2\leq\dots\leq f,\phi_n$逐点收敛于$f$，且在任意$f$有界的子集上，是一致
+    收敛的\\
+    b. 若$f:X\to\mathbb{C}$是可测的，存在一列简单函数$\left\{\phi_n\right\}_{n\in\mathbb{N}}$满足：\\
+    $0\leq|\phi_1|\leq|\phi_2|\leq\dots\leq |f|,\phi_n$逐点收敛于$f$，且在任意$f$有界的子集上，是一致
+    收敛的
+    \begin{proof}
+        a. 
+        对于$n=0,1,2,\dots,0\leq k\leq 2^{2n}-1$\\
+        令$E_n^k=f^{-1}((k2^{-n},(k+1)2^{-n}]),F_n=f^{-1}((2^n,+\infty])$\\
+        令$\phi_n=\sum_{k=0}^{2^{2n}-1}k2^{-n}\mathcal{X}_{E_n^k}+2^n\mathcal{X}_{F_n}$\\
+        首先验证单调性:\\
+        $x\in[0,+\infty]$\\
+        1. $f(x)=0,\phi_n(x)=\phi_{n+1}(x)=0$\\
+        2. $x\in E_n^k,\phi_n(x)=k2^{-n},\\
+        f(x)\in(k2^{-n},(k+1)2^{-n}]=(2k2^{-(n+1)},2(k+1)2^{-(n+1)}]$\\
+        $\exists l=2k,2k+1,\dots,2(k+1),x\in E_{n+1}^k,\\
+        \phi_{n+1}(x)=l2^{-(n+1)}\geq 2k2^{-(n+1)}=\phi_n(x)$\\
+        3. $x\in F_n,f(x)\in(2^n,+\infty]=(2^n,2*2^n]\cup(2^{n+1},+\infty]\\
+        =(2^{2n+1}*2^{-(n+1)},2^{2n+2}*2^{-(n+1)}]\cup(2^{n+1},+\infty]$\\
+        于是$\phi_{n+1}(x)=2^{n+1}$或$l2^{-(n+1)}\geq 2^{2n+1}*2^{-(n+1)}=2^n=\phi_n(x)$\\
+        总之有$\phi_{n+1}\geq \phi_n$\\
+        现在验证收敛性:\\
+        设$f$在$E$上有上界$2^N,\forall n>N,\forall x\in E,\\
+        \phi(x)=k2^{-n}<f(x)\leq (k+1)2^{-n}=\phi_n(x)+2^{-n}$\\
+        即$0<f(x)-\phi_n(x)\leq 2^{-n},\forall x\in E$\\
+        于是$\phi_n$在$E$上一致收敛于$f$\\
+        $\forall x\in X$，若$f(x)<+\infty$，$\phi_n$在$x$点的收敛以得证，若$f(x)=+\infty$\\
+        $\forall n,x\in F_n,\phi_n(x)=2^n\to +\infty=f(x)$，于是$\phi_n$于$x$收敛\\
+        b. 设$f=g+ih$，对$g^+,g^-,h^+,h^-$使用a.，\\
+        得到$\psi_n^+,\psi_n^-,\zeta_n^+,\zeta_n^-$\\
+        令$\phi_n=\psi_n^+-\psi_n^-+i(\zeta_n^+-\zeta_n^-)$\\
+        对于$x\in X$，$g^+,g^-,h^+,h^-$分别至少有一个为0，\\
+        不妨设$g^-(x)=h^-(x)=0$，于是$\psi_n^-(x)=\zeta_n^-(x)=0,$\\
+        $|f(x)|=\sqrt{g^+(x)^2+h^+(x)^2}\geq\sqrt{\psi_{n+1}^+(x)^2+\zeta_{n+1}^+(x)^2}\\
+        \geq\sqrt{\psi_{n}^+(x)^2+\zeta_{n}^+(x)^2}$\\
+        即$|f(x)|\geq|\phi_{n+1}(x)|\geq|\phi_n(x)|$\\
+        收敛性的部分是明显的
+    \end{proof}
+\end{theorem}
+\begin{proposition}
+    设$(X,\mathcal{M},\mu)$是测度空间，下面推断是有效的，当且仅当
+    测度$\mu$是完全的\\
+    a. $f$是可测的且$f=g$是$\mu$-几乎处处成立$\Rightarrow g$是可测的\\
+    b. $f_n$是可测的，且$f_n\to f$是$\mu$-几乎处处成立的$\Rightarrow f$是可测的
+    \begin{proof}
+        首先设$\mu$是完全的\\
+        a. 令$h=g-f$，则$\exists E\in \mathcal{M},\mu(E)=0:\forall x\notin E,h(x)=0$\\
+        往证$g=f+h$可测，只需证$h$可测，只需证$\forall a\in\mathbb{R},h^{-1}((a,+\infty])\in\mathcal{M}$\\
+        1. $a\geq 0,h(x)>a\geq 0\Rightarrow x\in E$，即$h^{-1}((a,+\infty])\subset E$\\
+        由于$\mu$是完全的，知$h^{-1}((a,+\infty])\in\mathcal{M}$\\
+        2. $a<0,h^{-1}((a,+\infty])=h^{-1}((a,0))\cup h^{-1}(\left\{0\right\})\cup h^{-1}((0,+\infty])\\
+        =F_1\cup E^c\cup F_2\in\mathcal{M}$，其中$F_1,F_2$为$E$的子集$\in\mathcal{M}$，$E^c\in\mathcal{M}$\\
+        b. 令$h=\underset{n\to\infty}{\limsup}f_n,h=f$是$\mu$-几乎处处成立的，由于$h$是可测的，由a. 
+        知$f$是可测的\\
+        若$\mu$不是完全的，对于$\mu$-0测集$E$，$\exists F\subset E,F\notin\mathcal{M}$\\
+        $\mathcal{X}_X=\mathcal{X}_F$是$\mu$-几乎处处成立的，但$\mathcal{X}_X$可测，$\mathcal{X}_F$不可测，即推断a.不成立
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    设$(X,\mathcal{M},\mu)$是一测度空间，$(X,\overline{\mathcal{M}},\overline{\mu})$是其完备化若$f$是$X$上
+    的$\overline{\mathcal{M}}$-可测函数，则存在$\mathcal{M}$-可测函数$g$满足$f=g$是$\overline{\mu}$-几乎处处成立的
+    \begin{proof}
+        设$E\in\overline{\mathcal{M}},\exists F\in\mathcal{M},N'$为$\mu$-零测集$N$的子集，$E=F\cup N'$\\
+        $\mathcal{X}_E=\mathcal{X}_F$在$N'\setminus F$外成立，设$\left\{\phi_n\right\}$为一列$\overline{\mathcal{M}}$-可测简单函数逐点收敛于$f$\\
+        对$\phi_n$执行上述操作，可得$\psi_n$为$\mathcal{M}$-可测简单函数，且在$E_n$外$\phi_n=\psi_n$处处成立
+        ，其中$E_n$为$\mu$-零测集$N_n$的子集，令$N=\bigcup_n N_n$为$\mu$-零测集\\
+        令$g=\underset{n\to \infty}{\limsup}\psi_n,\forall x\in N^c:f(x)=\underset{n\to\infty}{\lim}\phi_n(x)=\underset{n\to\infty}{\lim}\psi_n(x)=g(x)$\\
+        即$f=g$是$\mu$-几乎处处成立的，且$g$是$\mathcal{M}$-可测的
+    \end{proof}
+\end{proposition}
+
+\section{非负函数的积分}
+
+在这一节中，取定测度空间$(X,\mathcal{M},\mu)$，定义$L^+$为所有$X\to[0,+\infty]$的
+可测函数空间
+\begin{definition}
+    设$\phi=\sum_1^na_j\mathcal{X}_{E_j}\in L^+$为简单函数，我们定义$\phi$的积分\\
+    $\int\phi\,d\mu=\underset{1}{\overset{n}{\sum}}a_j\mu(E_j)$\\
+    约定$0*\infty=0$\\
+    设$A\in\mathcal{M}$，$\phi*\mathcal{X}_A=\underset{1}{\overset{n}{\sum}}a_j\mathcal{X}_{E_j}\mathcal{X_A}=\underset{1}{\overset{n}{\sum}}a_j\mathcal{X}_{E_j\cap A}$仍为简单函数\\
+    $\int_{A}\phi\,d\mu:=\int\phi*\mathcal{X}_A\,d\mu$\\
+    在这个约定下$\int\phi\,d\mu=\int_X\phi\,d\mu$\\
+    有时$\int_A\phi\,d\mu$也写作$\int_A\phi(x)\,d\mu(x)$或$\int_A\phi$
+\end{definition}
+\begin{proposition}
+    设$\phi,\psi\in L^+$为简单函数\\
+    a. $c\geq 0\Rightarrow \int c\phi=c\int\phi$\\
+    b. $\int(\phi+\psi)=\int\phi+\int\psi$\\
+    c. $\phi\leq\psi\Rightarrow \int\phi\leq\int\psi$\\
+    d. $A\mapsto \int_A\phi\,d\mu$是$\mathcal{M}$上的一个测度
+    \begin{proof}
+        设$\phi=\sum_1^na_j\mathcal{X}_{E_j},\psi=\sum_1^mb_j\mathcal{X}_{F_j}$\\
+        a. $\int c\phi=\sum_1^n ca_j\mu(E_j)=c\sum_1^na_j\mu(E_j)=c\int\phi$\\
+        b. 由于$X=\bigcup_1^n E_j=\bigcup_1^m F_j$为不交并，$E_j=\bigcup_{k=1}^m(E_j\cap F_k),F_j=\bigcup_{k=1}^n(E_k\cap 
+        F_j)$也是不交并\\
+        $\int\phi+\int\psi=\sum_{j=1}^na_j\mu(E_j)+\sum_{k=1}^mb_k\mu(F_k)\\
+        =\sum_{j=1}^na_j\mu(\bigcup_{k=1}^m(E_j\cap F_k))+\sum_{k=1}^mb_k\mu(\bigcup_{j=1}^n(E_j\cap F_k))\\
+        =\sum_{j,k}(a_j+b_k)\mu(E_j\cap F_k)\\
+        =\int(\phi+\psi)$\\
+        c. $E_j\cap F_k\neq\varnothing\Rightarrow a_j\leq b_k$\\
+        $\int\phi=\sum_{j=1}^na_j\mu(E_j)=\sum_{j,k}a_j\mu(E_j\cap F_k)\leq\sum_{j,k}b_j\mu(E_j\cap F_k)=\int\psi$\\
+        d. $\int_{\varnothing}\phi\,d\mu=\int\phi*\mathcal{X}_{\varnothing}\,d\mu=\sum_1^na_j\mu(\varnothing\cap E_j)=0$\\
+        设$\left\{A_k\right\}\subset\mathcal{M}$为一列不交集，$A=\bigcup_1^{\infty} A_k\\
+        \int_A\phi\,d\mu=\sum_{j=1}^na_j\mu(A\cap E_j)=\sum_{j=1}^na_j\mu(\bigcup_{k=1}^{\infty}(A_k\cap E_j))\\
+        =\sum_{j=1}^na_j\sum_{k=1}^{\infty}\mu(A_k\cap E_j)\\
+        =\sum_{k=1}^{\infty}\sum_{j=1}^na_j\mu(A_k\cap E_j)\\
+        =\sum_{k=1}^{\infty}\int_{A_k}\phi\,d\mu$\\
+        于是该映射是$\mathcal{M}$上的一个测度
+    \end{proof}
+\end{proposition}
+现在我们将积分的定义扩张到$L^+$上
+\begin{definition}
+    若$f\in L^+$，$\int f\,d\mu:=\sup\left\{\int\phi\,d\mu:0\leq\phi\leq f,\phi\text{是简单函数}\right\}$\\
+    由命题3.2.2.c.知，$f$为简单函数时，两个定义是等价的\\
+    容易验证$f\leq g\Rightarrow \int f\leq\int g,\int cf=c\int f,c\in[0,+\infty]$
+\end{definition}
+\begin{theorem}{The Monotone Convergence Theorem}
+    \\若$\left\{f_n\right\}\subset L^+,f_j\leq f_{j+1},f=\underset{n\to\infty}{\lim}f_n(=\sup_n f_n)$\\
+    那么$\int f=\underset{n\to\infty}{\lim}\int f_n$
+    \begin{proof}
+        首先$\int f_n$是单调递增数列，故极限存在或$=+\infty$\\
+        $f_n\leq f\Rightarrow \int f_n\leq\int f\Rightarrow \underset{n\to\infty}{\lim}\int f_n\leq \int f$\\
+        取$\alpha\in(0,1)$，$0\leq \phi\leq f$为简单函数，$E_n:=\left\{x:f_n(x)\geq\alpha\phi(x)\right\}$\\
+        则$E_n\in\mathcal{M}(f-\alpha\phi$可测$(f-\alpha\phi)^{-1}[0,+\infty]\in\mathcal{M})$，且$E_n\subset E_{n+1},\bigcup_nE_n=X$，
+        否则$\exists x\in X:\forall n,f_n(x)<\alpha\phi(x)\Rightarrow f(x)\leq\alpha\phi(x)<\phi(x)\leq f(x)$矛盾
+        于是$\int_X f_n\geq\int_{E_n}f_n\geq\alpha\int_{E_n}\phi$\\
+        $\underset{n\to\infty}{\lim}\int f_n\geq\alpha\underset{n\to\infty}{\lim}\int_{E_n}\phi=\alpha\int_{\bigcup_1^{\infty}E_n}\phi=\alpha\int\phi$\\
+        以上讨论对任意$\alpha,\phi$成立，令$\alpha\to 1$，得$\underset{n\to\infty}{\lim}\int f_n\geq\int\phi$\\
+        再对所有简单函数$\phi$取上确界，得$\underset{n\to\infty}{\lim}\int f_n\geq\int f$\\
+        综上，$\underset{n\to\infty}{\lim}\int f_n=\int\phi$
+    \end{proof}
+\end{theorem}
+对于$f\in L^+$，可取$\left\{\phi\right\}\subset L^+$为一单调简单函数且逐点收敛于$f$，$\int f=\lim_{n\to\infty}\int \phi_n$
+\begin{theorem}
+    若$\left\{f_n\right\}\subset L^+$是一列有限或可数函数，$f=\sum_nf_n$\\
+    则$\int f=\sum_n\int f_n$
+    \begin{proof}
+        首先考虑$f_1,f_2$，取$\left\{\phi_j\right\},\left\{\psi_j\right\}\subset L^+$为单调递增简单函数且分别逐点
+        收敛于$f_1,f_2$，那么$\left\{\phi_j+\psi_j\right\}$为单调递增简单函数且逐点收敛于$f_1+f_2$\\
+        $\int(f_1+f_2)=\lim_{j\to\infty}\int(\phi_j+\psi_j)=\lim_{j\to\infty}(\int\phi_j+\int\psi_j)=\lim_{j\to\infty}\int\phi_j+
+        \lim_{j\to\infty}\int\psi_j=\int f_1+\int f_2$\\
+        这表明若$\left\{f_n\right\}$是有限的，$\int f=\sum_n \int f_n$\\
+        若是无穷的，$\sum_1^Nf_n$是单调递增的，$\int f=\int\sum_1^{\infty}f_n=\int\underset{N\to\infty}{\lim}\sum_1^Nf_n\\
+        =\lim_{N\to\infty}\int\sum_1^Nf_n=\lim_{N\to\infty}\sum_1^N\int f_n=\sum_1^{\infty}\int f_n$
+    \end{proof}
+\end{theorem}
+\begin{proposition}
+    若$f\in L^+,$那么$\int f=0\Leftrightarrow f=0$ a.e.
+    \begin{proof}
+        首先若$f=\sum_ja_j\mathcal{X}_{E_j}$是简单函数，$\int f=0\Leftrightarrow a_j=0$或$\mu(E_j)=0$\\
+        对每个$j$成立，$\Leftrightarrow f=0$ a.e.\\
+        $\Leftarrow$\\
+        $0\leq\phi\leq f$为简单函数，则$\phi=0$ a.e.$\Rightarrow\int \phi=0$\\
+        于是$\int f=\sup_{0\leq\phi\leq f} \int \phi=0$\\
+        $\Rightarrow$\\
+        $f^{-1}((0,+\infty])=f^{-1}((\bigcup_1^{\infty}(\frac{1}{n}),+\infty])=\bigcup_1^{\infty}f^{-1}((\frac{1}{n},+\infty])$\\
+        若$f=0$ a.e.不成立，必$\exists N:\mu(f^{-1}((\frac{1}{N},+\infty]))>0$，记为$E_N$\\
+        否则$\mu(f^{-1}((0,+\infty]))\leq\sum_1^{\infty}\mu(f^{-1}((\frac{1}{n},+\infty]))=0$\\
+        这与$f=0$ a.e.不成立矛盾\\
+        于是$\int f\geq\int f*\mathcal{X}_{E_N}>\int \frac{1}{N}*\mathcal{X}_{E_N}=\frac{1}{N}*\mu(E_N)>0$\\
+        这又与$\int f=0$矛盾
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    若$\left\{f_n\right\}\subset L^+,f\in L^+$，$f_n(x)$单调递增趋于$f(x)$ a.e.那么$\int f=\lim_{n\to\infty}\int f_n$
+    \begin{proof}
+        $\exists E\in\mathcal{M}:\mu(E^c)=0,\forall x\in E,f_n(x)$单调递增趋于$f(x)$成立，那
+        么$f-f*\mathcal{X}_E\in L^+,f_n-f_n*\mathcal{X}_E\in L^*$且$f-f*\mathcal{X}_E=0,f_n-f_n*\mathcal{X}_E=0$ a.e.，
+        由命题3.2.6.知$\int f-f*\mathcal{X}_E=\int f_n-f_n*\mathcal{X}_E=0$\\
+        又$f_n*\mathcal{X}_E$单调递增趋于$f*\mathcal{X}_E$\\
+        $\int f=\int f*\mathcal{X}_E=\lim_{n\to\infty}\int f_n*\mathcal{X}_E=\lim_{n\to\infty}\int f_n$
+    \end{proof}
+\end{corollary}
+\begin{lemma}{Fatou's Lemma}
+    \\若$\left\{f_n\right\}\subset L^+$是任意序列，则$\int(\liminf f_n)\leq \liminf \int f_n$
+    \begin{proof}
+        $\forall j\geq k,\underset{n\geq k}{\inf}f_n\leq f_j,$于是$\int \underset{n\geq k}{\inf}f_n\leq \int f_j,\forall j\geq k$\\
+        $\Rightarrow \int \underset{n\geq k}{\inf}f_n\leq\underset{j\geq k}{\inf}\int f_j$\\
+        令$k\to \infty$，有$\int (\liminf f_n)=\lim_{k\to\infty}\int \underset{n\geq k}{\inf}f_n\leq\liminf \int f_n$
+    \end{proof}
+\end{lemma}
+\begin{corollary}
+    若$\left\{f_n\right\}\subset L^+,f\in L^+,f_n\to f$ a.e.，那么$\int f\leq \liminf\int f_n$
+    \begin{proof}
+        若$f_n\to f$处处成立，那么根据Fatou's Lemma，$\int f=\int \liminf f_n\leq
+        \liminf \int f_n$。一般的，$\exists E\in\mathcal{M}:\mu(E^c)=0,\forall x\in E,f_n(x)\to f(x)$，即$f_n*
+        \mathcal{X}_E\to f*\mathcal{X}_E$处处成立,$f-f*\mathcal{X}_E,f_n-f_n*\mathcal{X}_E\in L^+,f-f*\mathcal{X}_E=0,f_n-
+        f_n*\mathcal{X}_E=0$ a.e.，于是$\int f=\int f*\mathcal{X}_E,\int f_n=\int f*\mathcal{X}_E\\
+        \int f=\int f*\mathcal{X}_E\leq \liminf \int f_n*\mathcal{X}_E=\liminf \int f_n$
+    \end{proof}
+\end{corollary}
+\begin{proposition}
+    若$f\in L^+,\int f<+\infty$，那么$\left\{x:f(x)=+\infty\right\}$是零测集，且
+    $\left\{x:f(x)>0\right\}$是$\sigma$-有限的
+    \begin{proof}
+        记$E_n=f^{-1}((n,n+1]),n=1,\dots,F_k=f^{-1}((\frac{1}{k+1},\frac{1}{k}]),k=1,2,\dots
+        $，则$\left\{x:f(x)>0\right\}=\bigcup_{n=1}^{\infty}E_n\cup\bigcup_{k=1}^{\infty}F_k$是不交并，若$\exists E_n$或$F_k$，使得$\mu(E_n)=
+        +\infty$或$\mu(F_k)=+\infty$，则取$\phi=n\mathcal{X}_{E_n}$或$\frac{1}{k+1}\mathcal{X}_{F_k}$，均有$\phi\leq f$，于是$\int f\geq
+        \int \phi=+\infty$，矛盾，从而$\left\{x:f(x)>0\right\}$是$\sigma$-有限的\\
+        记$E=f^{-1}(\left\{+\infty\right\})$，若$\mu(E)=c>0$，那么取$\phi_n=n\mathcal{X}_E$，有$\phi_n\leq f\\
+        \int f\geq\lim_{n\to\infty}\int \phi_n=\lim_{n\to\infty}nc=+\infty$，矛盾，故$\mu(E)=0$
+    \end{proof}
+\end{proposition}
+
+\section{复值函数的积分}
+
+这一节仍假定$(X,\mathcal{M},\mu)$是测度空间
+\begin{definition}
+    设$f:X\to \mathbb{R}$是可测的，且$\int f^+$和$\int f^-$至少一个是有限的，则
+    定义$\int f=\int f^+-\int f^-$
+\end{definition}
+\begin{definition}
+    若$\int f^+$和$\int f^-$都是有限的，则称$f$是可积的，由于$|f|=f^++
+    f^-$，$f$可积等价于$|f|$可积，等价于$\int |f|<+\infty$
+\end{definition}
+\begin{proposition}
+    $X$上的所有实值可积函数构成实向量空间，且积分是其上的线
+    性函数
+    \begin{proof}
+        $X$上的所有实值函数构成实向量空间，故只需验证所有实可积函数
+        是其子空间，只需验证对线性运算封闭。设$f,g$为实可积函数，则
+        $af+bg$是实可测的，且$|af+bg|\leq|a||f|+|b||g|\Rightarrow \int |af+bg|\leq |a|\int |f|+|b|\int |g|$是
+        有限的，从而封闭性得证。\\
+        设$h=f+g$，$h^+-h^-=f^+-f^-+g^+-g^-,\\
+        h^++f^-+g^-=h^-+f^++g^+\\
+        \Rightarrow \int h^++\int f^-+\int g^-=\int h^-+\int f^++\int g^+\\
+        \Rightarrow \int h=\int h^+-\int h^-=\int f^+-\int f^-+\int g^+-\int g^-=\int f+\int g$\\
+        $a\geq 0$时，$\int af=\int af^+-\int af^-=a\int f^+-a\int f^-=a(\int f^+-\int f^-)=a\int f $\\
+        $a<0$时类似可得\\
+        综上，积分是这个向量空间上的线性函数
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    若$f$是复值可测函数，若$\int |f|<+\infty$，则称$f$是可积的。更一般
+    的，若$E\in\mathcal{M}$，$\int_E|f|<+\infty$，则称$f$在$E$上是可积的\\
+    由于$|f|\leq|Re\,f|+|Im\,f|\leq2|f|$，$f$可积当且仅当$Re\,f$和$Im\,f$均可积\\
+    于是我们可以定义$\int f=\int Re\,f+i\int Im\,f$\\
+    容易验证所有复值可积函数构成复向量空间，其上的积分是线性函数，我
+    们将这个向量空间记作$L^1(\mu)$或$L^1(X,\mu)$或$L^1(X)$或$L^1$
+\end{definition}
+\begin{proposition}
+    若$f\in L^1$，那么$|\int f|\leq\int |f|$
+    \begin{proof}
+        $f$是实值函数时$|\int f|=|\int f^+-\int f^-|\leq\int f^++\int f^-=\int |f|$\\
+        $f$为复值函数时，不妨设$\int f\neq 0$，令$\alpha=\overline{sgn(\int f)}$，那么$|\int f|=\frac{|\int f|^2}{|\int f|}
+        =\frac{\overline{\int f}*\int f}{|\int f|}=\alpha\int f=\int \alpha f\\
+        |\int f|=Re\,\int \alpha f=\int Re(\alpha f)\leq\int|Re(\alpha f)|\leq\int|\alpha f|=\int|f|$
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    a. 若$f\in L^1$，则$\left\{x:f(x)\neq0\right\}$是$\sigma$-有限的\\
+    b. 若$f,g\in L^1$，那么$\forall E\in\mathcal{M},\int_E f=\int_E g$当且仅当$\int|f-g|=0$当且仅
+    当$f=g$ a.e.
+    \begin{proof}
+        a. $\left\{x:f(x)\neq 0\right\}=f^{-1}([-\infty,0))\cup f^{-1}((0,+\infty])\\
+        =(f^+)^{-1}((0,+\infty])\cup(-f^-)^{-1}([-\infty.0))$\\
+        由$f\in L^1$知$\int |f^+|<+\infty,\int |f^-|<+\infty$\\
+        由命题3.2.10.知$(f^+)^{-1}((0,+\infty])$和$(-f^-)^{-1}([-\infty,0))=(f^-)^{-1}((0,+\infty])$均
+        为$\sigma$-有限的，从而$\left\{x:f(x)\neq 0\right\}$是$\sigma$-有限的\\
+        b. 由命题3.2.6.知$\int|f-g|=0\Leftrightarrow f=g$ a.e.\\
+        $\int|f-g|=0\Rightarrow \forall E\in\mathcal{M},\int_E f=\int_E g\\
+        |\int_E f-\int_E g|=|\int(f-g)*\mathcal{X}_E|\leq\int|(f-g)*\mathcal{X}_E|\leq\int|f-g|=0$\\
+        从而$\int_E f=\int_E g$\\
+        $\forall E\in\mathcal{M},\int_E f=\int_E g\Rightarrow f=g$ a.e.\\
+        设$u=Re(f-g),v=Im(f-g)$，若$f-g=u+iv=0$ a.e. 不成立，不妨
+        设$u=0$ a.e.不成立，令$E^+=(u^+)^{-1}((0,+\infty]),E^-=(u^-)^{-1}((0,+\infty])$，那
+        么$E=\left\{x:u(x)\neq 0\right\}=E^+\cup E^-$是不交的，且$\mu(E)>0$，故不妨设$\mu(E^+)>
+        0,\forall x\in E^+,u^-(x)=0,Re(\int_{E^+}f-\int_{E^+}g)=\int_{E^+}Re(f-g)=\int_{E^+}u^+>0$，
+        这与题设矛盾\\
+        $\int_{E^+}u^+>0$是因为：\\
+        $E^+=(u^+)^{-1}((0,+\infty])=(u^+)^{-1}(\bigcup_1^{\infty}(\frac{1}{n},+\infty])=\bigcup_1^{\infty}(u^+)^{-1}((\frac{1}{n},+\infty])\\
+        \mu(E^+)>0\Rightarrow\exists n:\mu((u^+)^{-1}((\frac{1}{n},+\infty]))>0,E_n:=(u^+)^{-1}((\frac{1}{n},+\infty])\\
+        \int_{E^+}u^+\geq\int_{E_n}u^+\geq\int_{E_n}\frac{1}{n}=\frac{1}{n}*\mu(E_n)>0$
+    \end{proof}
+\end{proposition}
+这个命题告诉我们，改变一个可积函数在一个零测集上的值不改变它
+的积分(假设该测度空间完全，改变函数在一个零测集上的值不改变其可测
+性)。若函数$f$只在$E\in\mathcal{M}$上有定义，且$\mu(E^c)=0$，那么我们可以补充定
+义$x\in E^c,f(x)=0$从而计算其积分($f$是否可测?)。对于$\overline{\mathbb{R}}$值的可积函数$f$，
+也可以改变$\infty$为有限值($f^{-1}(\infty)$零测)，而不改变其积分值。
+
+容易验证$f=g$ a.e.为$L^1(\mu)$上的等价关系，且$f=g$ a.e.$\Rightarrow \int f=\int g$，
+于是我们可以重新定义$L^1(\mu)$为在这个等价关系下的商集，这样$L^1(\mu)$仍为
+复向量空间($\int |f_1-f_2|=\int |g_1-g_2|=0\Rightarrow \int|f_1+g_1-f_2-g_2|\leq\int|f_1-
+f_2|+\int|g_1-g_2|=0,\int|af_1-af_2|=|a|\int|f_1-f_2|=0$，故加法和数乘有定
+义)。尽管$L^1(\mu)$已经被定义为商集，我们仍用$f\in L^1(\mu)$表示一个可积函数$f$
+
+$L^1(\mu)$的新定义有两个好处：1.若$\overline{\mu}$是$\mu$的完备化，命题3.1.17.给出了\\
+$L^1(\overline{\mu})$到$L^1(\mu)$的单射，因此可以认为这两个空间是相同的(?)；2.在度量$\rho(f,g)=
+\int |f-g|$下，$L^1(\mu)$构成度量空间(三角不等式和对称性是明显的，$\int|f-g|=
+0\Leftrightarrow f=g\ a.e.$)，我们将该度量空间中的收敛称为$L^1$中的收敛：$f_n\to
+ f\ in\ L^1\Leftrightarrow \int|f_n-f|\to 0$
+\begin{theorem}The Dominated Convergence Theorem
+ \\令$\left\{f_n\right\}$为$L^1$中的函数列满足：\\
+ a. $f_n\to f\ a.e.$\\
+ b. $\exists g\in L^1,g\geq 0:|f_n|\leq g\ a.e.,\forall n$\\
+ 那么$f\in L^1$且$\int f=\lim_{n\to\infty}\int f_n$
+ \begin{proof}
+    首先$f$在修改一个$\mu$-零测集上的函数值后是$\mu$-可测的，由命题3.1.16. 
+    3.1.17，知，$f$在修改一个$\mu$-零测集上的函数值后$\in L^1$(因为$|f_n|\leq g\ a.e.\Rightarrow 
+    |f|\leq g\ a.e.$，从而$f$是有限的)分别考虑$f_n,f$的实部和虚部，不妨假设它们
+    都是实值函数，有$g+f_n\geq 0\ a.e.,g-f_n\geq 0\ a.e.$即$\exists E\in\mathcal{M},\mu(E^c)=
+    0,(g+f_n)*\mathcal{X}_{E},(g-f_n)*\mathcal{X}_{E}\in L^+,$由Fatou's Lemma,\\
+    $\int f+\int g=\int (f+g)*\mathcal{X}_E=\int (f*\mathcal{X}_E+g*\mathcal{X}_E)=\int\liminf(f_n*\mathcal{X}_E+g*\mathcal{X}_E)\\
+    \leq\liminf\int (f_n*\mathcal{X}+g*\mathcal{X}_E)=\int g*\mathcal{X}_E+\liminf\int f_n*\mathcal{X}_E\\
+    =\int g+\liminf\int f_n$\\
+    $\int g-\int f=\int(g-f)=\int\liminf(g-f_n)*\mathcal{X}_E\leq\liminf\int(g*\mathcal{X}_E-f_n*\mathcal{X}_E)\\
+    =\int g-\limsup\int f_n$\\
+    综上，$\limsup\int f_n\leq\int f\leq\liminf\int f_n$，即$\lim\int f_n=\int f$
+ \end{proof}   
+\end{theorem}
+\begin{theorem}
+    设$\left\{f_j\right\}\subset L^1$满足$\sum_1^{\infty}\int |f_j|<+\infty$，那么$\sum_1^{\infty}f_j$几乎处处收敛
+    于$L^1$中的一个函数，且$\int\sum_1^{\infty}f_j=\sum_1^{\infty}\int f_j$
+    \begin{proof}
+        首先$\int \sum_1^{\infty}|f_j|=\sum_1^{\infty}\int|f_j|<+\infty,g=\sum_1^{\infty}|f_j|\in L^1$，且$g$是几乎处
+        处有限的，从而$\sum_1^{\infty}f_j$几乎处处收敛，又$|\sum_1^{\infty}f_j|\leq g$，由控制收敛定
+        理$\int\sum_1^{\infty}f_j=\sum_1^{\infty}\int f_j$
+    \end{proof}
+\end{theorem}
+\begin{theorem}
+    若$f\in L^1(\mu),\epsilon>0,$那么$\exists$可积简单函数$\phi=\sum a_j\mathcal{X}_{E_j}$使得\\
+    $\int|f-\phi|\,d\mu<\epsilon$，若$\mu$是$\mathbb{R}$上的Lebesgue-Stieltjes测度，$E_j$可以是有限个开区
+    间的并，还有一有界闭集外为0的连续函数$g:\int|f-g|\,d\mu<\epsilon$
+    \begin{proof}
+        由定理3.1.15.存在简单函数列$\phi_n$逐点收敛于$f$，即$\lim|f-\phi_n|=0,|f-
+        \phi_n|\leq 2|f|$，由控制收敛定理，$\lim \int|f-\phi_n|=\int\lim|f-\phi_n|=0$，于是存
+        在充分大的$n$使得$\int|f-\phi_n|<\epsilon$，若$\mu$为$\mathbb{R}$上的Lebesgue-Stieltjes测度，
+        $\phi_n=\sum_1^N a_j\mathcal{X}_{E_j},\mu(E_j)=a_j^{-1}\int_{E_j}\phi_n\leq a_j^{-1}\int|f|<+\infty$\\
+        由命题2.4.6.存在有限个1开区间的并$A_j$，使得$\mu(E_j\triangle A_j)<\epsilon$\\
+        $\mu(E\triangle F)=\mu(E\cup F)-\mu(F\cap E)=\int\max(\mathcal{X}_E,\mathcal{X}_F)-\int\min(\mathcal{X}_E,\mathcal{X}_F)=
+        \int|\mathcal{X}_E-\mathcal{X}_F|$\\
+        令$\psi_n=\sum_1^N a_j\mathcal{X}_{A_j},\int|f-\psi_n|\leq\int|f-\phi_n|+\int|\phi_n-\psi_n|<\epsilon+\sum_1^N |a_j||\mathcal{X}_{E_j}-
+        \mathcal{X}_{A_j}|<\epsilon+\sum_1^N|a_j|\mu(A_j\triangle E_j)<\epsilon(1+\sum_1^N|a_j|)$\\
+        对于开区间$(a,b)$，定义连续函数$g_{(a,b)}^{\epsilon}=
+        \begin{cases}
+            0& \text{ if } x\in[-\infty,a] \\
+            \epsilon^{-1}(x-a)& \text{ if } x\in(a,a+\epsilon) \\
+            1& \text{ if } x\in[a+\epsilon,b-\epsilon] \\
+            -\epsilon^{-1}(x-b)& \text{ if } x\in(b-\epsilon,b) \\
+            0& \text{ if } x\in[b,+\infty]
+          \end{cases}$\\
+          $\int|g_{(a,b)}^{\epsilon}-\mathcal{X}_{(a,b)}|<\int \mathcal{X}_{[a,a+\epsilon]}+\mathcal{X}_{[b-\epsilon,b]}=2\epsilon$\\
+          已知存在简单函数$\phi=\sum a_j\mathcal{X}_{I_j},\int|f-\phi|<\epsilon$，其中$I_j$为开区间，取$g=
+          \sum a_jg_{I_j}^{\epsilon}$为连续函数，$\int|f-g|\leq\int|f-\phi|+\int|\phi-g|<\epsilon+\sum |a_j|\int|\mathcal{X}_{I_j}-
+          g_{I_j}^{\epsilon}|<\epsilon(1+2\sum |a_j|)$
+    \end{proof}
+\end{theorem}
+\begin{theorem}
+    设$f:X\times[a,b]\to\mathbb{C}(a<b)$，且$\forall t\in[a,b],f(.,t):X\to\mathbb{C}$可积
+    令$F(t)=\int_Xf(x,t)\,d\mu(x)$，则
+    \\a. 若存在$g\in L^1(\mu):\forall t\in[a,b],|f(x,t)|\leq g(x),\forall x\in X,\lim_{t\to t_0}f(x,t)=
+    f(x,t_0)$，那么$\lim_{t\to t_0}F(t)=F(t_0)$\\
+    b. 若$\frac{\partial f}{\partial t}$存在，$\exists g\in L^1(\mu):|\frac{\partial f}{\partial t}(x,t)|\leq g(x),\forall x,t$，那么$F$可微，且$\frac{d F}{d t}(t)=
+    \int_X \frac{\partial f}{\partial t}(x,t)d\mu(x)$
+    \begin{proof}
+        a. 由海涅定理，只需证明：$\forall \left\{t_n\right\}\subset [a,b],t_n\to t_0:F(t_n)\to F(t_0)$\\
+        令$h_n(x)=f(x,t_n)$，于是$h_n$可测，逐点收敛于$f(x,t_0)$，且$|h_n|\leq g$，由
+        控制收敛定理，$F(t_n)=\int h_n d\mu\to\int f(x,t_0)d\mu=F(t_0)$\\
+        b. 只需证明$\forall t_0\in[a,b],\forall \left\{t_n\right\}\subset [a,b]\setminus\left\{t_0\right\},t_n\to t_0:\frac{F(t_n)-F(t_0)}{t_n-t_0}\to 
+        \int_X\frac{\partial f}{\partial t}f(x,t_0)d\mu$，其中$\frac{F(t_n)-F(t_0)}{t_n-t_0}=\int_X \frac{f(x,t_n)-f(x,t_0)}{t_n-t_0}d\mu(x)$，令$h_n(x)=\frac{f(x,t_n)-f(x,t_0)}{t_n-t_0}$\\
+        于是$h_n$可测，逐点收敛于$\frac{\partial f}{\partial t}(x,t_0)$，且$|h_n(x)|=|\frac{\partial f}{\partial t}(x,\xi_n)|\leq\sup_{t\in[a,b]}|\frac{\partial f}{\partial t}(x,t)|\leq 
+        g(x)$，由控制收敛定理，$\frac{\partial f}{\partial t}(x,t_0)$可测，且$\frac{F(t_n)-F(t_0)}{t_n-t_0}=\int_X h_nd\mu\to\int_X\frac{\partial f}{\partial t}(x,t_0)d\mu(x)$
+    \end{proof}
+\end{theorem}
+\begin{definition}
+    令$[a,b]$为一有限闭区间，$P=\left\{t_j\right\}_0^n\subset [a,b]:a=t_0<t_1<
+    \dots<t_n=b$称为$[a,b]$的分割，再设$f$为$[a,b]$上的有界实值函数，\\
+    $S_P f:=\sum_1^nM_j(t_j-t_{j-1}),s_P:=\sum_1^nm_j(t_j-t_{j-1})$，其中$M_j=\sup_{x\in[t_j,t_{j-1}]}f(x)$
+    $m_j=\inf_{x\in[t_j,t_{j-1}]}f(x)$\\
+    定义$\overline{I}_a^b(f)=\underset{P}{\inf}S_Pf,\underline{I}_a^b(f)=\underset{P}{\sup}s_Pf$\\
+    若$\overline{I}_a^b(f)=\underline{I}_a^b(f)$，则称$f$在$[a,b]$上黎曼可积，$\int_a^bf(x)dx:=\overline{I}_a^b(f)$
+\end{definition}
+\begin{theorem}
+    设$f$为$[a,b]$上的有界实值函数\\
+    a. 若$f$黎曼可积，则$f$勒贝格可积，且$\int_a^bf(x)dx=\int_{[a,b]}fdm$\\
+    b. $f$黎曼可积当且仅当$f$的不连续点集为勒贝格零测集
+    \begin{proof}
+        a.设$f$为$[a,b]$上的黎曼可积函数，$P=\left\{t_j\right\}_0^n,G_P=\sum_1^nM_j\mathcal{X}_{(t_{j-1},t_j]}
+        g_P=\sum_1^nm_j\mathcal{X}_{(t_{j-1},t_j]}$，取$\left\{P_k\right\}_1^{\infty}:|P_k|=\sup(t_j-t_{j-1})\to 0(k\to\infty),P_k\subset 
+        P_{k+1}$，于是$G_{P_k},g_{P_k}$分别为单调递减和单调递增函数,$\int_a^bG_{P_k}dx=\sum_1^nM_j(t_j-t_{j-1})=
+        \int_{(a,b]}G_{P_k}dm=\int_{[a,b]}G_{P_k}dm,\int_a^bg_{P_k}dx=\int_{[a,b]}g_{P_k}dm$\\
+        令$G=\lim_{k\to\infty}G_{P_k},g=\lim_{k\to\infty}g_{P_k}$，于是$G,g$可测，且由单调收敛定理知：
+        $\int_{[a,b]}Gdm=\lim\int_{[a,b]}G_{P_k}dm=\lim\int_a^bG_{P_k}(x)dx=\int_a^bf(x)dx$\\
+        同理$\int_{[a,b]}gdm=\int_a^bf(x)dx$\\
+        $G-g\geq 0,\int_{[a,b]}(G-g)dm=0\Rightarrow G=g\ a.e.$从而$G=f\ a.e.$由于$m$是完备的，
+        知$f$可测，且$\int_{[a,b]}fdm=\int_{[a,b]}Gdm=\int_a^bf(x)dx<+\infty$，于是$f$勒贝格
+        可积\\
+        b. 先证明两个引理：
+        \begin{lemma}{1.}
+            定义$H(x)=\underset{\delta\to 0}{\lim}\underset{y\in[x-\delta,x+\delta]}{\sup}f(y),h(x)=\underset{\delta\to 0}{\lim}\underset{y\in[x-\delta,x+\delta]}{\inf}f(y)$
+            则$H(x)=h(x)$当且仅当$f$于$x$点连续
+            \begin{proof}
+                $f$于$x$点连续当且仅当$\lim_{y\to x}f(y)=f(x)$，当且仅当$f$沿$y\to x$的附着
+                点只有$f(x)$当且仅当$\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}=\left\{f(x)\right\}$，右边包含于左边是
+                明显的，于是等价于证明$\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\subset\left\{f(x)\right\}$当且仅当$H(x)=
+                h(x)$现在证明$H(x)=\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$：\\
+                取定$x$，记$d=H(x),\forall \epsilon>0,\exists \delta_0>0:\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<d+\epsilon\\
+                \bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\subset \overline{f([x-\delta_0,x+\delta_0])}\Rightarrow \sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\leq
+                \sup\overline{f([x-\delta_0,x+\delta_0])}=\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<d+\epsilon$\\
+                由$\epsilon$任意性，$\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}\leq d$\\
+                记$\sup\overline{f([x-\frac{1}{n},x+\frac{1}{n}])}=y_n,\lim_{n\to\infty}y_n=d$由于$y_n\in\overline{f([x-\frac{1}{n},x+\frac{1}{n}])}\\
+                \exists x_n\in[x-\frac{1}{n},x+\frac{1}{n}],|f(x_n)-y_n|<\frac{1}{n}$，于是$\lim_{n\to\infty}x_n=x,\lim_{n\to\infty}f(x_n)=
+                d,\forall \delta>0,$往证$d\in\overline{f([x-\delta,x+\delta])}$，即证$\forall \epsilon>0,(d-\epsilon,d+\epsilon)\cap f([x-\delta,x+
+                \delta])\neq\varnothing$，对上述$\epsilon,\delta,\exists N:x_N\in[x-\delta,x+\delta],f(x_N)\in(x-\epsilon,x+\epsilon)$这就证明
+                了$d\in\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$，从而$d\leq\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$\\
+                综上，$H(x)=\sup\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$，同理$h(x)=\inf\bigcap_{\delta>0}\overline{f([x-\delta,x+\delta])}$
+                $f$于$x$连续当且仅当$H(x)=h(x)$
+            \end{proof}
+        \end{lemma}
+        \begin{lemma}{2.}
+            沿用定理3.3.12.a的记号，$H=G\ a.e.,h=g\ a.e.$因此$H,G$均
+            勒贝格可测，且$\int_{[a,b]}Hdm=\overline{I}_a^b(f),\int_{[a,b]}hdm=\underline{I}_a^b(f)$
+            \begin{proof}
+                $P_k$的选取同定理3.3.12.a，令$N=\bigcup_1^{\infty}P_k$为勒贝格零测集\\
+                $\forall x\in[a,b]\setminus N,\forall k,\exists j:x\in(t_{j-1}^k,t_j^k),\exists \delta_0>0:(t_{j-1}^k,t_j^k)\supset [x-\delta_0,x+
+                \delta_0],G_{P_k}(x)=\underset{y\in(t_{j-1}^k,t_j)}{\sup}f(y)\geq\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)\geq \underset{\delta>0}{\inf}\underset{y\in[x-\delta,x+\delta]}{\sup}f(y)=H(x)
+                \\k\to\infty,G(x)\geq H(x)$
+                \\$\forall x\in[a,b]\setminus N$
+                \\$\forall \epsilon>0,\exists \delta_0>0:\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<H(x)+\epsilon$
+                \\对上述$x,\delta_0$，又存在$k,j:(t_{j-1}^k,t_j^k)\subset[x-\delta_0,x+\delta_0]$
+                \\$G(x)\leq G_{P_k}(x)=\underset{y\in(t_{j-1}^k,t_j^k)}{\sup}f(y)\leq\underset{y\in[x-\delta_0,x+\delta_0]}{\sup}f(y)<H(x)+\epsilon$
+                \\由$\epsilon$任意性，$G(x)\leq H(x)$
+                \\即$\forall x\in[a,b]\setminus N,G(x)=H(x)$
+                \\同理可得$g(x)=h(x)\ a.e.$
+                \\$\int_{[a,b]}Hdm=\int_{[a,b]}Gdm=\lim\int_{[a,b]}G_{P_k}dm=\lim S_{P_k}(f)=\overline{I}_a^b(f)$
+                \\$\int_{[a,b]}hdm=\int_{[a,b]}gdm=\lim\int_{[a,b]}g_{P_k}dm=\lim s_{P_k}(f)=\underline{I}_a^b(f)$
+            \end{proof}
+        \end{lemma}
+    现在可以完成b.的证明:
+    \\$f$黎曼可积当且仅当$\overline{I}_a^b(f)=\underline{I}_a^b(f)$当且仅当$\int_{[a,b]}Hdm=\int_{[a,b]}hdm$当且仅
+    当$H=h\ a.e.$当且仅当$f$连续 a.e.
+    \end{proof}
+今后黎曼积分符号均用于表示勒贝格积分
+\end{theorem}
+
+\section{收敛}
+
+
+\end{document}

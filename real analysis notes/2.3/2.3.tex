@@ -1,0 +1,131 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+这一节建立了用来构造测度的工具
+\begin{definition}
+    非空集合$X$上的外测度是函数$\mu^*:\mathcal{P}(X)\rightarrow [0,+\infty]$，并且满足以下条件：\\
+    1. $\mu^*(\phi)=0$\\
+    2. $A\subset B\Rightarrow \mu^*(A)\leq \mu^*(B)$\\
+    3. $\mu^*(\bigcup_1^{\infty}A_j)\leq \sum_1^{\infty}\mu^*(A_j)$
+\end{definition}
+\begin{proposition}
+    设$\varepsilon\subset\mathcal{P}(X),\rho:\varepsilon\rightarrow [0,+\infty]$满足：$\phi\in\varepsilon,X\in\varepsilon,\rho(\phi)=0$\\
+    对任意$A\in\mathcal{P}(X)$，定义：\\
+    $\mu^*(A)=\inf\left\{\sum_1^{\infty}\rho(E_j):E_j\in\varepsilon,A\subset\bigcup_1^{\infty}E_j\right\}$\\
+    则$\mu^*$是一个外测度
+    \begin{proof}
+        首先，由于$X\in\varepsilon$，故$\forall A\in\mathcal{P}(X),A\subset X$，该定义是良定义的\\
+        1. $\phi\in\varepsilon,\mu^*(\phi)=\rho(\phi)=0$\\
+        2. $A\subset B$，$\forall\left\{E_j\right\}_1^{\infty}$覆盖$B$，也覆盖$A$，即$\mu^*(A)\leq\sum_1^{\infty}\rho(E_j)$\\
+        对任意$\left\{E_j\right\}_1^{\infty}$成立，于是$\mu^*(A)\leq\mu^*(B)$\\
+        3. $\forall \epsilon>0$对于$A_j\in\mathcal{P}(X),\exists\left\{E_j^k\right\}_{k=1}^{\infty}\subset\varepsilon:\sum_{k=1}^{\infty}\rho(E_j^k)<\mu^*(A_j)+\epsilon2^{-j}$\\
+        令$A=\bigcup_1^{\infty}A_j\subset\bigcup_{j,k}E_j^k,\mu^*(A)\leq\sum_{j,k}\rho(E_j^k)\leq\sum_1^{\infty}\mu^*(A_j)+\epsilon$\\
+        由$\epsilon$任意性，$\mu^*(\bigcup_1^{\infty}A_j)\leq\sum_1^{\infty}\mu^*(A_j)$
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    设$\mu^*$为$X$上的一个外测度，$A\subset X$称为$\mu^*$-可测的，若：\\
+    $\mu^*(E)=\mu^*(E\cap A)+\mu^*(E\cap A^c)$对所有$E\subset X$成立
+\end{definition}
+由于$\mu^*(E)\leq\mu^*(E\cap A)+\mu^*(E\cap A^c)$平凡成立，故$A$是$\mu^*$-可测的，只
+需验证$\mu^*(E)\geq\mu^*(E\cap A)+\mu^*(E\cap A^c)$对所有$E:\mu^*(E)<+\infty$成立
+\begin{theorem}
+    Caratheodory's Theorem\\
+    若$\mu^*$是$X$上的一个外测度，所有$\mu^*$-可测集构成的集合$\,\mathcal{M}$是$\sigma$-代数，$\mu^*$在$\mathcal{M}$上
+    的限制是一个完全的测度
+    \begin{proof}
+        首先证明$\mathcal{M}$是$\sigma$-代数\\
+        由于$\mu^*$-可测的定义关于$A,A^c$对称，故$\mathcal{M}$关于取补集封闭\\
+        设$A,B\in\mathcal{M}$，$\mu^*(E)=\mu^*(E\cap A)+\mu^*(E\cap A^c)$\\
+        $=\mu^*(E\cap A\cap B)+\mu^*(E\cap A\cap B^c)+\mu^*(E\cap A^c\cap B)+\mu^*(E\cap A^c\cap B^c)$\\
+        $A\cup B=(A\cap B)\cup(A\cap B^c)\cup(B\cap A^c)$\\
+        $\mu^*(E)\geq\mu^*(E\cap(A\cup B))+\mu^*(E\cap(A\cup B)^c)$\\
+        从而$A\cup B$可测，$A\cup B\in\mathcal{M}$\\
+        若还有$A\cap B=\phi$，\\
+        $\mu^*(A\cup B)=\mu^*((A\cup B)\cap A)+\mu^*((A\cup B)\cap A^c)=\mu^*(A)+\mu^*(B)$\\
+        即$\mu^*$在$\mathcal{M}$上有限可加\\
+        现往证$\mathcal{M}$对于可数不交并封闭\\
+        设$\left\{A_j\right\}_1^{\infty}$为$\mathcal{M}$中一列不交集，令$B_n=\bigcup_1^nA_j,B=\bigcup_1^{\infty}A_j$\\
+        归纳可得$B_n\in\mathcal{M}$，$\mu^*(E\cap B_n)=\mu^*(E\cap B_n\cap A_n)+\mu^*(E\cap B_n\cap A_n^c)$\\
+        $=\mu^*(E\cap A_n)+\mu^*(E\cap B_{n-1})$\\
+        令$B_0=\phi$，归纳可得$\mu^*(E\cap B_n)=\sum_1^n\mu^*(E\cap A_j)$\\
+        $\mu^*(E)=\mu^*(E\cap B_n)+\mu^*(E\cap B_n^c)\geq\sum_1^n\mu^*(E\cap A_j)+\mu^*(E\cap B)$\\
+        令$n\rightarrow\infty$，$\mu^*(E)\geq\sum_1^{\infty}\mu^*(E\cap A_j)+\mu^*(E\cap B)\\
+        \geq\mu^*(\bigcup_1^{\infty}(E\cap A_j))+\mu^*(E\cap B^c)=\mu^*(E\cap B)+\mu^*(E\cap B^c)$\\
+        于是$B=\bigcup_1^{\infty}A_j\in\mathcal{M}$\\
+        在上式中取$E=B$，得$\mu^*(\bigcup_1^{\infty}A_j)=\sum_1^{\infty}\mu^*(A_j)$\\
+        于是$\mu^*_{|\mathcal{M}}$是测度\\
+        $\mu^*(A)=0\Rightarrow\mu^*(E)\leq\mu^*(E\cap A)+\mu^*(E\cap A^c)=\mu^*(E\cap A^c)\leq\mu^*(E)$\\
+        从而$A\in\mathcal{M}$，即$\mu^*_{|\mathcal{M}}$是完全的
+    \end{proof}
+\end{theorem}
+\begin{definition}
+    设$\mathcal{A}\subset\mathcal{P}(X)$是一个代数，$\mu_0:\mathcal{A}\rightarrow[0,+\infty]$称为预测度，若其
+    满足以下条件：\\
+    $\mu_0(\phi)=0$\\
+    设$\left\{A_j\right\}_1^{\infty}$是$\mathcal{A}$中的一列不交集，并且$\bigcup_1^{\infty}A_j\in\mathcal{A}$，则$\mu_0(\bigcup_1^{\infty}A_j)=\sum_1^{\infty}\mu_0(A_j)$\\
+    从而$\mu_0$也是有限可加的
+\end{definition}
+若$\mu_0$是$\mathcal{A}\subset\mathcal{P}(X)$是一个预测度，则由命题2.3.2 $\mu_0$可以诱导一个外测度：
+$\mu^*(E)=\inf\left\{\sum_1^{\infty}\mu_0(A_j):A_j\in\mathcal{A},E\subset\bigcup_1^{\infty}A_j\right\}$
+\begin{proposition}
+    设$\mu_0$是$\mathcal{A}$上的一个预测度，$\mu^*$是其诱导的外测度，那么：\\
+    a. $\mu^*_{|\mathcal{A}}=\mu_0$;\\
+    b. $\mathcal{A}$中的每个集合都是$\mu^*$-可测的
+    \begin{proof}
+        a. 设$E\in\mathcal{A}$，若$E\subset \bigcup_1^{\infty}A_j,A_j\in\mathcal{A}$，\\
+        令$B_n=E\cap(A_n\setminus(\bigcup_1^{n-1}A_j))\in\mathcal{A}$
+        于是$B_n$是不交的，且$\bigcup_1^{\infty}B_n=E$\\
+        $\mu_0(E)=\sum_1^{\infty}\mu_0(B_n)\leq\sum_1^{\infty}\mu_0(A_n)$\\
+        由$A_n$的任意性，$\mu_0(E)\leq\mu^*(E)\leq\mu_0(E)$\\
+        其中第二个不等号是明显的，因为$E\subset E\in\mathcal{A}$\\
+        b. 设$A\in\mathcal{A},E\in\mathcal{P}(X),\forall \epsilon>0,\exists\left\{B_j\right\}_1^{\infty}\subset\mathcal{A}:$\\
+        $A\subset\bigcup_1^{\infty}B_j,\sum_1^{\infty}\mu_0(B_j)<\mu^*(E)+\epsilon$\\
+        于是$\mu^*(E)+\epsilon>\sum_1^{\infty}\mu_0(B_j)=\sum_1^{\infty}\mu_0((B_j\cap A)\cup(B_j\cap A^c))$\\
+        $=\sum_1^{\infty}\mu_0(B_j\cap A)+\sum_1^{\infty}\mu_0(B_j\cap A^c)$\\
+        $\geq\mu^*(E\cap A)+\mu^*(E\cap A^c)$\\
+        由$\epsilon$的任意性，$\mu^*(E)\geq\mu^*(E\cap A)+\mu^*(E\cap A^c)$\\
+        从而$A$是$\mu^*$-可测的
+    \end{proof}
+\end{proposition}
+\begin{theorem}
+    令$\mathcal{A}\subset\mathcal{P}(X)$是一个代数，$\mu_0$是$\mathcal{A}$上的预测度，$\mathcal{M}$是$\mathcal{A}$生成的$\sigma$-代数
+    则存在$\mathcal{M}$上的测度$\mu$，其在$\mathcal{A}$上的限制等于$\mu_0$，且$\mu=\mu^*_{|\mathcal{M}}$，其
+    中$\mu^*$是$\mu_0$诱导的外测度，若$\nu $是$\mathcal{M}$上的另一个$\mu_0$由扩张的测度，则$\nu(E)\leq\mu(E)$
+    $\forall E\in\mathcal{M}$其中等号在$\mu(E)<+\infty$时成立，若$\mu_0$是$\sigma$-有限的，则$\mu$是$\mu_0$在\\
+    $\mathcal{M}$上唯一的扩张
+    \begin{proof}
+        首先由Caratheodory Theorem和命题2.3.6 $\mu_0$可诱导$X$上的外测度$\mu^*$，
+        其所有$\mu^*$-可测集构成包含$\mathcal{A}$的$\sigma$-代数，自然也包含$\mathcal{M}$，且$\mu^*$在$\mathcal{M}$上的限制
+        是测度，即$\mu=\mu_{|\mathcal{M}}^*$，$\mu_{|\mathcal{A}}=\mu^*_{\mathcal{A}}=\mu_0$\\
+        设$E\in\mathcal{M}$，$\left\{A_j\right\}_1^{\infty}$为任意$\mathcal{A}$中覆盖$E$的集列，则\\
+        $\nu(E)\leq\nu(\bigcup_1^{\infty}A_j)\leq\sum_1^{\infty}\nu(A_j)=\sum_1^{\infty}\mu_0(A_j)$\\
+        $\nu(E)\leq\mu^*_{|\mathcal{M}}(E)=\mu(E)$\\
+        若$\mu(E)<+\infty$，$\forall\epsilon>0,\exists\left\{A_j\right\}_1^{\infty}\subset\mathcal{A}:$\\
+        $\mu(A)\leq\sum_1^{\infty}\mu(A_j)=\sum_1^{\infty}\mu_0(A_j)<\mu(E)+\epsilon$\\
+        $\mu(A\setminus E)=\mu(A)-\mu(E)<\epsilon$\\
+        $\mu(E)\leq\mu(A)=\lim_{n \to \infty}\mu(\bigcup_1^nA_j)=\lim_{n \to \infty}\nu(\bigcup_1^nA_j)\\
+        =\nu(A)=\nu(A\setminus E)+\nu(E)\leq\mu(A\setminus E)+\nu(E)<\epsilon+\nu(E)$\\
+        由$\epsilon$任意性知$\nu(E)\leq\mu(E)$\\
+        设$\mu_0$是$\sigma$-有限的，即$\exists\left\{A_j\right\}_1^{\infty}\subset\mathcal{A}:X=\bigcup_1^{\infty}A_j,\mu_0(A_j)<+\infty$\\
+        不妨设$A_n$是不交的，否则代之以$B_n=A_n\setminus(\bigcup_1^{n-1}A_j)$\\
+        $\forall E\in\mathcal{M},\mu(E)=\mu(E\cap X)=\mu(E\cap(\bigcup_1^{\infty}A_j))=\mu(\bigcup_1^{\infty}(E\cap A_j))$\\
+        $=\lim_{n\to\infty}\mu(\bigcup_1^n(E\cap A_j))=\lim_{n\to\infty}\sum_1^n\mu(E\cap A_j)$\\
+        $=\lim_{n\to\infty}\sum_1^n\nu(E\cap A_j)=\lim_{n\to\infty}\nu(\bigcup_1^n(E\cap A_j))$\\
+        $=\nu(\bigcup_1^{\infty}(E\cap A_j))=\nu(E\cap X)=\nu(E)$\\
+        于是$\mu=\nu$
+    \end{proof}
+\end{theorem}
+\end{document}

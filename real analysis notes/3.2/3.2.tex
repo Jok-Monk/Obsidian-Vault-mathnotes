@@ -1,0 +1,146 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+在这一节中，取定测度空间$(X,\mathcal{M},\mu)$，定义$L^+$为所有$X\to[0,+\infty]$的
+可测函数空间
+\begin{definition}
+    设$\phi=\sum_1^na_j\mathcal{X}_{E_j}\in L^+$为简单函数，我们定义$\phi$的积分\\
+    $\int\phi\,d\mu=\underset{1}{\overset{n}{\sum}}a_j\mu(E_j)$\\
+    约定$0*\infty=0$\\
+    设$A\in\mathcal{M}$，$\phi*\mathcal{X}_A=\underset{1}{\overset{n}{\sum}}a_j\mathcal{X}_{E_j}\mathcal{X_A}=\underset{1}{\overset{n}{\sum}}a_j\mathcal{X}_{E_j\cap A}$仍为简单函数\\
+    $\int_{A}\phi\,d\mu:=\int\phi*\mathcal{X}_A\,d\mu$\\
+    在这个约定下$\int\phi\,d\mu=\int_X\phi\,d\mu$\\
+    有时$\int_A\phi\,d\mu$也写作$\int_A\phi(x)\,d\mu(x)$或$\int_A\phi$
+\end{definition}
+\begin{proposition}
+    设$\phi,\psi\in L^+$为简单函数\\
+    a. $c\geq 0\Rightarrow \int c\phi=c\int\phi$\\
+    b. $\int(\phi+\psi)=\int\phi+\int\psi$\\
+    c. $\phi\leq\psi\Rightarrow \int\phi\leq\int\psi$\\
+    d. $A\mapsto \int_A\phi\,d\mu$是$\mathcal{M}$上的一个测度
+    \begin{proof}
+        设$\phi=\sum_1^na_j\mathcal{X}_{E_j},\psi=\sum_1^mb_j\mathcal{X}_{F_j}$\\
+        a. $\int c\phi=\sum_1^n ca_j\mu(E_j)=c\sum_1^na_j\mu(E_j)=c\int\phi$\\
+        b. 由于$X=\bigcup_1^n E_j=\bigcup_1^m F_j$为不交并，$E_j=\bigcup_{k=1}^m(E_j\cap F_k),F_j=\bigcup_{k=1}^n(E_k\cap 
+        F_j)$也是不交并\\
+        $\int\phi+\int\psi=\sum_{j=1}^na_j\mu(E_j)+\sum_{k=1}^mb_k\mu(F_k)\\
+        =\sum_{j=1}^na_j\mu(\bigcup_{k=1}^m(E_j\cap F_k))+\sum_{k=1}^mb_k\mu(\bigcup_{j=1}^n(E_j\cap F_k))\\
+        =\sum_{j,k}(a_j+b_k)\mu(E_j\cap F_k)\\
+        =\int(\phi+\psi)$\\
+        c. $E_j\cap F_k\neq\varnothing\Rightarrow a_j\leq b_k$\\
+        $\int\phi=\sum_{j=1}^na_j\mu(E_j)=\sum_{j,k}a_j\mu(E_j\cap F_k)\leq\sum_{j,k}b_j\mu(E_j\cap F_k)=\int\psi$\\
+        d. $\int_{\varnothing}\phi\,d\mu=\int\phi*\mathcal{X}_{\varnothing}\,d\mu=\sum_1^na_j\mu(\varnothing\cap E_j)=0$\\
+        设$\left\{A_k\right\}\subset\mathcal{M}$为一列不交集，$A=\bigcup_1^{\infty} A_k\\
+        \int_A\phi\,d\mu=\sum_{j=1}^na_j\mu(A\cap E_j)=\sum_{j=1}^na_j\mu(\bigcup_{k=1}^{\infty}(A_k\cap E_j))\\
+        =\sum_{j=1}^na_j\sum_{k=1}^{\infty}\mu(A_k\cap E_j)\\
+        =\sum_{k=1}^{\infty}\sum_{j=1}^na_j\mu(A_k\cap E_j)\\
+        =\sum_{k=1}^{\infty}\int_{A_k}\phi\,d\mu$\\
+        于是该映射是$\mathcal{M}$上的一个测度
+    \end{proof}
+\end{proposition}
+现在我们将积分的定义扩张到$L^+$上
+\begin{definition}
+    若$f\in L^+$，$\int f\,d\mu:=\sup\left\{\int\phi\,d\mu:0\leq\phi\leq f,\phi\text{是简单函数}\right\}$\\
+    由命题3.2.2.c.知，$f$为简单函数时，两个定义是等价的\\
+    容易验证$f\leq g\Rightarrow \int f\leq\int g,\int cf=c\int f,c\in[0,+\infty]$
+\end{definition}
+\begin{theorem}{The Monotone Convergence Theorem}
+    \\若$\left\{f_n\right\}\subset L^+,f_j\leq f_{j+1},f=\underset{n\to\infty}{\lim}f_n(=\sup_n f_n)$\\
+    那么$\int f=\underset{n\to\infty}{\lim}\int f_n$
+    \begin{proof}
+        首先$\int f_n$是单调递增数列，故极限存在或$=+\infty$\\
+        $f_n\leq f\Rightarrow \int f_n\leq\int f\Rightarrow \underset{n\to\infty}{\lim}\int f_n\leq \int f$\\
+        取$\alpha\in(0,1)$，$0\leq \phi\leq f$为简单函数，$E_n:=\left\{x:f_n(x)\geq\alpha\phi(x)\right\}$\\
+        则$E_n\in\mathcal{M}(f-\alpha\phi$可测$(f-\alpha\phi)^{-1}[0,+\infty]\in\mathcal{M})$，且$E_n\subset E_{n+1},\bigcup_nE_n=X$，
+        否则$\exists x\in X:\forall n,f_n(x)<\alpha\phi(x)\Rightarrow f(x)\leq\alpha\phi(x)<\phi(x)\leq f(x)$矛盾
+        于是$\int_X f_n\geq\int_{E_n}f_n\geq\alpha\int_{E_n}\phi$\\
+        $\underset{n\to\infty}{\lim}\int f_n\geq\alpha\underset{n\to\infty}{\lim}\int_{E_n}\phi=\alpha\int_{\bigcup_1^{\infty}E_n}\phi=\alpha\int\phi$\\
+        以上讨论对任意$\alpha,\phi$成立，令$\alpha\to 1$，得$\underset{n\to\infty}{\lim}\int f_n\geq\int\phi$\\
+        再对所有简单函数$\phi$取上确界，得$\underset{n\to\infty}{\lim}\int f_n\geq\int f$\\
+        综上，$\underset{n\to\infty}{\lim}\int f_n=\int\phi$
+    \end{proof}
+\end{theorem}
+对于$f\in L^+$，可取$\left\{\phi\right\}\subset L^+$为一单调简单函数且逐点收敛于$f$，$\int f=\lim_{n\to\infty}\int \phi_n$
+\begin{theorem}
+    若$\left\{f_n\right\}\subset L^+$是一列有限或可数函数，$f=\sum_nf_n$\\
+    则$\int f=\sum_n\int f_n$
+    \begin{proof}
+        首先考虑$f_1,f_2$，取$\left\{\phi_j\right\},\left\{\psi_j\right\}\subset L^+$为单调递增简单函数且分别逐点
+        收敛于$f_1,f_2$，那么$\left\{\phi_j+\psi_j\right\}$为单调递增简单函数且逐点收敛于$f_1+f_2$\\
+        $\int(f_1+f_2)=\lim_{j\to\infty}\int(\phi_j+\psi_j)=\lim_{j\to\infty}(\int\phi_j+\int\psi_j)=\lim_{j\to\infty}\int\phi_j+
+        \lim_{j\to\infty}\int\psi_j=\int f_1+\int f_2$\\
+        这表明若$\left\{f_n\right\}$是有限的，$\int f=\sum_n \int f_n$\\
+        若是无穷的，$\sum_1^Nf_n$是单调递增的，$\int f=\int\sum_1^{\infty}f_n=\int\underset{N\to\infty}{\lim}\sum_1^Nf_n\\
+        =\lim_{N\to\infty}\int\sum_1^Nf_n=\lim_{N\to\infty}\sum_1^N\int f_n=\sum_1^{\infty}\int f_n$
+    \end{proof}
+\end{theorem}
+\begin{proposition}
+    若$f\in L^+,$那么$\int f=0\Leftrightarrow f=0$ a.e.
+    \begin{proof}
+        首先若$f=\sum_ja_j\mathcal{X}_{E_j}$是简单函数，$\int f=0\Leftrightarrow a_j=0$或$\mu(E_j)=0$\\
+        对每个$j$成立，$\Leftrightarrow f=0$ a.e.\\
+        $\Leftarrow$\\
+        $0\leq\phi\leq f$为简单函数，则$\phi=0$ a.e.$\Rightarrow\int \phi=0$\\
+        于是$\int f=\sup_{0\leq\phi\leq f} \int \phi=0$\\
+        $\Rightarrow$\\
+        $f^{-1}((0,+\infty])=f^{-1}((\bigcup_1^{\infty}(\frac{1}{n}),+\infty])=\bigcup_1^{\infty}f^{-1}((\frac{1}{n},+\infty])$\\
+        若$f=0$ a.e.不成立，必$\exists N:\mu(f^{-1}((\frac{1}{N},+\infty]))>0$，记为$E_N$\\
+        否则$\mu(f^{-1}((0,+\infty]))\leq\sum_1^{\infty}\mu(f^{-1}((\frac{1}{n},+\infty]))=0$\\
+        这与$f=0$ a.e.不成立矛盾\\
+        于是$\int f\geq\int f*\mathcal{X}_{E_N}>\int \frac{1}{N}*\mathcal{X}_{E_N}=\frac{1}{N}*\mu(E_N)>0$\\
+        这又与$\int f=0$矛盾
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    若$\left\{f_n\right\}\subset L^+,f\in L^+$，$f_n(x)$单调递增趋于$f(x)$ a.e.那么$\int f=\lim_{n\to\infty}\int f_n$
+    \begin{proof}
+        $\exists E\in\mathcal{M}:\mu(E^c)=0,\forall x\in E,f_n(x)$单调递增趋于$f(x)$成立，那
+        么$f-f*\mathcal{X}_E\in L^+,f_n-f_n*\mathcal{X}_E\in L^*$且$f-f*\mathcal{X}_E=0,f_n-f_n*\mathcal{X}_E=0$ a.e.，
+        由命题3.2.6.知$\int f-f*\mathcal{X}_E=\int f_n-f_n*\mathcal{X}_E=0$\\
+        又$f_n*\mathcal{X}_E$单调递增趋于$f*\mathcal{X}_E$\\
+        $\int f=\int f*\mathcal{X}_E=\lim_{n\to\infty}\int f_n*\mathcal{X}_E=\lim_{n\to\infty}\int f_n$
+    \end{proof}
+\end{corollary}
+\begin{lemma}{Fatou's Lemma}
+    \\若$\left\{f_n\right\}\subset L^+$是任意序列，则$\int(\liminf f_n)\leq \liminf \int f_n$
+    \begin{proof}
+        $\forall j\geq k,\underset{n\geq k}{\inf}f_n\leq f_j,$于是$\int \underset{n\geq k}{\inf}f_n\leq \int f_j,\forall j\geq k$\\
+        $\Rightarrow \int \underset{n\geq k}{\inf}f_n\leq\underset{j\geq k}{\inf}\int f_j$\\
+        令$k\to \infty$，有$\int (\liminf f_n)=\lim_{k\to\infty}\int \underset{n\geq k}{\inf}f_n\leq\liminf \int f_n$
+    \end{proof}
+\end{lemma}
+\begin{corollary}
+    若$\left\{f_n\right\}\subset L^+,f\in L^+,f_n\to f$ a.e.，那么$\int f\leq \liminf\int f_n$
+    \begin{proof}
+        若$f_n\to f$处处成立，那么根据Fatou's Lemma，$\int f=\int \liminf f_n\leq
+        \liminf \int f_n$。一般的，$\exists E\in\mathcal{M}:\mu(E^c)=0,\forall x\in E,f_n(x)\to f(x)$，即$f_n*
+        \mathcal{X}_E\to f*\mathcal{X}_E$处处成立,$f-f*\mathcal{X}_E,f_n-f_n*\mathcal{X}_E\in L^+,f-f*\mathcal{X}_E=0,f_n-
+        f_n*\mathcal{X}_E=0$ a.e.，于是$\int f=\int f*\mathcal{X}_E,\int f_n=\int f*\mathcal{X}_E\\
+        \int f=\int f*\mathcal{X}_E\leq \liminf \int f_n*\mathcal{X}_E=\liminf \int f_n$
+    \end{proof}
+\end{corollary}
+\begin{proposition}
+    若$f\in L^+,\int f<+\infty$，那么$\left\{x:f(x)=+\infty\right\}$是零测集，且
+    $\left\{x:f(x)>0\right\}$是$\sigma$-有限的
+    \begin{proof}
+        记$E_n=f^{-1}((n,n+1]),n=1,\dots,F_k=f^{-1}((\frac{1}{k+1},\frac{1}{k}]),k=1,2,\dots
+        $，则$\left\{x:f(x)>0\right\}=\bigcup_{n=1}^{\infty}E_n\cup\bigcup_{k=1}^{\infty}F_k$是不交并，若$\exists E_n$或$F_k$，使得$\mu(E_n)=
+        +\infty$或$\mu(F_k)=+\infty$，则取$\phi=n\mathcal{X}_{E_n}$或$\frac{1}{k+1}\mathcal{X}_{F_k}$，均有$\phi\leq f$，于是$\int f\geq
+        \int \phi=+\infty$，矛盾，从而$\left\{x:f(x)>0\right\}$是$\sigma$-有限的\\
+        记$E=f^{-1}(\left\{+\infty\right\})$，若$\mu(E)=c>0$，那么取$\phi_n=n\mathcal{X}_E$，有$\phi_n\leq f\\
+        \int f\geq\lim_{n\to\infty}\int \phi_n=\lim_{n\to\infty}nc=+\infty$，矛盾，故$\mu(E)=0$
+    \end{proof}
+\end{proposition}
+\end{document}

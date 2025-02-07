@@ -1,0 +1,119 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+\begin{definition}
+    设$X$为一个配备$\sigma$-代数$\mathcal{M}$的集合，$\mathcal{M}$上的测度是$\mathcal{M}\rightarrow[0,+\infty]$的满足以下性质的函数：\\
+    1. $\mu(\phi)=0$;\\
+    2. 若$\left\{E_j\right\}_1^{\infty}\subset\mathcal{M}$为不交的集和，那么$\mu(\bigcup_1^{\infty}E_j)=\sum_{1}^{\infty}\mu(E_j)$\\
+    $(X,\mathcal{M})$称为可测空间，$\mathcal{M}$中的集合称为可测集\\
+    若$\mu$是$(X,\mathcal{M})$上的测度，$(X,\mathcal{M},\mu)$称为测度空间
+\end{definition}
+    设$(X,\mathcal{M},\mu)$为测度空间，\\
+    若$\mu(X)<+\infty(\Leftrightarrow\mu(E)<+\infty,\forall E\in\mathcal{M})$则称$\mu$为有限的，\\
+    若$X=\bigcup_1^{\infty}E_j$其中$E_j\in\mathcal{M}$且$\mu(E_j)<+\infty$则称$\mu$是$\sigma$-有限的，\\
+    若$E=\bigcup_1^{\infty}E_j$其中$E_j\in\mathcal{M}$且$\mu(E_j)<+\infty$则称$E$是关于$\mu\ \sigma$-有限的\\
+    若对于每个$E$，$\mu(E)=+\infty\Rightarrow\exists F\in\mathcal{M},F\subset E$，且$0<\mu(F)<+\infty$\\
+    则称$\mu$是semifinite
+\begin{example}
+    设$X$为一非空集合，$\mathcal{M}=\mathcal{P}(X)$，$f$为任意$X\rightarrow[0,+\infty]$的函数，
+    则$f$可以诱导一个测度：$\mu(E)=\sum_{x\in E}f(x)$\\
+    其中$\sum_{x\in E}f(x):=\sup\left\{\sum_{x\in F}f(x):F\subset E,F\text{为有限集}\right\}$\\
+    $\mu$为semifinite的当且仅当$f(x)<+\infty,\forall x\in X$\\
+    $\mu$为$\sigma$-有限的当且仅当$\mu$为semifinite并且$\left\{x:f(x)>0\right\}$是可数集\\
+    若$f(x)\equiv 1$，$\mu$称为计数测度\\
+    对某个$x_0\in X$，$f(x_0)=1,\forall x\neq x_0,f(x)=0$则$\mu$称为point mass或Dirac measure at $x_0$
+\end{example}
+\begin{example}
+    设$X$为一不可数集，$\mathcal{M}$为其可数或补集可数的子集构成的$\sigma$-代数，
+    则$\mu$定义为：$\mu(E)=\begin{cases}
+        0& \text{ if } E\text{为可数集} \\
+        1& \text{ if } E^c\text{为可数集}
+      \end{cases}$是$(X,\mathcal{M})$上的测度
+\end{example}
+\begin{example}
+    令$X$为一无穷集，$\mathcal{M}=\mathcal{P}(X)$定义$\mu(E)=\begin{cases}
+        0& \text{ if } E\text{为有限集} \\
+        +\infty& \text{ if } E\text{为无穷集}
+      \end{cases}$\\
+      则$\mu$为有限可加的，但不是测度
+\end{example}
+\begin{theorem}
+    令$(X,\mathcal{M},\mu)$为一测度空间\\
+    a.(Monotonicity) $E,F\in\mathcal{M},E\subset F\Rightarrow\mu(E)\leq\mu(F)$\\
+    b.(Subadditivity) $\left\{E_j\right\}_1^{\infty}\subset\mathcal{M}\Rightarrow\mu(\bigcup_1^{\infty}E_j)\leq\sum_1^{\infty}\mu(E_j)$\\
+    c.(Continuity from below) $\left\{E_j\right\}_1^{\infty}\subset\mathcal{M},E_1\subset E_2\subset\dots\\
+    \Rightarrow\mu(\bigcup_1^{\infty}E_j)=\lim_{j \to \infty}\mu(E_j) $\\
+    d.(Continuity from above) $\left\{E_j\right\}_1^{\infty}\subset\mathcal{M},E_1\supset E_2\supset\dots$且$\mu(E_1)<\infty$\\
+    则$\mu(\bigcap_1^{\infty}E_j)=\lim_{j \to \infty}\mu(E_j)$
+    \begin{proof}
+        a. $\mu(F)=\mu(E)+\mu(F\setminus E)\geq\mu(E)$\\
+        b. 令$F_1=E_1,k>1,F_k=E_k\setminus(\bigcup_1^{k-1}E_j),\\
+        \bigcup_1^{\infty}F_k=\bigcup_1^{\infty}E_k$且$F_k\in\mathcal{M}$是不交的\\
+        $F_k\subset E_k$，由a.知$\mu(F_k)\leq\mu(E_k)$\\
+        $\mu(\bigcup_1^{\infty}E_k)=\mu(\bigcup_1^{\infty}F_k)=\sum_1^{\infty}\mu(F_k)\leq\sum_1^{\infty}\mu(E_k)$\\
+        c. $\mu(\bigcup_1^{\infty}E_k)=\mu(\bigcup_1^{\infty}(E_k\setminus E_{k-1}))$其中$E_0=\phi$\\
+        $=\sum_1^{\infty}\mu(E_k\setminus E_{k-1})=\lim_{n \to \infty}\sum_1^n\mu(E_k\setminus E_{k-1})=\lim_{n \to \infty}\mu(E_n)$\\
+        d. 令$F_k=E_1\setminus E_k$则$F_1\subset F_2\subset\dots$，\\
+        $\bigcap_1^{\infty}E_k=\bigcap_1^{\infty}(E_1\setminus F_k)=E_1\setminus\bigcup_1^{\infty}F_k$\\
+        于是$\mu(E_1)=\mu(\bigcup_1^{\infty}F_k)+\mu(\bigcap_1^{\infty}E_k)$\\
+        $=\lim_{n \to \infty}\mu(F_n)+\mu(\bigcap_1^{\infty}E_k)$\\
+        $=\mu(E_1)-\lim_{n \to \infty}\mu(E_n)+\mu(\bigcap_1^{\infty}E_k)$\\
+        其中$\mu(E_1)<+\infty$，故$\mu(\bigcap_1^{\infty}E_k)=\lim_{n \to \infty}\mu(E_n)$
+    \end{proof}
+    注意d.中$\mu(E_1)<+\infty$可以改为对某个$j$成立$\mu(E_j)<+\infty$
+\end{theorem}
+设$(X,\mathcal{M},\mu)$为一测度空间，$E\in\mathcal{M}$满足$\mu(E)=0$，则称$E$为零测集，由
+subadditivity，零测集的任意可数并为零测集，若一个关于$x$的命题在一个零测集外成立，则称其
+几乎处处成立(a.e.),更具体的，称为$\mu$-零测集或$\mu$-几乎处处\\
+测度$\mu$称为完全的，若其定义域包含所有零测集的子集
+\begin{theorem}
+    设$(X,\mathcal{M},\mu)$为一测度空间，令$\mathcal{N}=\left\{N\in\mathcal{M}:\mu(N)=0\right\},\overline{\mathcal{M}}$
+    $=\left\{E\cup F:E\in\mathcal{M},F\subset N,\text{对某个}N\in\mathcal{N}\right\}$那么$\overline{\mathcal{M}}$是$\sigma$-代数，并且存在唯一的
+    $\overline{\mu}$是$\mu$在$\overline{\mathcal{M}}$上的扩张，并且$\overline{\mu}$是完全的
+    \begin{proof}
+        首先证明$\overline{\mathcal{M}}$是$\sigma$-代数：\\
+        由于$\mathcal{M}$和$\mathcal{N}$均对可数并封闭，故$\overline{\mathcal{M}}$也对可数并封闭\\
+        对于$E\in\mathcal{M}$，$F\subset N\in\mathcal{N}$，$E\cup F\in\overline{M}$，不妨设$E\cap N=\phi$，否则可用$F\setminus E,N\setminus E$
+        代替$F,N$，于是$(E\cup N)\cap(N^c\cup F)=(E\cap N^c)\cup(E\cap F)\cup(N\cap N^c)\cup(N\cap F)$
+        $=E\cup(E\cap F)\cup\phi\cup F=E\cup F$\\
+        故$(E\cup F)^c=(E\cup N)^c\cup(N\setminus F)$其中$(E\cup F)^c\in\mathcal{M}$，$N\setminus F\subset N$\\
+        故$(E\cup F)^c\in\overline{\mathcal{M}}$，从而$\overline{\mathcal{M}}$是$\sigma$-代数\\
+        对于$E\cup F\in\overline{\mathcal{M}}$，定义$\overline{\mu}(E\cup F)=\mu(E)$\\
+        现在验证该定义是良定的：\\
+        $E_1\cup F_1=E_2\cup F_2\Rightarrow E_1\subset E_2\cup F_2\subset E_2\cup N_2$\\
+        于是$\mu(E_1)\leq\mu(E_2)+\mu(N_2)=\mu(E_2)$\\
+        同理$\mu(E_2)\leq\mu(E_1)$\\
+        即$\overline{\mu}(E_1\cup F_1)=\overline{\mu}(E_2\cup F_2)$\\
+        现在验证$\overline{\mu}$是测度：\\
+        1. $\overline{\mu}(\phi)=\overline{\mu}(\phi\cup\phi)=\mu(\phi)=0$\\
+        2. 设$\left\{E_j\cup F_j\right\}_1^{\infty}$为不交的集列，其中$E_j\in\mathcal{M},F_j\subset N_j\in\mathcal{N}$\\
+        容易验证$E_j$是不交的，$\bigcup_1^{\infty}F_j\subset\bigcup_1^{\infty}N_j\in\mathcal{N}$\\
+        于是$\overline{\mu}(\bigcup_1^{\infty}(E_j\cup F_j))=\overline{\mu}((\bigcup_1^{\infty}E_j)\bigcup(\bigcup_1^{\infty}F_j))=\mu(\bigcup_1^{\infty}E_j)=$\\
+        $\sum_1^{\infty}\mu(E_j)=\sum_1^{\infty}\overline{\mu}(E_j\cup F_j)$\\
+        下面验证该测度是完全的：\\
+        设$E\in\mathcal{M},F\subset N\in\mathcal{N}$\\
+        $\overline{\mu}(E\cup F)=0\Rightarrow\mu(E)=0\Rightarrow E\in\mathcal{N}$ 于是$E\in\mathcal{N},N\cup E\in\mathcal{N}$\\
+        $\forall U\subset E\cup F,U=\phi\cup U$，其中$U\subset E\cup F\subset E\cup N\in\mathcal{N}$\\
+        即$U\in\overline{\mathcal{M}}$\\
+        现在验证这样的扩张是唯一的：\\
+        设$\widetilde{\mu}$是另一个扩张，则其在$\mathcal{M}$上的限制应与$\mu$相同\\
+        即$\forall E\in\mathcal{M},\widetilde{\mu}(E)=\mu(E)$\\
+        于是对于$E\cup F\in\overline{\mathcal{M}}$，其中$E\in\mathcal{M},F\subset N\in\mathcal{N}$\\
+        $\widetilde{\mu}(E\cup F)\leq\widetilde{\mu}(E)+\widetilde{\mu}(F)\leq\widetilde{\mu}(E)+\widetilde{\mu}(N)=\mu(E)+\mu(N)=\mu(E)=\overline{\mu}(E\cup F)$
+        $\overline{\mu}(E\cup F)=\mu(E)=\widetilde{\mu}(E)\leq\widetilde{\mu}(E\cup F)$\\
+        即$\overline{\mu}=\widetilde{\mu}$
+    \end{proof}
+\end{theorem}
+\end{document}

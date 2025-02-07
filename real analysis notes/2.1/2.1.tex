@@ -1,0 +1,236 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+\begin{lemma}
+    不存在满足以下条件的函数$\mu:\mathcal{P}(\mathbb{R}^n)\rightarrow \mathbb{R}^{+}\cup\left\{0\right\}:$\\
+    $1.\left\{E_k\right\}_{k=1}^{\infty}$为$\mathbb{R}^n$的一族不交子集，则$\mu(\bigcup_{k\in\mathbb{N}}E_k)=\sum_{k\in\mathbb{N}}\mu(E_k)$\\
+    $2.E$和$F$在一个正交变换和平移变换下相同，则$\mu(E)=\mu(F)$\\
+    $3.\mu(Q)=1$，其中$Q=\left\{x\in\mathbb{R}^n:0\leq x_j <1,j=1,\dots,n\right\}$
+    \begin{proof}
+        仅考虑$n=1$的情形\\
+        首先定义$[0,1)$上的的等价关系：$x\sim y$ 若 $x-y\in\mathbb{Q}$令$\left\{X_{\alpha}\right\}_{\alpha\in A}$为\\
+        $[0,1)$上的等价类之集，由选择公理，$\exists\ f\in\prod_{\alpha\in A}X_{\alpha}$，令$N=f(A)$，\\
+        于是$N$恰好包含每个等价类中的一个元素\\
+        令$R=\mathbb{N}\cap [0,1)$为一可数集，对每个$r\in R$，定义\\
+        $N_{r}=\left\{x+r:x\in N\cap [0,1-r)\right\}\cup\left\{x+r-1:x\in N\cap [1-r,1)\right\}$\\
+        于是$[0,1)=\bigcup_{r\in R}N_r$\\
+        右端包含于左端是明显的，下面证明左端包含于右端\\
+        $\forall x\in[0,1)$，令$y\in N,y\sim x$\\
+        $x\geq y$时，$x\in N_{x-y}$\\
+        $x<y$时，$x\in N_{1+x-y}$\\
+        总之，有$x\in\bigcup_{r\in R}N_r$ 即 $[0,1)\subset \bigcup_{r\in R}N_r$\\
+        现在我们证明$:r\neq s\Rightarrow N_r\cap N_s=\phi$\\
+        若$\exists x\in N_r\cap N_s,$设$y\in N,y\sim x$\\
+        则$y+r=x$，或$y+r-1=x$\\
+        同理$y+s=x$，或$y+s-1=x$\\
+        由$y$的唯一性知：$\left\{\begin{matrix}
+            y+r=x\\
+           y+s-1=x
+           \end{matrix}\right.$
+        或$\left\{\begin{matrix}
+            y+s=x\\
+           y+r-1=x
+           \end{matrix}\right.$\\
+        即$1=s-r$或$1=r-s$，这又与$r,s\in N\cap [0,1)$矛盾\\
+        综上$N_r\cap N_s=\phi$\\
+        设$\mu$为满足性质$1.2.3.$的一个函数，则：\\
+        $\mu(N)=\mu(N\cap [0,1-r))+\mu(N\cap [1-r,1))=\mu(N_r)$\\
+        $\mu([0,1))=\sum_{r\in R}\mu(N_r)=\sum_{r\in R}\mu(N)$\\
+        若$\mu(N)=0$，则$\mu([0,1))=0$\\
+        若$\mu(N)>0$，则$\mu([0,1))=\infty$\\
+        两者均与性质3.矛盾
+    \end{proof}
+\end{lemma}
+为了定义集合上的测度，并且仍然拥有良好的性质$(1.2.3.)$，我们只能缩小测度函数的定义域\\
+方便起见，以下$X$均为一非空集合
+\begin{definition}
+    称$\mathcal{A}\subset\mathcal{P}(X)$为$X$上的代数，若其满足以下性质：\\
+    1. $\mathcal{A}\neq\phi$\\
+    2. $\forall n\in\mathbb{N},\ \left\{E_k\right\}_{k=1}^n\subset\mathcal{A}\Rightarrow \bigcup_{k=1}^{n}E_k\in\mathcal{A}$\\
+    3. $E\in\mathcal{A}\Rightarrow E^c\in\mathcal{A}$\\
+    称$\mathcal{A}$为$\sigma$-代数，若性质1.中的集族可以是可数无穷的
+\end{definition}
+\begin{corollary}
+    设$\mathcal{A}$为一个代数$(\sigma\text{-代数})$，则$\mathcal{A}$关于有限$($可数$)$交封闭
+    \begin{proof}
+        注意到$\bigcap_{\alpha\in \Lambda }E_{\alpha}=(\bigcup_{\alpha\in\Lambda}E_{\alpha}^c)^c$，其中$\Lambda$为有限或可数指标集
+    \end{proof}
+\end{corollary}
+\begin{corollary}
+    设$\mathcal{A}$为$X$上的一个代数$(\sigma\text{-代数})$，则$\phi,X\in\mathcal{A}$
+    \begin{proof}
+        注意到$\phi=E\cap E^c\in\mathcal{A}$，对$E\in\mathcal{A}$成立，$X=\phi^c\in\mathcal{A}$
+    \end{proof}
+\end{corollary}
+\begin{corollary}
+    设$\mathcal{A}$为$X$上的一个代数，若其对可数不交并封闭，则$\mathcal{A}$也是$\sigma$-代数
+    \begin{proof}
+        设$\left\{E_n\right\}_{n\in\mathbb{N}}\subset\mathcal{A}$，往证 $\bigcup_{n\in\mathbb{N}}E_n\in\mathcal{A}$\\
+        令$F_n=E_n\setminus[\bigcup_{k=1}^{n-1}E_k]=E_n\cap\bigcap_{k=1}^{n-1}E_k^c\in\mathcal{A}$\\
+        $F_i\cap F_j=\phi$\\
+        故$\bigcup_{n\in\mathbb{N}}E_n=\bigcup_{n\in\mathbb{N}}F_n\in\mathcal{A}$
+    \end{proof}
+\end{corollary}
+\begin{example}
+    1. $\left\{\phi,X\right\}$为$\sigma$-代数\\
+    2. $\mathcal{P}(X)$为$\sigma$-代数\\
+    3. $\left\{E\in\mathcal{P}(X):E\text{为可数集或}E^c\text{为可数集}\right\}$为$\sigma$-代数\\
+    只证明3.
+    \begin{proof}
+        $\phi\in\mathcal{A}$，故$\mathcal{A}\neq\phi$\\
+        设$\left\{E_n\right\}_{n\in\mathbb{N}}\subset\mathcal{A},\ \bigcup_{n\in\mathbb{N}}E_n=(\bigcup_{E_i\text{可数}}E_i)\bigcup(\bigcup_{E_j\text{不可数}}E_j)$\\
+        其中$\bigcup_{E_i\text{可数}}E_i$可数，故$\in\mathcal{A}$\\
+        $\bigcup_{E_j\text{不可数}}E_j=(\bigcap_{E_j\text{不可数}}E_j^c)^c\in\mathcal{A}$\\
+        综上，$\bigcup_{n\in\mathbb{N}}E_n\in\mathcal{A}$\\
+        $E\in\mathcal{A}\Rightarrow E^c\in\mathcal{A}$由$\mathcal{A}$的定义是明显的
+    \end{proof}
+\end{example}
+\begin{corollary}
+    $\left\{\mathcal{A}_A\right\}_{\alpha\in\Lambda}$为$X$的任意族$\sigma$-代数，则$\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$也是$X$上的$\sigma$-代数
+    \begin{proof}
+        1. $\phi\in\mathcal{A}_{\alpha}\Rightarrow\phi\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$，故$\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}\neq\phi$\\
+        2. 设$\left\{E_n\right\}_{n\in\mathbb{N}}\subset\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$，则$\forall \alpha\in A,\ \left\{E_n\right\}_{n\in \mathbb{N}}\subset\mathcal{A}_{\alpha}$\\
+        于是$\bigcup_{n\in\mathbb{N}}E_n\in\mathcal{A}_{\alpha},\forall\alpha\in A$，从而$\bigcup_{n\in\mathbb{N}}E_n\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$\\
+        3. $E\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}\Rightarrow\forall\alpha\in A,\ E\in\mathcal{A}_{\alpha}\Rightarrow\forall\alpha\in A,E^c\in\mathcal{A}_{\alpha}\\
+        \Rightarrow E^c\in\bigcap_{\alpha\in A}\mathcal{A}_{\alpha}$
+    \end{proof}
+\end{corollary}
+\begin{definition}
+    设$\varepsilon\subset\mathcal{P}(X)$我们定义$\varepsilon$生成的$\sigma$-代数$\mathcal{M}(\varepsilon)$：\\
+    $\mathcal{M}(\varepsilon)=\bigcap_{\mathcal{A}\supset\varepsilon\text{为$\sigma$-代数}}\mathcal{A}$\\
+    由于这样的$\sigma$-代数至少有一个$\mathcal{P}(X)$，故该定义是良定义的
+\end{definition}
+\begin{lemma}
+    $\varepsilon\subset\mathcal{M}(\mathcal{F})\Rightarrow\mathcal{M}(\varepsilon)\subset\mathcal{M}(\mathcal{F})$
+    \begin{proof}
+        $\mathcal{M}(\varepsilon)=\bigcap_{\mathcal{A}\supset\varepsilon\text{为$\sigma$-代数}}\mathcal{A}$，而$\mathcal{M}(\mathcal{F})$为包含$\varepsilon$的$\sigma$-代数，由定义，\\
+        $\mathcal{M}(\varepsilon)\subset\mathcal{M}(\mathcal{F})$
+    \end{proof}
+\end{lemma}
+\begin{definition}
+    设$X$为一拓扑空间，$\varepsilon$为其开集族，则$\mathcal{M}(\varepsilon)$称为$X$上的Borel $\sigma$-代数，
+    记作$\mathcal{B}_X$，其中的元素也称为Borel 集\\
+    Borel 集中因此包含：所有开集，所有闭集，开集的可数交，闭集的可数并\\
+    其中开集的可数交称为$G_{\delta}$集\\
+    闭集的可数并称为$F_{\sigma}$集\\
+    $G_{\delta}$集的可数并称为$G_{\delta\sigma}$集\\
+    $F_{\sigma}$集的可数交称为$F_{\sigma\delta}$集
+\end{definition}
+\begin{lemma}
+    $\mathbb{R}$上的非空开集可以写成可数个开区间的不交并
+    \begin{proof}
+        设$U$为$\mathbb{R}$上的非空开集，\\
+        $x\in U,\ \mathcal{J}_x:=\left\{I\subset U:\text{为包含$x$的开区间}\right\},J_x:=\bigcup_{I\in\mathcal{J}_x}I$\\
+        容易验证$J_x$为包含$x$的最大的开区间，于是$x\neq y\Rightarrow J_x\cap J_y=\phi$或$J_x=J_y$\\
+        $\mathcal{J}:=\left\{J_x:x\in U\right\}$对每个$J\in\mathcal{J}$，选取$f(J)\in\mathbb{Q}$\\
+        于是$f:\mathcal{J}\rightarrow\mathbb{Q}$为单射 ($\mathcal{J}$中的开区间是不交的)\\
+        从而$U=\bigcup_{x\in U}J_x=\bigcup_{J\in\mathcal{J}}J$为可数个开区间的不交并
+    \end{proof}
+\end{lemma}
+\begin{proposition}
+    $\mathcal{B}_{\mathbb{R}}$可由以下集族生成：\\
+    a.所有开区间$\varepsilon_1=\left\{(a,b):a<b\right\}$\\
+    b.所有闭区间$\varepsilon_2=\left\{[a,b]:a<b\right\}$\\
+    c.所有半开半闭区间$\varepsilon_3=\left\{(a,b]:a<b\right\}$或$\varepsilon_4=\left\{[a,b):a<b\right\}$\\
+    d.$\varepsilon_5=\left\{(a,+\infty):a\in\mathbb{R}\right\},\varepsilon_6=\left\{(-\infty,a):a\in\mathbb{R}\right\}$\\
+    e.$\varepsilon_7=\left\{[a,+\infty):a\in\mathbb{R}\right\},\varepsilon_8=\left\{(-\infty,a]:a\in\mathbb{R}\right\}$
+    \begin{proof}
+        除$j=3,4$外，$\varepsilon_j$均为$\mathbb{R}$中的开(闭)区间，而$(a,b]=\bigcap_1^{\infty}(a,b+\frac{1}{n})$为$G_{\delta}$\\
+        集，同理$(a,b]$，由Lemma 2.1.9，$\mathcal{M}(\varepsilon_j)\subset\mathcal{B}_{\mathbb{R}}$\\
+        另一方面，由Lemma 2.1.11，所有开集均能写成开区间的可数并，故$\mathcal{B}_{\mathbb{R}}\subset\mathcal{M}(\varepsilon_1)$\\
+        于是$\mathcal{M}(\varepsilon_1)=\mathcal{B}_{\mathbb{R}}$\\
+        接下来证明$\mathcal{M}(\varepsilon_1)\subset\mathcal{M}(\varepsilon_j),j>1$\\
+        $(a,b)=\bigcup_{1}^{\infty}[a+\frac{1}{n},b-\frac{1}{n}]$\\
+        $=\bigcup_1^{\infty}(a,b-\frac{1}{n}]$\\
+        $=\bigcup_1^{\infty}[a+\frac{1}{n},b)$\\
+        $=(a,+\infty)\cap(\bigcup_{1}^{\infty}(b-\frac{1}{n},+\infty)^c)$\\
+        $=(-\infty,b)\cap(\bigcup_1^{\infty}(-\infty,a-\frac{1}{n})^c)$\\
+        $=[b,+\infty)^c\cap(\bigcup_1^{\infty}[a+\frac{1}{n},+\infty))$\\
+        $=(-\infty,a]^c\cap(\bigcup_1^{\infty}(-\infty,b-\frac{1}{n}])$\\
+        故$\varepsilon_1\subset\mathcal{M}(\varepsilon_j),j>1$\\
+        由Lemma 2.1.9，$\mathcal{M}(\varepsilon_1)\subset\mathcal{M}(\varepsilon_j),j>1$
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    设$\left\{X_{\alpha}\right\}_{\alpha\in A}$为一族非空集，由选择公理知$X=\prod_{\alpha\in A}X_{\alpha}$非空\\
+    设$\pi_{\alpha}:X\rightarrow X_{\alpha}$为投影映射，即$\pi_{\alpha}(f)=f(\alpha)$\\
+    设$\mathcal{M}_{\alpha}$为$X_{\alpha}$上的$\sigma$-代数，我们定义$X$上的乘积$\sigma$-代数为：\\
+    $\mathcal{M}(\left\{\pi^{-1}_{\alpha}(E_{\alpha}):E_{\alpha}\in\mathcal{M}_{\alpha},\alpha\in A\right\})$\\
+    记作$\otimes _{\alpha\in A}\mathcal{M}_{\alpha}$，若$A=\left\{1,2,\dots,n\right\}$，也记作$\otimes _{1}^{n}\mathcal{M}_j$或$\mathcal{M}_1\otimes\dots\otimes\mathcal{M}_n$
+\end{definition}
+\begin{proposition}
+    若$A$可数，则$\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$可由$\left\{\prod_{\alpha\in A}E_{\alpha}:E_{\alpha}\in\mathcal{M}_{\alpha}\right\}$生成
+    \begin{proof}
+        记$\varepsilon=\left\{\prod_{\alpha\in A}E_{\alpha}:E_{\alpha}\in\mathcal{M}_{\alpha}\right\}$\\
+        首先$f\in\prod_{\alpha\in A}E_{\alpha}\Leftrightarrow\forall\alpha\in A,f(\alpha)\in E_{\alpha}$\\
+        $\Leftrightarrow\forall\alpha\in A,\pi_{\alpha}(f)=f(\alpha)\in E_{\alpha}$\\
+        $\Leftrightarrow\forall\alpha\in A,f\in\pi_{\alpha}^{-1}(E_{\alpha})$\\
+        $\Leftrightarrow f\in\bigcap_{\alpha\in A}\pi_{\alpha}^{-1}(E_{\alpha})$\\
+        即$\prod_{\alpha\in A}E_{\alpha}=\bigcap_{\alpha\in A}\pi_{\alpha}^{-1}(E_{\alpha})$\\
+        由$A$为可数集，知$\prod_{\alpha\in A}E_{\alpha}\in\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$\\
+        由Lemma 2.1.9 $\mathcal{M}(\varepsilon)\subset\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$\\
+        另一方面$f\in\pi_{\alpha}^{-1}(E_{\alpha})\Leftrightarrow f(\alpha)=\pi_{\alpha}(f)\in E_{\alpha}$\\
+        $\Leftrightarrow f\in\prod_{\beta\in A}F_{\beta}$，其中$F_{\alpha}=E_{\alpha},\beta\neq\text{时},F_{\beta}=X_{\beta}\in\mathcal{M}_{\beta}$\\
+        即$\pi_{\alpha}^{-1}(E_{\alpha})\in\varepsilon$\\
+        $\otimes_{\alpha\in A}\mathcal{M}_{\alpha}\subset\mathcal{M}(\varepsilon)$\\
+        综上，$\otimes_{\alpha\in A}\mathcal{M}_{\alpha}=\mathcal{M}(\varepsilon)$
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    设$\mathcal{M}_{\alpha}$由$\varepsilon_{\alpha}$生成，则$\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$可由$\mathcal{F}$生成，其中\\
+    $\mathcal{F}=\left\{\pi_{\alpha}^{-1}(E_{\alpha}):E_{\alpha}\in\varepsilon_{\alpha},\alpha\in A\right\}$
+    \begin{proof}
+        由命题 2.1.14. $\pi_{\alpha}^{-1}(E_{\alpha})=\prod_{\beta\in A}F_{\beta}$，其中$\beta=\alpha$时$F_{\beta}=E_{\alpha}$\\
+        $\beta\neq\alpha$时，$F_{\beta}=X_{\beta}$，于是$\mathcal{M}(\mathcal{F})\subset\otimes_{\alpha\in A}\mathcal{M}_{\alpha}$\\
+        对每个$\alpha\in A,\left\{E\subset X_{\alpha}:\pi_{\alpha}^{-1}(E)\in\mathcal{M}(\mathcal{F})\right\}$是包含$\varepsilon_{\alpha}$的$\sigma$-代数，从而也包含$\mathcal{M}_{\alpha}$
+        于是$E\subset\mathcal{M}_{\alpha}\subset\left\{E\subset X_{\alpha}:\pi_{\alpha}^{-1}(E)\in\mathcal{M}(\mathcal{F})\right\}\Rightarrow\pi_{\alpha}^{-1}(E)\in\mathcal{M}(\mathcal{F})$\\
+        即$\left\{\pi_{\alpha}^{-1}(E_{\alpha}):E_{\alpha}\in\mathcal{M}_{\alpha},\alpha\in A\right\}\subset\mathcal{M}(\mathcal{F})$\\
+        $\otimes_{\alpha\in A}\mathcal{M}_{\alpha}=\mathcal{M}(\mathcal{F})$
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    令$X_1,X_2,\dots X_n$为度量空间，$X=\prod_1^n X_j$\\
+    那么$\otimes_1^n\mathcal{B}_{X_j}\subset\mathcal{B}_X$\\
+    若$X_j$还是可分的$($有一个可数的稠密子集$)$，则$\otimes_1^n\mathcal{B}_{X_j}=\mathcal{B}_X$
+    \begin{proof}
+        首先由命题 2.1.15 知$\otimes_1^n\mathcal{B}_{X_j}$可由$\pi_{j}^{-1}(U_j)$生成，其中$U_j$为$\mathcal{B}_j$中的开集\\
+        而$\pi_j^{-1}(U_j)$也是$X$中的开集，故$\otimes_1^n\mathcal{B}_{X_j}\subset\mathcal{B}_{X}$\\
+        设$C_j$为$X_j$的一个可数稠密子集，即$\overline{C_j}=X_j$\\
+        令$\varepsilon_j$为所有以$C_j$中点为球心，正有理数为半径的开球的集合，$\varepsilon_j$仍为可数集\\
+        设$U_j$为$X_j$上的开集，\\
+        $\forall x\in U_j,\ x\in\overline{C_j},\exists y\in C,\varepsilon_j\ni E_x=B(y,r_x)\ni x,E_x\subset U_j$\\
+        于是$U_j=\bigcup_{x\in U_j,E_x\in\varepsilon_j}E_x$为可数并，于是$\mathcal{B}_{X_j}$可由$\varepsilon_j$生成\\
+        设$U$为$X$中的开集，同上讨论，$U$可以表示为可数个$\prod_1^nE_j$的并，\\
+        其中$E_j\in\varepsilon_j$\\
+        $\prod_1^nE_j=\bigcap_1^n\pi_j^{-1}(E_j)\in\mathcal{M}(\left\{\pi_j^{-1}(E_j):E_j\in\varepsilon_j,j=1,\dots,n\right\})$\\
+        由命题 2.1.15知$U\in\otimes_1^n\mathcal{B}_{X_j}$从而$\mathcal{B}_{X}=\otimes_1^n\mathcal{B}_{X_j}$
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    $\mathcal{B}_{\mathbb{R}^n}=\otimes_1^n\mathcal{B}_{\mathbb{R}}$
+\end{corollary}
+\begin{definition}
+    $\varepsilon\subset\mathcal{P}(X)$称为 elementary family，若：\\
+    1. $\phi\in\varepsilon$\\
+    2. $E,F\in\varepsilon\Rightarrow E\cap F\in\varepsilon$\\
+    3. $E\in\varepsilon\Rightarrow E^c$可以表示成$\varepsilon$中有限个元素的不交并
+\end{definition}
+\begin{proposition}
+    设$\varepsilon$是 elementary family,其中有限元素的不交并之集构成代数
+    \begin{proof}
+        ?
+    \end{proof}
+\end{proposition}
+\end{document}

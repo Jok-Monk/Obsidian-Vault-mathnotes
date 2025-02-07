@@ -1,0 +1,266 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+这节主要构建了$\mathbb{R}$上的Borel测度，即定义域为$\mathcal{B}_{\mathbb{R}}$的测度\\
+设$\mu$为$\mathbb{R}$上的有限Borel测度，令$F(x)=\mu((-\infty,x])$，则$F(x)$是$\mathbb{R}$上的递增右连续函数
+$((-\infty,x]=\bigcap_1^{\infty}(-\infty,x_n],x_n\text{严格单调下降趋于}x,F(x)=\mu((-\infty,x])
+=\mu(\bigcap_1^{\infty}(-\infty,x_n])=\lim_{n\to\infty}\mu((-\infty,x_n])=\lim_{n\to\infty}F(x_n),\text{由海涅定理知}F\text{右连续})$\\
+于是我们可以通过$\mathbb{R}$上的递增右连续函数来构造Borel测度\\
+以下形如$(a,b]$的区间简称为h-区间\\
+容易验证，所有h-区间构成elementry family，故所有h-区间的不交并构成代数$\mathcal{A}$，且其生成的$\sigma$-代数为$\mathcal{B}_{\mathbb{R}}$\\
+\begin{proposition}
+    设$F:\mathbb{R}\to\mathbb{R}$为单调递增右连续函数，若$(a_j,b_j](j=1,\dots n)$为不交的h-区间
+    令\\
+    $\mu_0(\bigcup_1^n(a_j,b_j])=\sum_1^n[F(b_j)-F(a_j)],\mu_0(\phi)=0$\\
+    则$\mu_0$为$\mathcal{A}$上的预测度
+    \begin{proof}
+        首先验证$\mu_0$是良定义的\\
+        若$\left\{(a_j,b_j]\right\}_1^n$为不交的，且$\bigcup_1^n(a_j,b_j]=(a,b]$\\
+        不妨设$a=a_1<b_1=a_2<\dots<b_n=b$，故$\sum_1^n[F(b_j)-F(a_j)]=F(b)-F(a)$
+        更一般的，设$\left\{I_i\right\}_1^n,\left\{J_j\right\}_1^m$为有限不交h-区间，$\bigcup_1^nI_i=\bigcup_1^mJ_j$\\
+        $\sum_i\mu_0(I_i)=\sum_{i,j}\mu_0(I_i\cap J_j)=\sum_j\mu_0(J_j)$\\
+        故$\mu_0$是良定义的\\
+        由于$F$单调递增，$F(+\infty),F(-\infty)$在$\mathbb{R}\cup\left\{+\infty,-\infty\right\}$上有定义\\
+        由定义知$\mu_0$是有限可加的\\
+        设$\left\{I_i\right\}_1^{\infty}\subset\mathcal{A}$是不交的，$\bigcup_1^{\infty}I_i=\bigcup_1^mJ_j\in\mathcal{A}$，其中$J_j$是不交的\\
+        $\bigcup_1^{\infty}I_i=\bigcup_{j=1}^m(J_j\cap\bigcup_{i=1}^{\infty}I_i)=\bigcup_{j=1}^m\bigcup_{i=1}^{\infty}J_j\cap I_i$\\
+        $\mu_0(\bigcup_1^{\infty}I_i)=\sum_{j=1}^m\mu_0(\bigcup_{i=1}^{\infty}J_j\cap I_i)$\\
+        $\mu_0(\bigcup_1^mJ_j)=\sum_1^m\mu_0(J_j)$\\
+        往证$\mu_0(\bigcup_1^{\infty}I_i)=\mu_0(\bigcup_1^mJ_j)$，只需证$\mu_0(\bigcup_{i=1}^{\infty}J_j\cap I_i)=\mu_0(J_j),j=1,\dots m$\\
+        于是不妨设$\bigcup_1^{\infty}I_i=J$为h-区间\\
+        $\mu_0(J)=\mu_0(\bigcup_1^nI_i)+\mu_0(J\setminus\bigcup_1^nI_i)\geq\mu_0(\bigcup_1^nI_i)=\sum_1^n\mu_0(I_i)$\\
+        $n\to\infty,\mu_0(J)\geq\sum_1^n\mu_0(I_i)$\\
+        为证明$\mu_0(J)\leq\sum_1^{\infty}\mu_0(I_i)$\\
+        首先假设$J=(a,b],-\infty<a<b<+\infty$\\
+        $\forall \epsilon>0$，由$F$右连续，$\exists \delta,\delta_i>0,F(a+\delta)-F(a)<\epsilon,\\
+        F(b_i+\delta_i)-F(b_i)<\epsilon 2^{-i}$，$\left\{(a_i,b_i+\delta_i)\right\}_1^{\infty}$覆盖$[a+\delta,b]$，于是存在有限子覆盖
+        $\left\{(a_j,b_j+\delta_j)\right\}_1^N$可设$b_j+\delta_j\in(a_{j+1},b_{j+1}+\delta_{j+1})?$且诸开区间无包含关系\\
+        $\mu_0(J)=F(b)-F(a)<F(b)-F(a+\delta)+\epsilon$\\
+        $\leq F(b_N+\delta_N)-F(a_1)+\epsilon$\\
+        $=F(b_N+\delta_N)-F(a_N)+\sum_1^{N-1}[F(a_{j+1})-F(a_j)]+\epsilon$\\
+        $<\sum_1^N[F(b_j)+\epsilon 2^{-j}-F(a_j)]+\epsilon$\\
+        $<\sum_1^{\infty}[F(b_j)-F(a_j)]+2\epsilon$\\
+        $=\sum_1^{\infty}\mu_0(I_j)+2\epsilon$
+        由$\epsilon$的任意性知$\mu_0(J)\leq \sum_1^{\infty}\mu_0(I_i)$\\
+        $a=-\infty$时，任意$M<+\infty$，对$(-M.b]$进行上述过程，有：\\
+        $F(b)-F(-M)\leq\sum_1^{\infty}\mu_0(I_i)+\epsilon$\\
+        $\epsilon\to 0,M\to +\infty$，$\mu_0(J)\leq\sum_1^{\infty}\mu_0(I_i)$\\
+        $b=+\infty$时，任意$M<+\infty$,对$(a,M]$进行上述过程，\\
+        同理可得$F(M)-F(a)\leq\sum_1^{\infty}\mu_0(I_i)+2\epsilon$\\
+        $\epsilon\to 0,M\to +\infty$，即得$\mu_0(J)\leq \sum_1^{\infty}\mu_0(I_i)$
+
+    \end{proof}
+\end{proposition}
+\begin{theorem}
+    若$F:\mathbb{R}\to\mathbb{R}$是任意递增右连续函数，则存在唯一$\mathbb{R}$上的Borel测度$\mu_{F}$
+    使得$\mu_{F}((a,b])=F(b)-F(a)$，若$G$是另一递增右连续函数，$\mu_F=
+    \mu_G$当且仅当$F-G$为常数，若$\mu$是$\mathbb{R}$上的Borel测度，且于任意有界Boerl集上
+    有限，定义$F(x)=
+    \begin{cases}
+      \mu((0,x])& \text{ if } x>0 \\
+      0& \text{ if } x=0 \\
+      -\mu((x,0])& \text{ if } x<0
+    \end{cases}
+    $，则$F$为递增右连续函数，
+    且$\mu=\mu_F$
+    \begin{proof}
+        首先由命题2.4.1，$F$可诱导$\mathcal{A}$上的一个预测度，且$F$和$G$诱导同一个
+        预测度当且仅当$F-G$为常数,且这些预测度是$\sigma$-有限的，$\mathbb{R}=\bigcup_1^{+\infty}(j,j+1]$
+        由命题2.3.7知前两个断言的正确性。最后一个断言$F$明显是递增的，
+        任取$x_n$递减趋于$x$，$x\geq0$时，$(0,x]=\bigcap_1^{\infty}(0,x_n]$，$x<0$时，$(x,0]=\bigcup_1^{\infty}(x_n,0]$
+        由海涅定理可得$F$的右连续性。$\mu=\mu_F$在$\mathcal{A}$上成立，于是由命题2.3.7知其
+        在$\mathcal{B}_{\mathbb{R}}$上成立
+    \end{proof}
+\end{theorem}
+若$F$是$\mathbb{R}$上的递增右连续函数，则$F$可以诱导一个定义域包含$\mathcal{B}_{\mathbb{R}}$的完全
+的测度，记作$\mu_F$，称作$F$诱导的Lebesgue-Stieltjes测度。之后$\mu_F$简记为$\mu$，
+其定义域记为$\mathcal{M}_{\mu}$，$\forall E\in\mathcal{M}_{\mu}$\\
+$\mu(E)=\inf\left\{\sum_1^{\infty}[F(b_j)-F(a_j)]:E\subset\bigcup_1^{\infty}(a_j,b_j]\right\}$\\
+$=\inf\left\{\sum_1^{\infty}\mu((a_j,b_j]):E\subset\bigcup_1^{\infty}(a_j,b_j]\right\}$\\
+\begin{lemma}
+    $\forall E\in\mathcal{M}_{\mu}$,\\
+    $\mu(E)=\inf\left\{\sum_1^{\infty}\mu((a_j,b_j)):E\in\bigcup_1^{\infty}(a_j,b_j)\right\}$
+    \begin{proof}
+        等式右边的式子记作$\nu(E)$，设$E\subset\bigcup_1^{\infty}(a_j,b_j),(a_j,b_j)=\bigcup_{k=1}^{\infty}I_j^k,$
+        其中$I_j^k=(c_j^k,c_j^{k+1}],c_j^1=a_j,k\to\infty,c_j^k$严格单调递增趋于$b_j$，于是\\
+        $\sum_1^{\infty}\mu((a_j,b_j))=\sum_{j,k=1}^{\infty}\mu(I_j^K)\geq\mu(E)$，从而$\nu(E)\geq\mu(E)$\\
+        另一方面，$\forall\epsilon>0,\exists\left\{(a_j,b_j]\right\}_1^{\infty}:E\subset\bigcup_1^{\infty}(a_j,b_j],\sum_1^{\infty}\mu((a_j,b_j])\leq\mu(E)+
+        \epsilon$，对每个$j$,$\exists \delta_j>0,F(b_j+\delta_j)-F(b_j)<\epsilon2^{-j},E\subset\bigcup_1^{\infty}(a_j,b_j+\delta_j)$\\
+        $\sum_1^{\infty}\mu((a_j,b_j+\delta_j))\leq\sum_1^{\infty}\mu((a_j,b_j+\delta_j])\leq\sum_1^{\infty}\mu((a_j,b_j])+\epsilon\leq\mu(E)+2\epsilon$\\
+        故$\nu(E)\leq\mu(E)$
+    \end{proof}
+\end{lemma}
+\begin{theorem}
+    若$E\in\mathcal{M}_{\mu}$，则\\
+    $\mu(E)=\inf\left\{\mu(U):U\supset E,U\text{是开集}\right\}\\
+    =\sup\left\{\mu(K):K\subset E,K\text{是紧集}\right\}$
+    \begin{proof}
+        由引理2.4.3，$\forall\epsilon>0,\exists(a_j,b_j):E\subset\bigcup_1^{\infty}(a_j,b_j),\sum_1^{\infty}\mu((a_j,b_j))<\mu(E)
+        +\epsilon$，令$U=\bigcup_1^{\infty}(a_j,b_j)$，$U$是开集，$\mu(U)\leq\sum_1^{\infty}\mu((a_j,b_j))<\mu(E)+
+        \epsilon$，另一方面$E\subset U\Rightarrow\mu(E)\leq\mu(U)$，故第一个等式成立\\
+        现证第二个等式\\
+        首先设$E$有界，若$E$是闭集，则也是紧集，等式自然成立，否则，$\forall\epsilon>0,
+        \exists $开集$U:U\supset \overline{E}\setminus E,\mu(U)<\mu(\overline{E}\setminus E)+\epsilon$($\overline{E}$是闭集，故$\in\mathcal{B}_{\mathbb{R}}\subset\mathcal{M}_{\mu}$，从
+        而$\overline{E}\setminus E\in\mathcal{M}_{\mu}$)令$K=\overline{E}\setminus U=E\setminus U$，则$K\subset E$为紧集，\\
+        $\mu(K)=\mu(E)-\mu(E\cap U)=\mu(E)-[\mu(U)-\mu(U\setminus E)]\\
+        =\mu(E)-\mu(U)+\mu(U\setminus E)\geq\mu(E)-\mu(\overline{E}\setminus E)+\mu(U\setminus E)-\epsilon\geq\mu(E)-\epsilon$
+        若$E$无界，令$E_j=E\cap(j,j+1]$，对任意$\epsilon>0,\exists K_j\subset E_j$为紧集，$\mu(K_j)\geq
+        \mu(E_j)-\epsilon2^{-|j|}$，令$H_n=\bigcup_{-n}^nK_j$，则$H_n\subset E$为紧集，$\mu(H_n)=\sum_{-n}^n\mu(K_j)\geq
+        \sum_{-n}^n\mu(E_j)-3\epsilon\geq\mu(\bigcup_{-n}^nE_j)-3\epsilon$\\
+        $\mu(E)=\lim_{n\to\infty}\mu(\bigcup_{-n}^nE_j),\exists N:\mu(\bigcup_{-n}^nE_j)>\mu(E)-\epsilon$对所有$n\geq N$成
+        立，于是$\mu(H_N)\geq\mu(E)-4\epsilon$
+    \end{proof}
+\end{theorem}
+\begin{theorem}
+    若$E\subset\mathbb{R}$，那么以下命题等价：\\
+    a. $E\in\mathcal{M}_{\mu}$\\
+    b. $E=V\setminus N_1$，其中$V$是$G_{\delta}$集，$\mu(N_1)=0$\\
+    c. $E=H\cup N_2$，其中$H$为$F_{\sigma}$集，$\mu(N_2)=0$
+    \begin{proof}
+        由于$\mu$在$\mathcal{M}_{\mu}$上是完全的，故b.c.$\Rightarrow$a.是明显的\\
+        若$\mu(E)<+\infty$，\\
+        由定理2.4.4,对$j\in\mathbb{N}$，$\exists$开集$U_j\supset E$，紧集$K_j\subset E$\\
+        $\mu(U_j)-2^{-j}\leq\mu(E)\leq\mu(K_j)+2^{-j}$\\
+        令$V=\bigcap_1^{\infty}U_j,H=\bigcup_1^{\infty}K_j$，则$H\subset E\subset V$\\
+        $\mu(V)-2^{-j}\leq\mu(U_j)-2^{-j}\leq\mu(E)\leq\mu(K_j)+2^{-j}\leq\mu(H)+2^{-j}$\\
+        $j\to\infty,\mu(V)=\mu(E)=\mu(H)<+\infty$\\
+        故$\mu(V\setminus E)=\mu(E\setminus H)=0$\\
+        若$\mu(E)=+\infty$，\\
+        ?
+    \end{proof}
+\end{theorem}
+\begin{proposition}
+    若$E\in\mathcal{M}_{\mu},\mu(E)<+\infty$，则$\forall\epsilon>0,\exists A$为有限个开区间的并，
+    且$\mu(E\triangle A)<\epsilon$
+    \begin{proof}
+        ?
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    $F(x)=x$诱导的完全的测度$\mu_{F}$称为勒贝格测度，记作$m$，$m$定
+    义域中的集合称为勒贝格可测集，记作$\mathcal{L}$
+\end{definition}
+\begin{definition}
+    $E\subset\mathbb{R},r,s\in\mathbb{R}$\\
+    $E+s:=\left\{x+s:x\in E\right\},rE:=\left\{rx:x\in E\right\}$
+\end{definition}
+\begin{theorem}
+    若$E\in\mathcal{L}$，则$E+s\in\mathcal{L},rE\in\mathcal{L},\forall r,s\in\mathbb{R}$，且$m(E+s)=
+    m(E),m(rE)=|r|m(E)$
+    \begin{proof}
+        首先变换$E\mapsto E+s,E\mapsto rE$是保持$\mathcal{A}$的双射($r=0$时明显保持Borel集，
+        故不妨设$r\neq 0$)，从而也是保持$\mathcal{B}_{\mathbb{R}}$的?，其中$\mathcal{A}$为h-区间有限不交并的集合，
+        $E$为h-区间时，$m(E)= m(E+s),m(rE)=|r|m(E)$是明显的，又$m$是$\sigma$-有
+        限的，由定理2.3.7知:\\
+        $m(E+s)=m(E),m(rE)=|r|m(E)$在$\mathcal{B}_{\mathbb{R}}$上恒成立\\
+        于是$E\in\mathcal{L},m(E)=0\Rightarrow \exists U_j\supset E$为开集$,m(U_j)<2^{-j},\\
+        U_j+s\supset E+s,rU_j\supset rE,\\
+        m(E+s)\leq m(U_j+s)<2^{-j}\\
+        m(rE)\leq m(rU_j)<2^{-j}$\\
+        从而$m(E+s)=m(rE)=0$\\
+        $E\in\mathcal{L}$可写成Borel集和勒贝格零测集的并:$E=H\cup N$,
+        于是$E+s=(H+s)\cup(N+s)\in\mathcal{L},rE=(rH)\cup(rN)\in\mathcal{L}$，且$m(E+s)=m(E),m(rE)=|r|m(E)$成立
+    \end{proof}?
+    \begin{proof}
+        记$m^*$为$F(x)=x$诱导的$\mathbb{R}$上的外测度，$r=0$时是明显的，故不妨
+        设$r\neq 0$,容易验证:\\
+        $(A+s)\cap(B+s)=(A\cap B)+s\\
+        (A+s)\cup(B+s)=(A\cup B)+s\\
+        (A+s)^c=A^c+s\\
+        (rA)\cap(rB)=r(A\cap B)\\
+        (rA)\cup(rB)=r(A\cup B)\\
+        (rA)^c=r(A^c)\\
+        E\in\mathcal{A}\Rightarrow E+s,rE\in\mathcal{A}$\\
+        首先验证，$\forall E\subset\mathbb{R},m^*(E+s)=m^*(E),m^*(rE)=|r|m^*(E):$\\
+        对于$h$-区间$E$,$\mu_F(E+s)=\mu_F(E),\mu_F(rE)=|r|\mu_F(E)$是明显的\\
+        $\forall E\subset\mathbb{R},m^*(E+s)=\inf\left\{\sum_1^{\infty}\mu_F(I_j):I_j\in\mathcal{A},E+s\subset\bigcup_1^{\infty}I_j\right\}\\
+        > \sum_1^{\infty}\mu_F(I_j)-\epsilon=\sum_1^{\infty}\mu_F(I_j-s)-\epsilon$，其中$I_j-s\in\mathcal{A},E\subset\bigcup_1^{\infty}(I_j-s)$\\
+        即$m^*(E+s)\geq m^*(E)-\epsilon$对$\forall\epsilon>0$成立，故$m^*(E+s)\geq m^*(E)$\\
+        同理$m^*(E+s)\leq m^*(E)$\\
+        由于$rE\subset\bigcup_1^{\infty}I_j\Rightarrow E\subset\bigcup_1^{\infty}(r^{-1}I_j),r^{-1}I_j\in\mathcal{A}$\\
+        同上讨论知$m^*(rE)=|r|m^*(E)$\\
+        设$E\in\mathcal{L}$\\
+        $E+s\in\mathcal{L}\Leftrightarrow m^*(A)=m^*(A\cap(E+s))+m^*(A\cap(E+s)^c),\forall A\subset\mathbb{R}\\
+        \Leftrightarrow m^*(A)=m^*((A-s)\cap E+s)+m^*((A-s)\cap(E^c)+s)\\
+        \Leftrightarrow m^*(A)=m^*((A-s)\cap E)+m^*((A-s)\cap E^c)\\
+        \Leftrightarrow m^*(A)=m^*(A-s)$成立\\
+        同理可得$m^*(A)=m^*(A\cap(rE))+m^*(A\cap(rE)^c)$\\
+        从而$E+s,rE\in\mathcal{L}$\\
+        对于$E\in\mathcal{L}$\\
+        由于$m(E)=\inf\left\{\sum_1^{\infty}\mu_F(a_j,b_j):E\subset\bigcup_1^{\infty}(a_j,b_j)\right\}$\\
+        同上讨论可知$m(E+s)=m(E),m(rE)=|r|m(E)$
+    \end{proof}
+\end{theorem}
+[0,1]上的p进位表数法\\
+$x\in[0,1]$，我们按以下方式将$x$唯一的写做$\sum_1^{\infty}a_jp^{-j}$，其中$a_j=0,\dots,p-1$
+$p$为大于1的整数\\
+若$x=0,x=\sum_1^{\infty}0*p^{-j}$\\
+若$x\in(0,1]$\\
+区间$(kp^{-j},(k+1)p^{-j}]$记作$I_j^k$，其中$k=0,1,\dots,p-1,j=1,\dots$\\
+第1步：\\
+$I_0^0=\bigcup_0^{p-1}I_1^k$是不交并，于是$\exists !k:x\in I_1^k,a_1:=k$\\
+第2步：\\
+$a_1p^{-1}+I_1^{0}=\bigcup_0^{p-1}(a_1p^{-1}+I_2^k)$是不交并，于是$\exists !k,x\in a_1p^{-1}+I_2^k,a_2:=k$\\
+$\dots$\\
+第$j$步：\\
+设已经取出$a_1,a_2,\dots a_{j-1}\\
+x\in\sum_{i=1}^{j-1}a_ip^{-i}+I_{j-1}^{0}=\bigcup_{k=1}^{p-1}(\sum_{i=1}^{j-1}a_ip^{-i}+I_j^k)$为不交并，\\
+于是$\exists !k:x\in \sum_{i=1}^{j-1}a_ip^{-i}+I_j^k,a_j:=k$\\
+$\dots$\\
+我们得到唯一的$\left\{a_j\right\}_1^{\infty}$满足：\\
+$a_j=0,1,\dots,p-1\\
+\sum_{i=1}^{j}a_1p^{-i}<x\leq\sum_{i=1}^{j}a_ip^{-i}+p^{-j},j=1,2,\dots\\
+\forall j>0,\exists k\geq j,a_k\neq 0$\\
+否则，设$\exists j>0,\forall k\geq j,a_k=0$\\
+于是$\sum_{i=1}^{j-1}a_1p^{-i}<x\leq\sum_{i=1}^{j-1}a_ip^{-i}+p^{-k},k=j-1,j,j+1,\dots$\\
+$k\to\infty$ 得$\sum_{i=1}^{j-1}a_1p^{-i}<x\leq\sum_{i=1}^{j-1}a_ip^{-i}$矛盾\\
+于是$x=\sum_1^{\infty}a_ip^{-i}$，记作$0.a_1a_2\dots a_j\dots$为无穷小数\\
+下面的讨论中，$x$的p进小数总采用以上取法\\
+\begin{definition}
+    Cantor 集$C:=\left\{x\in[0,1]:x\text{的3进小数}0.a_1a_2\dots\text{中}a_j\neq 1,\notag \right.\\ \left.
+    \text{或}\exists N>0,a_N=1,a_j\neq 1(j<N),a_j=2(j>N),j=1,\dots\right\}$\\
+    注意Cantor集等价于$[0,1]$去掉形如$(0.a_1\dots a_j1,\ 0.a_1\dots a_j2)$的开区间，其中$a_i\neq 1,i=1,\dots j$\\
+\end{definition}
+\begin{proposition}
+    设C为Cantor集\\
+    a. C是紧的，无处稠密的，完全不连通的(连通部分为单点集)，没有孤立点的\\
+    b. $m(C)=0$\\
+    c. $card(C)=\mathcal{C}$
+    \begin{proof}
+        b. 记$F=\bigcup\left\{(0.a_1\dots a_j1,\ 0.a_1\dots a_j2):a_i\neq 1,i=1,\dots j\right\}\in\mathcal{B}_{\mathbb{R}}$\\
+        则$[0,1]=C\cup F$是不交并，$C=[0,1]\cap F^c\in\mathcal{B}_{\mathbb{R}}$,$m([0,1])=m(C)+m(F)$\\
+        $m(F)=\sum_0^{\infty}\frac{2^j}{3^{j+1}}=\frac{1}{3}*\frac{1}{1-\frac{2}{3}}=1$\\
+        于是$m(C)=1-m(F)=0$\\
+        c. 设$x\in C$，$x=0.x_1x_2\dots$，若$x$满足:\\
+        $\exists N>0,x_N=1,x_j\neq 1(j<N),x_j=2(j>N),j=1,\dots$\\
+        则将$x$改写为$0.x_1\dots x_{N-1}2$\\
+        于是$C=\left\{x\in[0,1]:\text{在上述改写后，x的3进小数中没有1}\right\}$\\
+        做映射$f:0.x_1x_2,\dots\mapsto \sum_0^{\infty}\frac{x_j}{2}*2^{-j}$\\
+        右端为$[0,1]$的2进小数，于是$f$为C到[0,1]的满射，$card(C)\geq \mathcal{C}$\\
+        又$C\subset[0,1]$，故$card(C)\leq\mathcal{C}$\\
+        综上，$card(C)=\mathcal{C}$\\
+        a.首先$C=[0,1]\cap F^c$为有界闭集，故是紧集\\
+        C无处稠密$\Leftrightarrow \overline{C}^{\circ}=\phi\Leftrightarrow C^{\circ}=\phi$\\
+        否则设$x\in C^{\circ}$，$\exists N\in\mathbb{N},(x-3^{-N},x+3^{-N})\subset C,\exists k=0,1,\dots,3^N-1\\
+        (k3^{-N}+3^{-(N+1)},k3^{-N}+2*3^{-(N+1)})\subset(k3^{-N},(k+1)3^{-N})\\
+        \subset(x-3^{-N},x+3^{-N})$从而$C\cap F\neq\phi$矛盾\\
+        若C有连通部分是区间，则同上讨论知$C\cap F\neq\phi$矛盾\\
+        设$x\in C$，则$x=0.x_1x_2\dots$，其中$x_j=0,2$\\
+        $\overline{x}_N:=0.x_1x_2\dots x_N$于是$\overline{x}_N\in C$且$|x-\overline{x}_N|\leq 2*3^{-N}$\\
+        这说明了$\forall x\in C$是$C$的聚点，也即$C$无孤立点
+    \end{proof}
+\end{proposition}
+
+\end{document}

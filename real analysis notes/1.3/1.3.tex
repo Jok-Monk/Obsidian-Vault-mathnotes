@@ -1,0 +1,225 @@
+\documentclass[12pt, a4paper, oneside]{ctexbook}
+\usepackage{amsmath, amsthm, amssymb, bm, graphicx, hyperref, mathrsfs}
+
+\title{{\Huge{\textbf{尸变函数抄书笔记}}}\\———主要参考Folland}
+\author{Joker}
+\date{\today}
+\linespread{1.5}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{lemma}[theorem]{引理}
+\newtheorem{corollary}[theorem]{推论}
+\newtheorem{example}[theorem]{例}
+\newtheorem{proposition}[theorem]{命题}
+
+\begin{document}
+\begin{definition}
+    对于非空集$X,Y$\\
+    若存在单射$f:X\rightarrow Y$，则称$card(X)\leq card(Y)$\\
+    若存在满射$f:X\rightarrow Y$，则称$card(X)\geq card(Y)$\\
+    若存在双射$f:X\rightarrow Y$，则称$card(X)= card(Y)$\\
+    若$card(X)\leq card(Y)$但$card(X)= card(Y)$不成立，则记作$card(X)<card(Y)$\\
+    若$card(X)\geq card(Y)$但$card(X)= card(Y)$不成立，则记作$card(X)>card(Y)$\\
+    对所有$X\neq\phi$，约定$card(X)>card(\phi)$，$card(\phi)<card(X)$
+\end{definition}
+\begin{corollary}
+    $card(X)\leq card(Y),\ card(Y)\leq card(Z)\Rightarrow card(X)\leq card(Z)$
+    \begin{proof}
+        $f:X\rightarrow Y,\ g:Y\rightarrow Z$为单射，则\\
+        $g\circ f:X\rightarrow Z$也是单射，故\\
+        $card(X)\leq card(Z)$
+    \end{proof}
+\end{corollary}
+\begin{proposition}
+    $card(X)\leq card(Y)\Leftrightarrow card(Y)\geq card(X)$
+    \begin{proof}
+        设$f:X\rightarrow Y$为单射。取定$x_0\in X$，由于$f$为单射，$\forall y\in f(X)$，\\
+        $\exists ! x\in X,f(x)=y$，于是可定义$g:Y\rightarrow X$：\\
+        $g(y)=\begin{cases}
+            f^{-1}(y)& \text{ if } y\in f(X) \\
+            x_0& \text{ if } y\notin f(X)
+          \end{cases}$\\
+        从而$g:Y\rightarrow X$为满射\\[0.5cm]
+        设$g:Y\rightarrow X$为满射，则$\forall x\in X,g^{-1}(\left\{x\right\})\neq\phi$\\
+        且$x_1\neq x_2\Rightarrow g^{-1}(\left\{x_1\right\})\cap g^{-1}(\left\{x_2\right\})=\phi$\\
+        由选择公理，$f\in \prod_{x\in X}g^{-1}(\left\{x\right\})$即为$X\rightarrow Y$的单射       
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    对任意集合$X,Y$，$card(X)\leq card(Y)$或$card(Y)\leq card(X)$成立
+    \begin{proof}
+        设$\mathcal{J}$为$X$的子集到$Y$的单射之集，即\\
+        $\mathcal{J}=\left\{f:X\supset E\rightarrow Y\text{为单射}\right\}$\\
+        $\forall f\in\mathcal{J},f\subset X\times Y$，于是$(\mathcal{J},\subset)$为一偏序集\\
+        现在验证该偏序集适合Zorn's Lemma的条件\\
+        $\forall f\in \mathcal{J},f:X\supset D_{f}\rightarrow Y$为单射\\
+        设$\mathcal{I}$为$\mathcal{J}$的一个全序子集，$f_{\mathcal{I}}:=\bigcup_{f\in\mathcal{I}}f$\\
+        由于$\mathcal{I}$为全序集，$\left\{D_f:f\in\mathcal{I}\right\}$在包含关系下也为全序集\\
+        1.验证$f_{\mathcal{I}}\in\mathcal{J}$\\
+        $D_{\mathcal{I}}:=\bigcup_{f\in\mathcal{I}}D_f$，$\forall x\in D_{\mathcal{I}}$，$\exists f\in\mathcal{I},x\in D_f$\\
+        $\exists y\in Y,(x,y)\in f\subset f_{\mathcal{I}}$\\
+        若存在$x_1\neq  x_2$，$f_{\mathcal{I}}(x_1)=f_{\mathcal{I}}(x_2)=y$\\
+        则$(x_1,y)\in f_1,(x_2,y)\in f_2$，不妨设$f_1\subset f_2$\\
+        于是有$x_1\neq x_2\rightarrow f_2(x_1)=f_2(x_2)$，这与$f_2\in\mathcal{J}$矛盾\\
+        综上，$f_{\mathcal{I}}\in\mathcal{J}$\\
+        2.验证$f_{\mathcal{I}}$为$\mathcal{I}$的上界，这由$f_{\mathcal{I}}$的定义是明显的\\
+        综上，$\mathcal{J}$适合Zorn'Lemma的条件，从而有极大元$f_{\mathcal{J}}$\\
+        设$f_{\mathcal{J}}:X\supset D_{\mathcal{J}}\rightarrow Y$，我们断言，$D_{\mathcal{J}}=X$或$f(D_{\mathcal{J}})=Y$成立\\
+        否则，存在$x_0\in X\setminus D_{\mathcal{J}},y_0\in Y\setminus f(D_{\mathcal{J}})$\\
+        $\tilde{f}_{\mathcal{J}}:=f_{\mathcal{J}}\cup\left\{(x_0,y_0)\right\}$\\
+        容易验证$\tilde{f}_{\mathcal{J}}\in\mathcal{J}$且$f_{\mathcal{J}}\subsetneq \tilde{f}_{\mathcal{J}}$，这与$f_{\mathcal{J}}$是极大元矛盾\\
+        若$D_{\mathcal{J}}=X$则$f_{\mathcal{J}}:X\rightarrow Y$为单射，$card(X)\leq card(Y)$\\
+        若$f(D_{\mathcal{J}})=Y$，则$f_{\mathcal{J}}^{-1}:Y\rightarrow D_{\mathcal{J}}\subset X$为单射，$card(Y)\leq card(X)$
+    \end{proof}
+\end{proposition}
+\begin{theorem}
+    $The\ Sch\ddot{o}der-Bernstein\ Theorem$\\
+    $card(X)\leq card(Y),card(Y)\leq card(X)\Rightarrow card(X)=card(Y)$
+    \begin{proof}
+        设$f:X\rightarrow Y$, $g:Y\rightarrow X$均为单射\\
+        我们按照以下法则将$X$中的元素分为3类，\\
+        1.对$\forall n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\in Y,(f^{-1}\circ g^{-1})^{n+1}(x)\in X$\\
+        则称$x\in X_{\infty}$\\
+        2.$\exists n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\notin Y$即$(f^{-1}\circ g^{-1})^{n}(x)\in X\setminus g(Y)$\\
+        则称$x\in X_{X}$\\
+        3.$\exists n\geq 0,\ (f^{-1}\circ g^{-1})^{n+1}(x)\notin X$即$g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\in Y\setminus f(X)$\\
+        则称$x\in X_{Y}$\\
+        容易验证，$X_{\infty},X_X,X_Y$是不交的，类似的有$Y_{\infty},Y_X,Y_Y:$\\
+        1.对$\forall n\geq 0,\ f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\in X,(g^{-1}\circ f^{-1})^{n+1}(y)\in Y$\\
+        则称$y\in Y_{\infty}$\\
+        2.$\exists n\geq 0,\ f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\notin X$即$(g^{-1}\circ f^{-1})^{n}(y)\in Y\setminus f(X)$\\
+        则称$y\in Y_{Y}$\\
+        3.$\exists n\geq 0,\ (g^{-1}\circ f^{-1})^{n+1}(y)\notin Y$即$f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\in X\setminus g(Y)$\\
+        则称$y\in Y_{X}$\\
+        现在验证:$f(X_{\infty})=Y_{\infty},\ f(X_X)=Y_X,\ g(Y_Y)=X_Y$\\
+        $x\in X_{\infty}\Rightarrow \forall n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)\in Y,(f^{-1}\circ g^{-1})^{n+1}(x)\in X$\\
+        $\Rightarrow \forall n\geq 0,\ (g^{-1}\circ f^{-1})^{n+1}(f(x))\in X,f^{-1}\circ(g^{-1}\circ f^{-1})^{n}(y)\in Y$\\
+        $\Rightarrow f(X)\subset Y_{\infty}$\\
+        $y\in Y_{\infty}\Rightarrow x=f^{-1}(y)\in X$\\
+        $\Rightarrow \forall n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)=(g^{-1}\circ f^{-1})^{n+1}(y)\in Y,$\\
+        $(f^{-1}\circ g^{-1})^{n+1}(x)=f^{-1}\circ (g^{-1}\circ f^{-1})^{n+1}(x)\in X$\\
+        $\Rightarrow \exists x\in X_{\infty},f(x)=y$\\
+        $\Rightarrow f(X_{\infty})\subset Y_{\infty}$\\
+        即$f(X_{\infty})=Y_{\infty}$，\\
+        $x\in X_{X}\Rightarrow \exists n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)=(g^{-1}\circ f^{-1})^{n+1}(f(x))\notin Y$\\
+        $\Rightarrow f(x)\in Y_X$\\
+        $\Rightarrow f(X_X)\subset Y_X$\\
+        $y\in Y_X\Rightarrow \exists n\geq 0,\ (g^{-1}\circ f^{-1})^{n+1}(y)\notin Y,f^{-1}(y)=x\in X$\\
+        $\Rightarrow \exists n\geq 0,\ g^{-1}\circ(f^{-1}\circ g^{-1})^{n}(x)=(g^{-1}\circ f^{-1})^{n+1}(y)\notin Y$\\
+        $\Rightarrow x=f^{-1}(y)\in X_X$\\
+        $\Rightarrow Y_X\subset f(X_X)$\\
+        即$f(X_X)=Y_X$\\
+        同理，有$g(Y_Y)=X_Y$\\
+        由于$f,g$均为单射,$f_{|X_{\infty}},f_{|X_X},g_{|Y_Y}$也是单射，从上面的讨论知，他们也是满射，从而为双射\\
+        定义$h:X\rightarrow Y:$\\
+        $h(x)=\begin{cases}
+            f(x)& \text{ if } x\in X_{\infty}\cup X_X \\
+            g^{-1}(x)& \text{ if } x\in X_Y
+          \end{cases} $\\
+        于是$h$为$X$到$Y$的双射，即$card(X)=card(Y)$
+    \end{proof}
+\end{theorem}
+\begin{corollary}
+    $card(X)=card(Y),card(Y)=card(Z)\Rightarrow card(X)=card(Z)$
+    \begin{proof}
+        $card(X)\leq card(Y),card(Y)\leq card(Z)\Rightarrow card(X)\leq card(Z)$\\
+        同理$card(Z)\leq card(X)$\\
+        于是$card(X)=card(Z)$
+    \end{proof}
+\end{corollary}
+\begin{proposition}
+    对任意集合$X,card(X)<card(\mathcal{P}(X))$
+    \begin{proof}
+        首先，$f:x\mapsto \left\{x\right\}$是$X$到$\mathcal{P}(X)$的单射，故$card(X)\leq card(\mathcal{P}(X))$\\
+        设$g:X\rightarrow \mathcal{P}(X)$，我们来证明$g$不可能是满射,\\
+        令$Y=\left\{x\in X:x\notin g(x)\right\}$\\
+        若$Y\in g(X)$，即$\exists x_0\in X,g(x_0)=Y$\\
+        那么$x_0\in Y\Rightarrow x_0\notin g(x_0)\Rightarrow x_0\notin Y$，矛盾\\
+        $x_0\notin Y\Rightarrow x_0\in g(x_0)\Rightarrow x_0\in Y$，矛盾\\
+        故不存在$x_0\in X,g(x_0)=Y$\\
+        综上，$card(X)<card(\mathcal{P}(X))$
+    \end{proof}
+\end{proposition}
+\begin{definition}
+    若$card(X)\leq card(\mathbb{N})$，则称$X$是可数的
+\end{definition}
+\begin{proposition}
+    a.可数集合的有限笛卡尔积可数\\
+    b.可数集合的可数并可数\\
+    c.可数无穷集与自然数集等势
+    \begin{proof}
+        a.设$X,Y$为可数集,$f:X\rightarrow \mathbb{N},\ g:Y\rightarrow\mathbb{N}$为单射\\
+        则$f\times g:(x,y)\mapsto (f(x),g(y))$为单射,从而$card(X\times Y)\leq card(\mathbb{N}^2)$\\
+        现在证明: $card(\mathbb{N})=card(\mathbb{N^2})$\\
+        构造$\mathbb{N}^2$到$\mathbb{N}$的双射：$f:(i,j)\mapsto i+\sum_{n=1}^{i+j-2}n$\\[0.5cm]
+        b.设$A,X_{\alpha}(\alpha\in A)$均为可数集，$\forall \alpha\in A$，存在 $f_{\alpha}:\mathbb{N}\rightarrow X_{\alpha}$为满射\\
+        于是$f:\mathbb{N}\times A\rightarrow \bigcup_{\alpha\in A}X_{\alpha},\ f(n,\alpha)=f_{\alpha}(n)$为满射\\
+        从而$card(\bigcup_{\alpha\in A}X_{\alpha})\leq card(A\times \mathbb{N})\leq card(\mathbb{N})$\\[0.5cm]
+        c.设$X$为无穷集合，且$card(X)\leq card(\mathbb{N})$\\
+        $f:X\rightarrow \mathbb{N}$为单射，则$f:X\rightarrow f(X)\subset \mathbb{N}$为双射\\
+        $card(X)=card(f(X))\leq card(\mathbb{N})$\\
+        现在记$Y=f(X)$为$\mathbb{N}$的无穷子集\\
+        定义$g(1)=min\ Y$\\
+        递归定义$g(n)=min\ Y\setminus\left\{g(1),g(2),\dots g(n-1)\right\}$\\
+        于是$g:N\rightarrow Y$为双射\\
+        $card(Y)=card(\mathbb{N})$\\
+        从而$card(X)=card(\mathbb{N})$
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    $card(\mathbb{Z})=card(\mathbb{Q})=card(\mathbb{N})$
+\end{corollary}
+\begin{definition}
+    若$card(X)=card(\mathbb{R})$，则记作$card(X)=\mathcal{C}$
+\end{definition}
+\begin{proposition}
+    $card(X)=card(Y)\Rightarrow card(\mathcal{P}(X))=card(\mathcal{P}(Y))$
+    \begin{proof}
+        设$f:X\rightarrow Y$为双射\\
+        $\tilde{f}:\mathcal{P}(X)\rightarrow\mathcal{P}(Y),\ \tilde{f}(A)=f(A)$给出$\mathcal{P}(X)$到$\mathcal{P}(Y)$的双射
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    $card(\mathcal{P}(\mathbb{N}))=\mathcal{C}$
+    \begin{proof}
+        对于$A\in\mathcal{P}(N)$，定义$f(A)=\begin{cases}
+            \sum_{n\in A}2^{-n}& \text{ if } \mathbb{N}\setminus A\text{是无穷集}  \\
+            1+\sum_{n\in A}2^{-n}& \text{ if } \mathbb{N}\setminus A\text{是有限集}
+          \end{cases}$\\
+        $f:\mathcal{P}(\mathbb{N})\rightarrow \mathbb{R}$是单射(?)，故$card(\mathcal{P}(\mathbb{N}))\leq card(\mathbb{R})$\\
+        定义$g:\mathcal{P}(\mathbb{Z})\rightarrow \mathbb{R},\ g(A)=\begin{cases}
+            log(\sum_{n\in A}2^{-n})& \text{ if } A\text{有下界} \\
+            0& \text{ if } A\text{无下界}
+          \end{cases}$\\
+        $card(\mathcal{P}(\mathbb{N}))=card(\mathcal{P}(\mathbb{Z}))\geq card(\mathbb{R})$\\
+        综上，$card(\mathcal{P}(\mathbb{N}))=\mathcal{C}$
+    \end{proof}
+\end{proposition}
+\begin{corollary}
+    若$card(X)\geq\mathcal{C}$，则$X$是不可数的
+    \begin{proof}
+        若$X$可数，$\mathcal{C}=card(\mathcal{P}(\mathbb{N}))>card(\mathbb{N})\geq card(X)\geq \mathcal{C}$，矛盾
+    \end{proof}
+\end{corollary}
+\begin{example}
+    连续统假设：$card(X)<\mathcal{C}$则$X$是可数的
+\end{example}
+\begin{proposition}
+    a.$card(X)\leq\mathcal{C},\ card(Y)\leq\mathcal{C}$，则$card(X\times Y)\leq\mathcal{C}$\\
+    b.$card(A)\leq\mathcal{C},card(X_{\alpha})\leq\mathcal{C}\Rightarrow card(\bigcup_{\alpha\in A}X_{\alpha})\leq\mathcal{C}$
+    \begin{proof}
+        a.$\exists f:X\rightarrow \mathcal{P}(\mathbb{N}),\ g:Y\rightarrow \mathcal{P}(\mathbb{N})$为单射\\
+        $f\times g:X\times Y\rightarrow (\mathcal{P}(\mathbb{N}))^2,\ (f\times g)(x,y)=(f(x),g(y))$为单射\\
+        于是$card(X\times Y)\leq card((\mathcal{P}(\mathbb{N}))^2)$\\
+        现在证明$card((\mathcal{P}(\mathbb{N}))^2)=card(\mathcal{P}(\mathbb{N})):$\\
+        定义$\phi,\psi :\mathbb{N}\rightarrow\mathbb{N}$\\
+        $\phi(n)=2n,\ \psi(n)=2n-1$\\
+        定义$f:(\mathcal{P}(\mathbb{N}))^2\rightarrow \mathcal{P}(\mathbb{N}),\ f(A,B)=\phi(A)\cup\psi(B)$\\
+        则$f$为双射\\
+        综上$card(X\times Y)\leq card((\mathcal{P}(\mathbb{N}))^2)=\mathcal{C}$\\[0.5cm]
+        b.$\forall\alpha\in A,\ \exists f_{\alpha}:\mathcal{P}(\mathbb{N})\rightarrow X_{\alpha}$为满射\\
+        定义$f:A\times\mathcal{P}(\mathbb{N})\rightarrow \bigcup_{\alpha\in A}X_{\alpha},\ f(\alpha,E)=f_{\alpha}(E)$为满射\\
+        故$card(\bigcup_{\alpha\in A}X_{\alpha})\leq card(A\times\mathcal{P}(N))\leq\mathcal{C}$
+    \end{proof}
+\end{proposition}
+\end{document}
