@@ -4,24 +4,169 @@
     "type": "split",
     "children": [
       {
-        "id": "bb65250559d1fc9b",
-        "type": "tabs",
+        "id": "67d1a72bb6a50018",
+        "type": "split",
         "children": [
           {
-            "id": "80c81e53d271e070",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "product measures.md",
-                "mode": "preview",
-                "source": false
+            "id": "4afe231c1c127606",
+            "type": "split",
+            "children": [
+              {
+                "id": "e1c6439d2c9789bb",
+                "type": "tabs",
+                "children": [
+                  {
+                    "id": "f4157f44f3bc8052",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "预测度.md",
+                        "mode": "preview",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "预测度"
+                    }
+                  }
+                ]
               },
-              "icon": "lucide-file",
-              "title": "product measures"
-            }
+              {
+                "id": "2ec6d29d2476a0a4",
+                "type": "tabs",
+                "children": [
+                  {
+                    "id": "9f863f9d74062bce",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "sigma-algebra.md",
+                        "mode": "preview",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "sigma-algebra"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "3a6b5a51dc1e6839",
+                "type": "tabs",
+                "children": [
+                  {
+                    "id": "5184e87051907395",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "Outer Measure.md",
+                        "mode": "preview",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "Outer Measure"
+                    }
+                  }
+                ]
+              }
+            ],
+            "direction": "horizontal"
+          },
+          {
+            "id": "fd983bdadff584b6",
+            "type": "split",
+            "children": [
+              {
+                "id": "ea4d3603e492bae3",
+                "type": "tabs",
+                "dimension": 21.53361344537815,
+                "children": [
+                  {
+                    "id": "98e8b3c86397d0a6",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "Carathéodory’s Theorem 1.11.md",
+                        "mode": "preview",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "Carathéodory’s Theorem 1.11"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "f5c5b59eea3b97d1",
+                "type": "tabs",
+                "dimension": 28.46638655462185,
+                "children": [
+                  {
+                    "id": "c078fd1d23d77258",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "proposition/Proposition 1.10.md",
+                        "mode": "preview",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "Proposition 1.10"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "723689131c112d28",
+                "type": "tabs",
+                "dimension": 25,
+                "children": [
+                  {
+                    "id": "1380fb7c7b620853",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "prove/prove 2025.02.09.15 25.md",
+                        "mode": "preview",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "prove 2025.02.09.15 25"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "c950a10ff1731861",
+                "type": "tabs",
+                "dimension": 25,
+                "children": [
+                  {
+                    "id": "2956f9691776fcc9",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "外侧度可测集.md",
+                        "mode": "preview",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "外侧度可测集"
+                    }
+                  }
+                ]
+              }
+            ],
+            "direction": "horizontal"
           }
-        ]
+        ],
+        "direction": "vertical"
       }
     ],
     "direction": "vertical"
@@ -78,7 +223,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "edf60b3e4893a058",
@@ -142,17 +288,17 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "product measures.md",
+                "file": "外侧度可测集.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "product measures 的大纲"
+              "title": "外侧度可测集 的大纲"
             }
           },
           {
-            "id": "329ce58bcae800fb",
+            "id": "c44c48d35b874261",
             "type": "leaf",
             "state": {
               "type": "copilot-chat-view",
@@ -166,8 +312,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -184,8 +329,22 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "80c81e53d271e070",
+  "active": "2956f9691776fcc9",
   "lastOpenFiles": [
+    "prove/prove 2025.02.09.15 25.md",
+    "definition",
+    "proposition/Proposition 1.10.md",
+    "theorem/Theorem 1.14.md",
+    "预测度.md",
+    "Outer Measure.md",
+    "sigma-algebra.md",
+    "book/real analysis/Real Analysis - 2nd Edition (Gerald B. Folland) (.pdf",
+    "product measures.md",
+    "proposition/Proposition 1.7.md",
+    "Carathéodory’s Theorem 1.11.md",
+    "外侧度可测集.md",
+    "algebra.md",
+    "prove/prove 2025.0205.00 15.md",
     "theorem/theorem 2.15.md",
     "real analysis notes/test/test.tex",
     "real analysis notes/test/test.pdf",
@@ -195,8 +354,6 @@
     "real analysis notes/Real Analysis/Real Analysis Notes.synctex.gz",
     "real analysis notes/Real Analysis/Real Analysis Notes.pdf",
     "real analysis notes/Real Analysis/Real Analysis Notes.log",
-    "real analysis notes/Real Analysis/Real Analysis Notes.out",
-    "real analysis notes/Real Analysis/Real Analysis Notes.fls",
     "Obsidian-Vault-mathnotes/proposition/Proposition 1.7.md",
     "Obsidian-Vault-mathnotes/elementary family.md",
     "Obsidian-Vault-mathnotes/prove/prove 2025.0205.00 05.md",
@@ -208,19 +365,6 @@
     "Obsidian-Vault-mathnotes/theorem 2.13.md",
     "Obsidian-Vault-mathnotes/monotone convergence theorem.md",
     "Obsidian-Vault-mathnotes/模板/prove.md",
-    "Obsidian-Vault-mathnotes/Proposition 1.3.md",
-    "Obsidian-Vault-mathnotes/Lemma 1.1.md",
-    "Obsidian-Vault-mathnotes/algebra.md",
-    "Obsidian-Vault-mathnotes/prove/prove 2025.02.06.16 30.md",
-    "Obsidian-Vault-mathnotes/prove/prove 2025.02.06.16 27.md",
-    "Obsidian-Vault-mathnotes/欢迎.md",
-    "Obsidian-Vault-mathnotes/README.md",
-    "Obsidian-Vault-mathnotes/预测度.md",
-    "Obsidian-Vault-mathnotes/prove/prove 2025.02.05.20 20.md",
-    "Obsidian-Vault-mathnotes/draft.md",
-    "Obsidian-Vault-mathnotes/Theorem 1.14.md",
-    "Obsidian-Vault-mathnotes/模板/Proposition.md",
-    "Obsidian-Vault-mathnotes/prove/prove 2025.0205.00 26.md",
-    "Obsidian-Vault-mathnotes/prove/prove 2025.0205.00 15.md"
+    "Obsidian-Vault-mathnotes/Proposition 1.3.md"
   ]
 }

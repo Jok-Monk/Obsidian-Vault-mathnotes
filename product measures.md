@@ -7,7 +7,7 @@
 >[!definition] 
 >>(measurable) rectangle form $A\times B$,$A\in \mathcal{M},B\in \mathcal{N}$,
 
-由于$(A\times B)\cap(E\times F)=(A\cap B)\times(E\cap F)$      ,    $(A\times B)^c=(X\times B^c)\cup(A^c\times B)$ 
+由于$(A\times B)\cap(E\times F)=(A\cap E)\times(B\cap F)$      ,    $(A\times B)^c=(X\times B^c)\cup(A^c\times B)$ 
 由[[Proposition 1.7]] 知，所有rectangle的有限不交并组成的集族$\mathcal{A}$构成一个代数，其生成的$\sigma$-代数自然是$\mathcal{M}\otimes \mathcal{N}$[[prove 2025.0204.23 35]]
 设rectangle$A\times B$是一些(可数或有限)个rectangle$A_{j}\times B_{j}$的不交并，则对于$x\in X, y\in Y$，
 $\mathcal{X}_{A}(x)\mathcal{X}_{B}(y)=\mathcal{X}_{A\times B}(x,y)=\sum \mathcal{X}_{A_{j}\times B_{j}}(x,y)=\sum \mathcal{X}_{A_{j}}(x)\mathcal{X}_{B_{j}}(y)$[[prove 2025.0204.23 59]]
@@ -15,10 +15,10 @@ $\mathcal{X}_{A}(x)\mathcal{X}_{B}(y)=\mathcal{X}_{A\times B}(x,y)=\sum \mathcal
 $\mu(A)\mathcal{X}_{B}(y)=\int \mathcal{X_{A}}(x)\mathcal{X}_{B}(y)d\mu(x)=\sum \int \mathcal{X}_{A_{j}}(x)\mathcal{X}_{B_{j}}(y)d\mu(x)=\sum \mu(A_{j})\mathcal{X}_{B_{j}}(y)$[[prove 2025.0205.00 05]]
 同理，对$y$积分，有
 $\mu(A)\nu(B)=\sum \mu(A_{j})\nu(B_{j})$
-这说明了对于$E\in \mathcal{A},E=A_{1}\times B_{1},\dots A_{n}\times B_{n}$
+这说明了对于$E\in \mathcal{A},E=A_{1}\times B_{1},\dots A_{n}\times B_{n}$的不交并
 $\pi(E):=\\\sum_{j=1}^{n}\mu(A_{j})\nu(B_{j})$
 是$\mathcal{A}$上良定义的[[prove 2025.0205.00 15]]
-由[[Theorem 1.14]]，$\pi$是$\mathcal{A}$上的[[预测度]]，于是$\pi$生成了$X\times Y$上的外测度，其在$\mathcal{M}\otimes \mathcal{N}$上的限制称为$\mu$与$\nu$的乘积测度，记作
+由[[Theorem 1.14]]，$\pi$是$\mathcal{A}$上的[[预测度]],[[prove 2025.02.09.15 25]]于是$\pi$生成了$X\times Y$上的外测度，其在$\mathcal{M}\otimes \mathcal{N}$上的限制称为$\mu$与$\nu$的乘积测度，记作
 >[!Definition]
 >>$\mu \times \nu$
 
