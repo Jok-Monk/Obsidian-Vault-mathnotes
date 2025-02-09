@@ -4,169 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "67d1a72bb6a50018",
-        "type": "split",
+        "id": "6f7d3a76daab06a7",
+        "type": "tabs",
         "children": [
           {
-            "id": "4afe231c1c127606",
-            "type": "split",
-            "children": [
-              {
-                "id": "e1c6439d2c9789bb",
-                "type": "tabs",
-                "children": [
-                  {
-                    "id": "f4157f44f3bc8052",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "预测度.md",
-                        "mode": "preview",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "预测度"
-                    }
-                  }
-                ]
+            "id": "926aedfbeb4f60cf",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "theorem/monotone convergence theorem.md",
+                "mode": "preview",
+                "source": false
               },
-              {
-                "id": "2ec6d29d2476a0a4",
-                "type": "tabs",
-                "children": [
-                  {
-                    "id": "9f863f9d74062bce",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "sigma-algebra.md",
-                        "mode": "preview",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "sigma-algebra"
-                    }
-                  }
-                ]
-              },
-              {
-                "id": "3a6b5a51dc1e6839",
-                "type": "tabs",
-                "children": [
-                  {
-                    "id": "5184e87051907395",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "Outer Measure.md",
-                        "mode": "preview",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "Outer Measure"
-                    }
-                  }
-                ]
-              }
-            ],
-            "direction": "horizontal"
-          },
-          {
-            "id": "fd983bdadff584b6",
-            "type": "split",
-            "children": [
-              {
-                "id": "ea4d3603e492bae3",
-                "type": "tabs",
-                "dimension": 21.53361344537815,
-                "children": [
-                  {
-                    "id": "98e8b3c86397d0a6",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "Carathéodory’s Theorem 1.11.md",
-                        "mode": "preview",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "Carathéodory’s Theorem 1.11"
-                    }
-                  }
-                ]
-              },
-              {
-                "id": "f5c5b59eea3b97d1",
-                "type": "tabs",
-                "dimension": 28.46638655462185,
-                "children": [
-                  {
-                    "id": "c078fd1d23d77258",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "proposition/Proposition 1.10.md",
-                        "mode": "preview",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "Proposition 1.10"
-                    }
-                  }
-                ]
-              },
-              {
-                "id": "723689131c112d28",
-                "type": "tabs",
-                "dimension": 25,
-                "children": [
-                  {
-                    "id": "1380fb7c7b620853",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "prove/prove 2025.02.09.15 25.md",
-                        "mode": "preview",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "prove 2025.02.09.15 25"
-                    }
-                  }
-                ]
-              },
-              {
-                "id": "c950a10ff1731861",
-                "type": "tabs",
-                "dimension": 25,
-                "children": [
-                  {
-                    "id": "2956f9691776fcc9",
-                    "type": "leaf",
-                    "state": {
-                      "type": "markdown",
-                      "state": {
-                        "file": "外侧度可测集.md",
-                        "mode": "preview",
-                        "source": false
-                      },
-                      "icon": "lucide-file",
-                      "title": "外侧度可测集"
-                    }
-                  }
-                ]
-              }
-            ],
-            "direction": "horizontal"
+              "icon": "lucide-file",
+              "title": "monotone convergence theorem"
+            }
           }
-        ],
-        "direction": "vertical"
+        ]
       }
     ],
     "direction": "vertical"
@@ -223,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "edf60b3e4893a058",
@@ -288,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "外侧度可测集.md",
+                "file": "theorem/monotone convergence theorem.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "外侧度可测集 的大纲"
+              "title": "monotone convergence theorem 的大纲"
             }
           },
           {
@@ -329,23 +183,29 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "2956f9691776fcc9",
+  "active": "b4dad893a1f06910",
   "lastOpenFiles": [
+    "theorem/theorem 2.15.md",
+    "theorem/theorem 2.13.md",
+    "theorem/Theorem 1.14.md",
+    "theorem/monotone convergence theorem.md",
+    "product measures.md",
+    "lemma/Lemma 1.1.md",
+    "definition/sigma-algebra.md",
+    "lemma",
+    "definition/product sigma algebra.md",
+    "definition/Outer Measure.md",
+    "definition/elementary family.md",
+    "definition/外侧度可测集.md",
     "prove/prove 2025.02.09.15 25.md",
     "definition",
     "proposition/Proposition 1.10.md",
-    "theorem/Theorem 1.14.md",
-    "预测度.md",
-    "Outer Measure.md",
-    "sigma-algebra.md",
+    "definition/预测度.md",
     "book/real analysis/Real Analysis - 2nd Edition (Gerald B. Folland) (.pdf",
-    "product measures.md",
     "proposition/Proposition 1.7.md",
-    "Carathéodory’s Theorem 1.11.md",
-    "外侧度可测集.md",
-    "algebra.md",
+    "theorem/Carathéodory’s Theorem 1.11.md",
+    "definition/algebra.md",
     "prove/prove 2025.0205.00 15.md",
-    "theorem/theorem 2.15.md",
     "real analysis notes/test/test.tex",
     "real analysis notes/test/test.pdf",
     "real analysis notes/test",
@@ -353,7 +213,6 @@
     "real analysis notes/Real Analysis/Real Analysis Notes.tex",
     "real analysis notes/Real Analysis/Real Analysis Notes.synctex.gz",
     "real analysis notes/Real Analysis/Real Analysis Notes.pdf",
-    "real analysis notes/Real Analysis/Real Analysis Notes.log",
     "Obsidian-Vault-mathnotes/proposition/Proposition 1.7.md",
     "Obsidian-Vault-mathnotes/elementary family.md",
     "Obsidian-Vault-mathnotes/prove/prove 2025.0205.00 05.md",
@@ -361,10 +220,6 @@
     "Obsidian-Vault-mathnotes/prove/prove 2025.0204.23 59.md",
     "Obsidian-Vault-mathnotes/prove/prove 2025.0204.23 35.md",
     "Obsidian-Vault-mathnotes/product sigma algebra.md",
-    "Obsidian-Vault-mathnotes/theorem/theorem 2.15.md",
-    "Obsidian-Vault-mathnotes/theorem 2.13.md",
-    "Obsidian-Vault-mathnotes/monotone convergence theorem.md",
-    "Obsidian-Vault-mathnotes/模板/prove.md",
-    "Obsidian-Vault-mathnotes/Proposition 1.3.md"
+    "Obsidian-Vault-mathnotes/theorem/theorem 2.15.md"
   ]
 }
